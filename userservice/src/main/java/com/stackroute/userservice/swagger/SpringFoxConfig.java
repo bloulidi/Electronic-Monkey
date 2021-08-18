@@ -19,11 +19,11 @@ public class SpringFoxConfig {
     public static final String USER_TAG = "user service";
 
     public static final Contact DEFAULT_CONTACT = new Contact(
-            "Anas Deis", "http://www.anasdeis.com", "anas.deis@cgi.com");
+            "Team 6: Anas Deis, Badreddine Loulidi and Soukaina Moulay Taj", "", "anas.deis@cgi.com");
 
     public static final ApiInfo DEFAULT_API_INFO = new ApiInfo(
             "User APIs", "User REST Service", "1.0",
-            "CGI Intellectual Property", DEFAULT_CONTACT,
+            "https://www.cgi.com/en/legal-restrictions", DEFAULT_CONTACT,
             "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0", Arrays.asList());
 
     private static final Set<String> DEFAULT_PRODUCES_AND_CONSUMES =

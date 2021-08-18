@@ -19,13 +19,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(notes = "Id of the user", position = 0)
-    private long id;
+    private int id;
 
     @NotBlank(message = "Name cannot be empty")
     @ApiModelProperty(notes = "Name of the user", example = "Justin Trudeau", required = true, position = 1)
     private String name;
 
     @NotBlank(message = "Email cannot be empty")
+    @Pattern(regexp ="^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
     @ApiModelProperty(notes = "Email of the user", example = "justin.trudeau@cgi.com", required = true, position = 2)
     private String email;
 
