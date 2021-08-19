@@ -30,6 +30,9 @@ public class User {
     @ApiModelProperty(notes = "Email of the user", example = "justin.trudeau@cgi.com", required = true, position = 2)
     private String email;
 
+    @ApiModelProperty(notes = "isAdmin value is true if user is an admin", example = "true | false", position = 3)
+    private boolean isAdmin = false;
+
     @Valid
     @Embedded
     private Login loginInfo;

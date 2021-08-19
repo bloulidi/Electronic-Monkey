@@ -1,5 +1,6 @@
 package com.stackroute.userservice.model;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +14,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
+@ApiModel(description = "User profile information")
 public class UserDetails {
 
     @Pattern(regexp = "^(?:m|M|male|Male|f|F|female|Female)$")

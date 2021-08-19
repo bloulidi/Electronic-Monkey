@@ -1,5 +1,6 @@
 package com.stackroute.userservice.model;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
+@ApiModel(description = "User login information")
 public class Login {
 
     @NotBlank(message = "Username cannot be empty")
