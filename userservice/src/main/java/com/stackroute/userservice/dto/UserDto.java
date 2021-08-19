@@ -30,8 +30,8 @@ public class UserDto {
     @ApiModelProperty(notes = "Email of the user", example = "justin.trudeau@cgi.com", required = true, position = 2)
     private String email;
 
-    @ApiModelProperty(notes = "isAdmin boolean value is true if user is an admin. Default: false", example = "true", position = 3)
-    private boolean isAdmin = false;
+    @ApiModelProperty(notes = "Admin boolean value is true if user is an admin. Default: false", example = "true", position = 3)
+    private boolean admin = false;
 
     @Valid
     private Login loginInfo;
