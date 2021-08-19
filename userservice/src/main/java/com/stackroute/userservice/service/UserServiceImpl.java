@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User saveUser(@Valid User user) throws UserAlreadyExistsException {
+    public User saveUser(User user) throws UserAlreadyExistsException {
         if(userRepository.existsByEmail(user.getEmail())){
             throw new UserAlreadyExistsException();
         }
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUserById(@NotNull(message = "ID cannot be null") int id) throws UserNotFoundException {
+    public User getUserById(int id) throws UserNotFoundException {
         User user = null;
         Optional<User> userOptional = userRepository.findById(id);
         if(userOptional.isPresent()){
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUserByEmail(@Email(message = "Please provide a valid email address") String email) throws UserNotFoundException {
+    public User getUserByEmail(String email) throws UserNotFoundException {
         User user = null;
         Optional<User> userOptional = userRepository.findByEmail(email);
         if(userOptional.isPresent()){
@@ -63,12 +63,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<User> getUsersByName(@NotBlank(message = "Name cannot be empty") String name) {
+    public List<User> getUsersByName(String name) {
         return (List<User>) userRepository.findByName(name);
     }
 
     @Override
-    public User deleteUserById(@NotNull(message = "ID cannot be null") int id) throws UserNotFoundException {
+    public User deleteUserById(int id) throws UserNotFoundException {
         User user = getUserById(id);
         if(user != null){
             userRepository.deleteById(id);
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User updateUser(@Valid User user) throws UserNotFoundException {
+    public User updateUser(User user) throws UserNotFoundException {
         if(!userRepository.existsById(user.getId())){
             throw new UserNotFoundException();
         }
