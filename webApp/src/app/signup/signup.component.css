@@ -37,6 +37,15 @@
     background-color: #A4C3B2;
 }
 
+.alert {
+    /* position: relative; */
+    color: #f44336;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
 /* Can't center div with float attribute instead use text-align: center, display: inline-block */
 .sign-in{
     text-align: center; 

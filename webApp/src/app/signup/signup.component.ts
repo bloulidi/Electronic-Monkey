@@ -13,6 +13,9 @@ export class SignupComponent implements OnInit {
   emailRegx = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
   form;
   
+  // message to be display if Issue added or not
+  message = '';
+  
   constructor(private fb: FormBuilder) {
   }
 
@@ -36,7 +39,12 @@ export class SignupComponent implements OnInit {
   }
 
   submit() {
-      console.log("Submitted")
+    if(this.form.invalid){
+      this.message = "Fields should not be empty!!! Please verify details";
     }
+    else{
+      this.message = ""
+    } 
+  }
 
 }

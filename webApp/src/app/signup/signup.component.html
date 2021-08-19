@@ -46,6 +46,10 @@
       </mat-form-field>
       <button class="signup-button" mat-raised-button color="primary" type="submit">Sign Up</button>
     </form>
+    <!-- write logic to display message if form is submitted-->
+    <div class="alert" *ngIf="message" role="alert">
+    {{ message }}
+    </div>
   </div>
 </div>
 
