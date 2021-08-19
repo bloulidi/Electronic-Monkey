@@ -14,8 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("api/v1")
@@ -32,7 +32,7 @@ public class UserController {
 
     @PostMapping("/user")
     @ApiOperation("Creates a new user.")
-    public ResponseEntity<UserDto> saveUser(@ApiParam("User information for a new user to be created. 409 if already exists.") @RequestBody UserDto userDto) throws UserAlreadyExistsException {
+    public ResponseEntity<UserDto> saveUser(@ApiParam("User information for a new user to be created. 409 if already exists.") @Valid @RequestBody UserDto userDto) throws UserAlreadyExistsException {
         return new ResponseEntity<UserDto>(converter.entityToDto(userService.saveUser(converter.dtoToEntity(userDto))), HttpStatus.CREATED);
     }
 
@@ -50,13 +50,13 @@ public class UserController {
 
     @GetMapping("/user/email/{email}")
     @ApiOperation("Returns a specific user by their email. 404 if does not exist.")
-    public ResponseEntity<UserDto> getUserByEmail(@ApiParam("Email of the user to be obtained. Cannot be empty.") @PathVariable String email) throws UserNotFoundException {
+    public ResponseEntity<UserDto> getUserByEmail(@ApiParam("Email of the user to be obtained. Cannot be empty.") @Valid @PathVariable String email) throws UserNotFoundException {
         return new ResponseEntity<UserDto>(converter.entityToDto(userService.getUserByEmail(email)), HttpStatus.FOUND);
     }
 
     @GetMapping("/users/{name}")
     @ApiOperation("Returns a list of users by their name.")
-    public ResponseEntity<List<UserDto>> getUsersByName(@ApiParam("Name of the users to be obtained. Cannot be empty.") @PathVariable String name) {
+    public ResponseEntity<List<UserDto>> getUsersByName(@ApiParam("Name of the users to be obtained. Cannot be empty.") @Valid @PathVariable String name) {
         return new ResponseEntity<List<UserDto>>(converter.entityToDto(userService.getUsersByName(name)), HttpStatus.OK);
     }
 
@@ -66,7 +66,7 @@ public class UserController {
         return new ResponseEntity<UserDto>(converter.entityToDto(userService.deleteUserById(id)), HttpStatus.OK);
     }
 
-    @PutMapping("/user")
+    @PatchMapping("/user")
     @ApiOperation("Updates a new user.")
     public ResponseEntity<UserDto> updateUser(@ApiParam("User information for a user to be updated. 404 if does not exist.") @RequestBody User user) throws UserNotFoundException {
         return new ResponseEntity<UserDto>(converter.entityToDto(userService.updateUser(user)), HttpStatus.OK);

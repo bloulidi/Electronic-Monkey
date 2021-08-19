@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.validation.ConstraintViolationException;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler
@@ -15,5 +17,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<String> userNotFoundException(UserNotFoundException userNotFoundException) {
         return new ResponseEntity<String>("User not found!", HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<String> constraintViolationException(ConstraintViolationException constraintViolationException) {
+        return new ResponseEntity<>("Not valid due to validation error: " + constraintViolationException.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

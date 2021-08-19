@@ -6,10 +6,16 @@ import com.stackroute.userservice.model.User;
 import com.stackroute.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
+@Validated
 @Service
 public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
@@ -20,8 +26,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User saveUser(User user) throws UserAlreadyExistsException {
-        if(userRepository.existsById(user.getId())){
+    public User saveUser(@Valid User user) throws UserAlreadyExistsException {
+        if(userRepository.existsByEmail(user.getEmail())){
             throw new UserAlreadyExistsException();
         }
         return (User) userRepository.save(user);
@@ -33,7 +39,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUserById(int id) throws UserNotFoundException {
+    public User getUserById(@NotNull(message = "ID cannot be null") int id) throws UserNotFoundException {
         User user = null;
         Optional<User> userOptional = userRepository.findById(id);
         if(userOptional.isPresent()){
@@ -45,7 +51,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUserByEmail(String email) throws UserNotFoundException {
+    public User getUserByEmail(@Email(message = "Please provide a valid email address") String email) throws UserNotFoundException {
         User user = null;
         Optional<User> userOptional = userRepository.findByEmail(email);
         if(userOptional.isPresent()){
@@ -57,12 +63,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<User> getUsersByName(String name) {
+    public List<User> getUsersByName(@NotBlank(message = "Name cannot be empty") String name) {
         return (List<User>) userRepository.findByName(name);
     }
 
     @Override
-    public User deleteUserById(int id) throws UserNotFoundException {
+    public User deleteUserById(@NotNull(message = "ID cannot be null") int id) throws UserNotFoundException {
         User user = getUserById(id);
         if(user != null){
             userRepository.deleteById(id);
@@ -73,7 +79,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User updateUser(User user) throws UserNotFoundException {
+    public User updateUser(@Valid User user) throws UserNotFoundException {
         if(!userRepository.existsById(user.getId())){
             throw new UserNotFoundException();
         }
