@@ -1,6 +1,8 @@
-import { CustomValidators } from '../Helpers/custom-validators';
+import { SignupService } from './../services/signup.service';
+import { CustomValidators } from '../helpers/custom-validators';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { User } from '../models/User';
 
 @Component({
   selector: 'app-signup',
@@ -12,11 +14,13 @@ export class SignupComponent implements OnInit {
 
   emailRegx = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
   form;
+  user: User;
   
   // message to be display if Issue added or not
   message = '';
   
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private signupService: SignupService) {
+    this.user = new User;
   }
 
   //TODO: Fix the Validation in the UI......
@@ -43,7 +47,13 @@ export class SignupComponent implements OnInit {
       this.message = "Fields should not be empty!!! Please verify details";
     }
     else{
-      this.message = ""
+      this.user.id = 25
+      this.user.admin = false
+      this.user.name = this.form.get('fullName').value
+      this.user.username = "badr"
+      this.user.email = this.form.get('email').value
+      this.user.password = this.form.get('password').value
+      this.signupService.saveUser(this.user).subscribe();
     } 
   }
 
