@@ -28,14 +28,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<String>("User not found!", HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler({ ConstraintViolationException.class })
-    public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
+    @ExceptionHandler
+    public ResponseEntity<Object> constraintViolationException(ConstraintViolationException constraintViolationException) {
         List<String> errors = new ArrayList<String>();
-        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+        for (ConstraintViolation<?> violation : constraintViolationException.getConstraintViolations()) {
             errors.add(violation.getRootBeanClass().getName() + " " + violation.getPropertyPath() + ": " + violation.getMessage());
         }
 
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, constraintViolationException.getLocalizedMessage(), errors);
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 

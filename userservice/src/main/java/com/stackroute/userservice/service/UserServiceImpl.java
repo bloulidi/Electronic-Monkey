@@ -6,12 +6,10 @@ import com.stackroute.userservice.model.User;
 import com.stackroute.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 import java.util.Optional;
 
-@Validated
 @Service
 public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
@@ -64,7 +62,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User deleteUserById(int id) throws UserNotFoundException {
+    public List<User> getUsersByAdmin(boolean admin) {
+        return (List<User>) userRepository.findByAdmin(admin);
+    }
+
+    @Override
+    public User deleteUser(int id) throws UserNotFoundException {
         User user = getUserById(id);
         if(user != null){
             userRepository.deleteById(id);

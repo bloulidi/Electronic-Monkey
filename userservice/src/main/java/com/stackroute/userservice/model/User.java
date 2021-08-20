@@ -18,8 +18,9 @@ import javax.validation.constraints.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ApiModelProperty(notes = "ID of the user", position = 0)
+    @NotNull(message = "ID cannot be null")
+    @Min(1)
+    @ApiModelProperty(notes = "ID of the user. Must be a positive integer excluding zero", position = 0)
     private int id;
 
     @NotBlank(message = "Name cannot be empty")

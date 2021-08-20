@@ -39,7 +39,7 @@ public class UserController {
     @GetMapping("/users")
     @ApiOperation("Returns list of all users in the system.")
     public ResponseEntity<List<UserDto>> getAllUsers() {
-        return new ResponseEntity<List<UserDto>>(converter.entityToDto(userService.getAllUsers()), HttpStatus.OK);
+        return new ResponseEntity<List<UserDto>>(converter.entityToDto(userService.getAllUsers()), HttpStatus.FOUND);
     }
 
     @GetMapping("/user/{id}")
@@ -57,13 +57,19 @@ public class UserController {
     @GetMapping("/users/{name}")
     @ApiOperation("Returns a list of users by their name.")
     public ResponseEntity<List<UserDto>> getUsersByName(@ApiParam("Name of the users to be obtained. Cannot be empty.") @Valid @PathVariable String name) {
-        return new ResponseEntity<List<UserDto>>(converter.entityToDto(userService.getUsersByName(name)), HttpStatus.OK);
+        return new ResponseEntity<List<UserDto>>(converter.entityToDto(userService.getUsersByName(name)), HttpStatus.FOUND);
+    }
+
+    @GetMapping("/users/admin/{admin}")
+    @ApiOperation("Returns a list of users by their name.")
+    public ResponseEntity<List<UserDto>> getUsersByAdmin(@ApiParam("Admin boolean value is true if user is an admin.") @PathVariable boolean admin) {
+        return new ResponseEntity<List<UserDto>>(converter.entityToDto(userService.getUsersByAdmin(admin)), HttpStatus.FOUND);
     }
 
     @DeleteMapping("/user/{id}")
     @ApiOperation("Deletes a user from the system. 404 if the person's identifier is not found.")
     public ResponseEntity<UserDto> deleteUserById(@ApiParam("Id of the user to be deleted. Cannot be empty.") @PathVariable int id) throws UserNotFoundException {
-        return new ResponseEntity<UserDto>(converter.entityToDto(userService.deleteUserById(id)), HttpStatus.OK);
+        return new ResponseEntity<UserDto>(converter.entityToDto(userService.deleteUser(id)), HttpStatus.OK);
     }
 
     @PatchMapping("/user")

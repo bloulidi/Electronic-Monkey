@@ -8,18 +8,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(description = "Class representing a user dto tracked by the application.")
 public class UserDto {
+    @Id
     @NotNull(message = "ID cannot be null")
-    @ApiModelProperty(notes = "ID of the user", position = 0)
+    @Min(1)
+    @ApiModelProperty(notes = "ID of the user. Must be a positive integer excluding zero", position = 0)
     private int id;
 
     @NotBlank(message = "Name cannot be empty")
