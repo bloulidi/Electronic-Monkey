@@ -9,29 +9,20 @@
 		<relativePath>../pom.xml</relativePath>
 		<!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.stackroute</groupId>
-	<artifactId>userservice</artifactId>
+	<artifactId>inventoryservice</artifactId>
 	<version>1.0.0</version>
-	<name>userservice</name>
-	<description>Demo project for Spring Boot</description>
+	<name>inventoryservice</name>
+	<description>Inventory Service</description>
 
 	<properties>
 		<java.version>11</java.version>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.1</version>
-		</dependency>
 
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-    </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>
