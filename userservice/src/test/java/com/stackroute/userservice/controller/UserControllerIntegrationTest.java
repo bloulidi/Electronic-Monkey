@@ -1,4 +1,4 @@
-package com.stackroute.userservice.service;
+package com.stackroute.userservice.controller;
 
 import com.stackroute.userservice.exception.UserAlreadyExistsException;
 import com.stackroute.userservice.exception.UserNotFoundException;
@@ -21,10 +21,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-public class UserServiceIntegrationTest {
+public class UserControllerIntegrationTest {
 
     @Autowired
-    private UserService userService;
+    private UserController userController;
 
     @Autowired
     private UserRepository userRepository;
@@ -49,15 +49,15 @@ public class UserServiceIntegrationTest {
 
     @Test
     public void givenUserToSaveThenShouldReturnSavedUser() throws UserAlreadyExistsException {
-        User savedUser = userService.saveUser(user1);
+        User savedUser = userController.saveUser(user1).getBody();
         assertNotNull(savedUser);
         assertEquals(user1, savedUser);
     }
 
     @Test
     public void givenUserToSaveThenShouldNotReturnSavedUser() throws UserAlreadyExistsException {
-        userService.saveUser(user1);
-        Assertions.assertThrows(UserAlreadyExistsException.class, () -> userService.saveUser(user1));
+        userController.saveUser(user1);
+        Assertions.assertThrows(UserAlreadyExistsException.class, () -> userController.saveUser(user1));
     }
 
     @Test
@@ -65,10 +65,10 @@ public class UserServiceIntegrationTest {
         userList.add(user1);
         userList.add(user2);
         userList.add(user3);
-        userService.saveUser(user1);
-        userService.saveUser(user2);
-        userService.saveUser(user3);
-        List<User> users = userService.getAllUsers();
+        userController.saveUser(user1);
+        userController.saveUser(user2);
+        userController.saveUser(user3);
+        List<User> users = userController.getAllUsers().getBody();
         assertNotNull(users);
         assertEquals(userList, users);
     }
@@ -77,10 +77,10 @@ public class UserServiceIntegrationTest {
     public void givenGetAllUsersByNameThenShouldReturnListOfAllRespectiveUsers() {
         userList.add(user2);
         userList.add(user3);
-        userService.saveUser(user1);
-        userService.saveUser(user2);
-        userService.saveUser(user3);
-        List<User> users = userService.getUsersByName(user2.getName());
+        userController.saveUser(user1);
+        userController.saveUser(user2);
+        userController.saveUser(user3);
+        List<User> users = userController.getUsersByName(user2.getName()).getBody();
         assertNotNull(users);
         assertEquals(userList, users);
     }
@@ -89,108 +89,108 @@ public class UserServiceIntegrationTest {
     public void givenGetAllUsersByAdminThenShouldReturnListOfAllAdminUsers() {
         userList.add(user1);
         userList.add(user3);
-        userService.saveUser(user1);
-        userService.saveUser(user2);
-        userService.saveUser(user3);
-        List<User> users = userService.getUsersByAdmin(user1.isAdmin());
+        userController.saveUser(user1);
+        userController.saveUser(user2);
+        userController.saveUser(user3);
+        List<User> users = userController.getUsersByAdmin(user1.isAdmin()).getBody();
         assertNotNull(users);
         assertEquals(userList, users);
     }
 
     @Test
     public void givenUserIdThenShouldReturnRespectiveUser() throws UserNotFoundException {
-        User savedUser = userService.saveUser(user1);
-        userService.saveUser(user2);
-        userService.saveUser(user3);
-        User getUser = userService.getUserById(savedUser.getId());
+        User savedUser = userController.saveUser(user1).getBody();
+        userController.saveUser(user2);
+        userController.saveUser(user3);
+        User getUser = userController.getUserById(savedUser.getId()).getBody();
         assertNotNull(getUser);
         assertEquals(user1, getUser);
     }
 
     @Test
     void givenUserIdThenShouldNotReturnRespectiveUser() throws UserNotFoundException {
-        Assertions.assertThrows(UserNotFoundException.class, () -> userService.getUserById(user1.getId()));
+        Assertions.assertThrows(UserNotFoundException.class, () -> userController.getUserById(user1.getId()));
     }
 
     @Test
     public void givenUserEmailThenShouldReturnRespectiveUser() throws UserNotFoundException {
-        User savedUser = userService.saveUser(user1);
-        userService.saveUser(user2);
-        userService.saveUser(user3);
-        User getUser = userService.getUserByEmail(savedUser.getEmail());
+        User savedUser = userController.saveUser(user1).getBody();
+        userController.saveUser(user2);
+        userController.saveUser(user3);
+        User getUser = userController.getUserByEmail(savedUser.getEmail()).getBody();
         assertNotNull(getUser);
         assertEquals(user1, getUser);
     }
 
     @Test
     void givenUserEmailThenShouldNotReturnRespectiveUser() throws UserNotFoundException {
-        Assertions.assertThrows(UserNotFoundException.class, () -> userService.getUserByEmail(user1.getEmail()));
+        Assertions.assertThrows(UserNotFoundException.class, () -> userController.getUserByEmail(user1.getEmail()));
     }
 
     @Test
     void givenUserIdToDeleteThenShouldReturnDeletedUser() throws UserNotFoundException {
-        User savedUser = userService.saveUser(user1);
-        userService.saveUser(user2);
-        userService.saveUser(user3);
-        User deletedUser = userService.deleteUser(savedUser.getId());
+        User savedUser = userController.saveUser(user1).getBody();
+        userController.saveUser(user2);
+        userController.saveUser(user3);
+        User deletedUser = userController.deleteUser(savedUser.getId()).getBody();
         assertNotNull(deletedUser);
         assertEquals(user1, deletedUser);
     }
 
     @Test
     void givenUserIdToDeleteThenShouldNotReturnDeletedUser() throws UserNotFoundException {
-        Assertions.assertThrows(UserNotFoundException.class, () -> userService.deleteUser(user1.getId()));
+        Assertions.assertThrows(UserNotFoundException.class, () -> userController.deleteUser(user1.getId()));
     }
 
     @Test
     public void givenUserToUpdateThenShouldReturnUpdatedUser() {
-        User savedUser = userService.saveUser(user1);
+        User savedUser = userController.saveUser(user1).getBody();
         assertNotNull(savedUser);
         assertEquals(user1.getEmail(), savedUser.getEmail());;
         savedUser.setPassword(user2.getPassword());
-        User updatedUser = userService.updateUser(savedUser);
+        User updatedUser = userController.updateUser(savedUser).getBody();
         assertNotNull(savedUser);
         assertEquals(savedUser, updatedUser);
     }
 
     @Test
     public void givenUserToUpdateThenShouldNotReturnUpdatedUser() throws UserNotFoundException {
-        Assertions.assertThrows(UserNotFoundException.class, () -> userService.updateUser(user1));
+        Assertions.assertThrows(UserNotFoundException.class, () -> userController.updateUser(user1));
     }
 
     /******* VALIDATION *****/
     @Test
     void givenValidUserThenReturnRespectiveUser(){
-        assertEquals(user1, userService.saveUser(user1));
+        assertEquals(user1, userController.saveUser(user1).getBody());
     }
 
     @Test
     void givenUserWithInvalidIdThenThrowsException(){
         user1.setId(0);
-        assertThrows(ConstraintViolationException.class, () -> userService.saveUser(user1));
+        assertThrows(ConstraintViolationException.class, () -> userController.saveUser(user1));
     }
 
     @Test
     void givenUserWithInvalidEmailThenThrowsException(){
         user1.setEmail("anas");
-        assertThrows(ConstraintViolationException.class, () -> userService.saveUser(user1));
+        assertThrows(ConstraintViolationException.class, () -> userController.saveUser(user1));
     }
 
     @Test
     void givenUserWithInvalidNameThenThrowsException(){
         user1.setName("");
-        assertThrows(ConstraintViolationException.class, () -> userService.saveUser(user1));
+        assertThrows(ConstraintViolationException.class, () -> userController.saveUser(user1));
     }
 
     @Test
     void givenUserWithInvalidUsernameThenThrowsException(){
         user1.setUsername("");
-        assertThrows(ConstraintViolationException.class, () -> userService.saveUser(user1));
+        assertThrows(ConstraintViolationException.class, () -> userController.saveUser(user1));
     }
 
     @Test
     void givenUserWithInvalidPasswordThenThrowsException(){
         user1.setPassword("12345");
-        assertThrows(ConstraintViolationException.class, () -> userService.saveUser(user1));
+        assertThrows(ConstraintViolationException.class, () -> userController.saveUser(user1));
     }
 }

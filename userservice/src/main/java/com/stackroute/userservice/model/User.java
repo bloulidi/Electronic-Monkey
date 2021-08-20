@@ -34,11 +34,12 @@ public class User {
     @ApiModelProperty(notes = "Admin boolean value is true if user is an admin. Default: false", example = "true", position = 3)
     private boolean admin = false;
 
-    @Valid
-    @Embedded
-    private Login loginInfo;
+    @NotBlank(message = "Username cannot be empty")
+    @ApiModelProperty(notes = "Username of the user", example = "justin.trudeau@cgi.com", required = true, position = 0)
+    private String username;
 
-    @Valid
-    @Embedded
-    private UserDetails userDetails;
+    @NotBlank(message = "Password cannot be empty")
+    @Size(min = 6, message = "Password must consist of at least 6 characters.")
+    @ApiModelProperty(notes = "Password of the user", example = "Password123.", required = true, position = 1)
+    private String password;
 }

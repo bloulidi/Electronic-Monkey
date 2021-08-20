@@ -2,9 +2,7 @@ package com.stackroute.userservice.service;
 
 import com.stackroute.userservice.exception.UserAlreadyExistsException;
 import com.stackroute.userservice.exception.UserNotFoundException;
-import com.stackroute.userservice.model.Login;
 import com.stackroute.userservice.model.User;
-import com.stackroute.userservice.model.UserDetails;
 import com.stackroute.userservice.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -41,9 +39,9 @@ public class UserServiceTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         userList = new ArrayList<User>();
-        user = new User(1, "Anas", "anas@cgi.com", true, new Login("username", "password"), new UserDetails());
-        user1 = new User(2, "Justin", "justin", false, new Login("username", "password"), new UserDetails("m", Date.valueOf("1996-12-15"), "1350 René-Lévesque", "5147384141"));
-        user2 = new User(3, "Justin", "justin@cgi.com", true, new Login("username", "password"), new UserDetails());
+        user = new User(1, "Anas", "anas@cgi.com", true, "username", "password");
+        user1 = new User(2, "Justin", "justin", false, "username", "password");
+        user2 = new User(3, "Justin", "justin@cgi.com", true, "username", "password");
         optional = Optional.of(user);
     }
 
@@ -141,11 +139,10 @@ public class UserServiceTest {
     public void givenUserToUpdateThenShouldReturnUpdatedUser() {
         when(userRepository.save(any())).thenReturn(user);
         when(userRepository.existsById(user.getId())).thenReturn(true);
-        assertEquals(user, userService.saveUser(user));
-        user.setUserDetails(user1.getUserDetails());
+        user.setPassword(user1.getPassword());
         User updatedUser = userService.updateUser(user);
-        assertEquals(updatedUser.getUserDetails(), user1.getUserDetails());
-        verify(userRepository, times(2)).save(any());
+        assertEquals(updatedUser.getPassword(), user1.getPassword());
+        verify(userRepository, times(1)).save(any());
         verify(userRepository, times(1)).existsById(user.getId());
     }
 
