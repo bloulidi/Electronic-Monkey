@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   message = '';
 
   isLogged: boolean;
+  isRememberMe: boolean;
 
   constructor(private fb : FormBuilder) {
    
@@ -22,9 +23,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       email : ['', Validators.email],
-      password : ['', Validators.required]
+      password : ['']
     })
     this.isLogged = false;
+    this.isRememberMe = false;
   }
 
   onSubmit() {
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit {
       this.message = 'Email and Password should not be empty!!! Please verify details';
     }
    else if(this.form.invalid){
-     this.message = "Email is not valid !"
+     this.message = "Email is not valid !";
    }
     else {
       const email: string = this.form.value.email;
@@ -40,12 +42,15 @@ export class LoginComponent implements OnInit {
       const password : string = this.form.value.password;
       console.log(password);
 
-      this.message = "Login succesful"
+      this.message = "Login succesful";
       this.isLogged = true;
     }
   }
   clearForm() {
     this.form.reset();
   }
-
+  onRememberMeChanged(value:boolean){
+    this.isRememberMe = value;
+    console.log(value);
+  }
 }

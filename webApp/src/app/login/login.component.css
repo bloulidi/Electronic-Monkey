@@ -27,8 +27,6 @@ div {
     padding-bottom: 4rem;
   }
 
-
-
 .website {
     position: absolute;
     width: 109px;
@@ -44,14 +42,12 @@ div {
     
     color: #6B9090;
 }
-
-
 .__1_platform_to_buy_and_sell_products {
     position: absolute;
     width: 484px;
     height: 108px;
     left: 89px;
-    top: 110px;
+    top: 170px;
     
     font-family: Open Sans;
     font-style: normal;
@@ -68,14 +64,6 @@ div {
 	width: 554px;
 	height: 74px;
 }
-
-.remember_me_section {
-	top: 450px;
-	left: 89px;
-	width: 142px;
-	height: 21px;
-}
-
 
 .remember_me {
 	left: 89px;
@@ -139,9 +127,6 @@ div {
     border: 1px solid #a4c3b2
 }
 
-
-
-
 .right_side {
 	position: fixed;
 	margin-top: 0;
@@ -177,9 +162,11 @@ div {
 	font-family: Roboto;
 	font-size: 18px;
 	text-align: left;
-	color:#000000;
 }
-
+.forgot_password a {
+    color:#6B9090;
+    text-decoration: none;
+}
 .alert {
 	top: 510px;
 	left: 89px;
@@ -187,4 +174,8 @@ div {
 	height: 56px;
 	text-align: left;
 	color: red;
+}
+.mat-checkbox-ripple .mat-ripple-element,
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: green !important;
 }
