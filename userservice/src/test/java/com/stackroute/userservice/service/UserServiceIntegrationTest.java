@@ -31,6 +31,7 @@ public class UserServiceIntegrationTest {
 
     private User user1, user2, user3;
     private List<User> userList;
+    private List<String> usersEmail, savedUsersEmail;
 
     @BeforeEach
     void setUp() {
@@ -38,6 +39,8 @@ public class UserServiceIntegrationTest {
         user2 = new User(2, "Justin", "justin@hotmail.com", false, "password2");
         user3 = new User(3, "Justin", "justin@cgi.com", true, "password3");
         userList = new ArrayList<User>();
+        savedUsersEmail = new ArrayList<>();
+        usersEmail = new ArrayList<>();
     }
 
     @AfterEach
@@ -45,13 +48,14 @@ public class UserServiceIntegrationTest {
         userRepository.deleteAll();
         user1 = user2 = user3 = null;
         userList = null;
+        usersEmail = savedUsersEmail = null;
     }
 
     @Test
     public void givenUserToSaveThenShouldReturnSavedUser() throws UserAlreadyExistsException {
         User savedUser = userService.saveUser(user1);
         assertNotNull(savedUser);
-        assertEquals(user1, savedUser);
+        assertEquals(user1.getEmail(), savedUser.getEmail());
     }
 
     @Test
@@ -77,8 +81,10 @@ public class UserServiceIntegrationTest {
         userService.saveUser(user2);
         userService.saveUser(user3);
         List<User> users = userService.getAllUsers();
+        for (User user : userList) { usersEmail.add(user.getEmail()); }
+        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
         assertNotNull(users);
-        assertEquals(userList, users);
+        assertEquals(usersEmail, savedUsersEmail);
     }
 
     @Test
@@ -89,8 +95,10 @@ public class UserServiceIntegrationTest {
         userService.saveUser(user2);
         userService.saveUser(user3);
         List<User> users = userService.getUsersByName(user2.getName());
+        for (User user : userList) { usersEmail.add(user.getEmail()); }
+        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
         assertNotNull(users);
-        assertEquals(userList, users);
+        assertEquals(usersEmail, savedUsersEmail);
     }
 
     @Test
@@ -98,11 +106,13 @@ public class UserServiceIntegrationTest {
         userList.add(user1);
         userList.add(user3);
         userService.saveUser(user1);
-        userService.saveUser(user2);
+        //userService.saveUser(user2);
         userService.saveUser(user3);
         List<User> users = userService.getUsersByAdmin(user1.isAdmin());
+        for (User user : userList) { usersEmail.add(user.getEmail()); }
+        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
         assertNotNull(users);
-        assertEquals(userList, users);
+        assertEquals(usersEmail, savedUsersEmail);
     }
 
     @Test
@@ -112,7 +122,7 @@ public class UserServiceIntegrationTest {
         userService.saveUser(user3);
         User getUser = userService.getUserById(savedUser.getId());
         assertNotNull(getUser);
-        assertEquals(user1, getUser);
+        assertEquals(user1.getEmail(), getUser.getEmail());
     }
 
     @Test
@@ -127,7 +137,7 @@ public class UserServiceIntegrationTest {
         userService.saveUser(user3);
         User getUser = userService.getUserByEmail(savedUser.getEmail());
         assertNotNull(getUser);
-        assertEquals(user1, getUser);
+        assertEquals(user1.getEmail(), getUser.getEmail());
     }
 
     @Test
@@ -142,7 +152,7 @@ public class UserServiceIntegrationTest {
         userService.saveUser(user3);
         User deletedUser = userService.deleteUser(savedUser.getId());
         assertNotNull(deletedUser);
-        assertEquals(user1, deletedUser);
+        assertEquals(user1.getEmail(), deletedUser.getEmail());
     }
 
     @Test
@@ -169,7 +179,7 @@ public class UserServiceIntegrationTest {
     /******* VALIDATION *****/
     @Test
     void givenValidUserThenReturnRespectiveUser(){
-        assertEquals(user1, userService.saveUser(user1));
+        assertEquals(user1.getEmail(), userService.saveUser(user1).getEmail());
     }
 
     @Test
