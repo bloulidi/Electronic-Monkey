@@ -8,6 +8,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,9 +18,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class UserControllerIntegrationTest {
@@ -31,12 +31,14 @@ public class UserControllerIntegrationTest {
 
     private User user1, user2, user3;
     private List<User> userList;
+    private Logger logger;
 
     @BeforeEach
     void setUp() {
-        user1 = new User(1, "Anas", "anas@cgi.com", true, "username1", "password1");
-        user2 = new User(2, "Justin", "justin@hotmail.com", false, "username2", "password2");
-        user3 = new User(3, "Justin", "justin@cgi.com", true, "username3", "password3");
+        logger = LoggerFactory.getLogger(UserController.class);
+        user1 = new User(1, "Anas", "anas@cgi.com", true, "password1");
+        user2 = new User(2, "Justin", "justin@hotmail.com", false, "password2");
+        user3 = new User(3, "Justin", "justin@cgi.com", true, "password3");
         userList = new ArrayList<User>();
     }
 
@@ -52,12 +54,16 @@ public class UserControllerIntegrationTest {
         User savedUser = userController.saveUser(user1).getBody();
         assertNotNull(savedUser);
         assertEquals(user1, savedUser);
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
     public void givenUserToSaveThenShouldNotReturnSavedUser() throws UserAlreadyExistsException {
         userController.saveUser(user1);
         Assertions.assertThrows(UserAlreadyExistsException.class, () -> userController.saveUser(user1));
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
@@ -71,6 +77,8 @@ public class UserControllerIntegrationTest {
         List<User> users = userController.getAllUsers().getBody();
         assertNotNull(users);
         assertEquals(userList, users);
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
@@ -83,6 +91,8 @@ public class UserControllerIntegrationTest {
         List<User> users = userController.getUsersByName(user2.getName()).getBody();
         assertNotNull(users);
         assertEquals(userList, users);
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
@@ -95,6 +105,8 @@ public class UserControllerIntegrationTest {
         List<User> users = userController.getUsersByAdmin(user1.isAdmin()).getBody();
         assertNotNull(users);
         assertEquals(userList, users);
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
@@ -105,11 +117,15 @@ public class UserControllerIntegrationTest {
         User getUser = userController.getUserById(savedUser.getId()).getBody();
         assertNotNull(getUser);
         assertEquals(user1, getUser);
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
     void givenUserIdThenShouldNotReturnRespectiveUser() throws UserNotFoundException {
         Assertions.assertThrows(UserNotFoundException.class, () -> userController.getUserById(user1.getId()));
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
@@ -120,11 +136,15 @@ public class UserControllerIntegrationTest {
         User getUser = userController.getUserByEmail(savedUser.getEmail()).getBody();
         assertNotNull(getUser);
         assertEquals(user1, getUser);
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
     void givenUserEmailThenShouldNotReturnRespectiveUser() throws UserNotFoundException {
         Assertions.assertThrows(UserNotFoundException.class, () -> userController.getUserByEmail(user1.getEmail()));
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
@@ -135,11 +155,15 @@ public class UserControllerIntegrationTest {
         User deletedUser = userController.deleteUser(savedUser.getId()).getBody();
         assertNotNull(deletedUser);
         assertEquals(user1, deletedUser);
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
     void givenUserIdToDeleteThenShouldNotReturnDeletedUser() throws UserNotFoundException {
         Assertions.assertThrows(UserNotFoundException.class, () -> userController.deleteUser(user1.getId()));
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
@@ -151,46 +175,58 @@ public class UserControllerIntegrationTest {
         User updatedUser = userController.updateUser(savedUser).getBody();
         assertNotNull(savedUser);
         assertEquals(savedUser, updatedUser);
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
     public void givenUserToUpdateThenShouldNotReturnUpdatedUser() throws UserNotFoundException {
         Assertions.assertThrows(UserNotFoundException.class, () -> userController.updateUser(user1));
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     /******* VALIDATION *****/
     @Test
     void givenValidUserThenReturnRespectiveUser(){
         assertEquals(user1, userController.saveUser(user1).getBody());
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
     void givenUserWithInvalidIdThenThrowsException(){
-        user1.setId(0);
-        assertThrows(ConstraintViolationException.class, () -> userController.saveUser(user1));
+        assertThrows(ConstraintViolationException.class, () -> {
+            user1.setId(0);
+            userController.saveUser(user1);
+        });
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
     void givenUserWithInvalidEmailThenThrowsException(){
-        user1.setEmail("anas");
-        assertThrows(ConstraintViolationException.class, () -> userController.saveUser(user1));
+        assertThrows(ConstraintViolationException.class, () -> {
+            user1.setEmail("anas");
+            userController.saveUser(user1);
+        });
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
     void givenUserWithInvalidNameThenThrowsException(){
-        user1.setName("");
-        assertThrows(ConstraintViolationException.class, () -> userController.saveUser(user1));
-    }
-
-    @Test
-    void givenUserWithInvalidUsernameThenThrowsException(){
-        user1.setUsername("");
-        assertThrows(ConstraintViolationException.class, () -> userController.saveUser(user1));
+        assertThrows(ConstraintViolationException.class, () -> {
+            user1.setName("");
+            userController.saveUser(user1);
+        });
     }
 
     @Test
     void givenUserWithInvalidPasswordThenThrowsException(){
-        user1.setPassword("12345");
-        assertThrows(ConstraintViolationException.class, () -> userController.saveUser(user1));
+        assertThrows(ConstraintViolationException.class, () -> {
+            user1.setPassword("12345");
+            userController.saveUser(user1);
+        });
     }
 }

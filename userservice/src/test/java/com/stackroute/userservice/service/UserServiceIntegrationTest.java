@@ -34,9 +34,9 @@ public class UserServiceIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        user1 = new User(1, "Anas", "anas@cgi.com", true, "username1", "password1");
-        user2 = new User(2, "Justin", "justin@hotmail.com", false, "username2", "password2");
-        user3 = new User(3, "Justin", "justin@cgi.com", true, "username3", "password3");
+        user1 = new User(1, "Anas", "anas@cgi.com", true, "password1");
+        user2 = new User(2, "Justin", "justin@hotmail.com", false, "password2");
+        user3 = new User(3, "Justin", "justin@cgi.com", true, "password3");
         userList = new ArrayList<User>();
     }
 
@@ -58,6 +58,22 @@ public class UserServiceIntegrationTest {
     public void givenUserToSaveThenShouldNotReturnSavedUser() throws UserAlreadyExistsException {
         userService.saveUser(user1);
         Assertions.assertThrows(UserAlreadyExistsException.class, () -> userService.saveUser(user1));
+    }
+
+    @Test
+    public void givenUserWithDuplicateIdToSaveThenShouldNotReturnSavedUser() throws UserAlreadyExistsException {
+        User savedUser = userService.saveUser(user1);
+        assertNotNull(savedUser);
+        user2.setId(user1.getId());
+        Assertions.assertThrows(UserAlreadyExistsException.class, () -> userService.saveUser(user2));
+    }
+
+    @Test
+    public void givenUserWithDuplicateEmailToSaveThenShouldNotReturnSavedUser() throws UserAlreadyExistsException {
+        User savedUser = userService.saveUser(user1);
+        assertNotNull(savedUser);
+        user2.setEmail(user1.getEmail());
+        Assertions.assertThrows(UserAlreadyExistsException.class, () -> userService.saveUser(user2));
     }
 
     @Test
@@ -179,12 +195,6 @@ public class UserServiceIntegrationTest {
     @Test
     void givenUserWithInvalidNameThenThrowsException(){
         user1.setName("");
-        assertThrows(ConstraintViolationException.class, () -> userService.saveUser(user1));
-    }
-
-    @Test
-    void givenUserWithInvalidUsernameThenThrowsException(){
-        user1.setUsername("");
         assertThrows(ConstraintViolationException.class, () -> userService.saveUser(user1));
     }
 
