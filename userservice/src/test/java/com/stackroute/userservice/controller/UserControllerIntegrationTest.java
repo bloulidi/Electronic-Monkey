@@ -195,16 +195,6 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    void givenUserWithInvalidIdThenThrowsException(){
-        assertThrows(ConstraintViolationException.class, () -> {
-            user1.setId(0);
-            userController.saveUser(user1);
-        });
-        assertTrue(logger.isInfoEnabled());
-        assertTrue(logger.isErrorEnabled());
-    }
-
-    @Test
     void givenUserWithInvalidEmailThenThrowsException(){
         assertThrows(ConstraintViolationException.class, () -> {
             user1.setEmail("anas");

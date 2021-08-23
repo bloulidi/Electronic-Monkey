@@ -7,16 +7,17 @@
 		<artifactId>onlinebuyandsell</artifactId>
 		<version>1.0.0</version>
 		<relativePath>../pom.xml</relativePath>
-		<!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.stackroute</groupId>
+
 	<artifactId>userservice</artifactId>
 	<version>1.0.0</version>
 	<name>userservice</name>
-	<description>Demo project for Spring Boot</description>
+	<description>User Service</description>
 
 	<properties>
 		<java.version>11</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
 
 	<dependencies>
