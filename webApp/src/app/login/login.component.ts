@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from '../models/User';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +19,8 @@ export class LoginComponent implements OnInit {
   isLogged: boolean;
   isRememberMe: boolean;
 
-  constructor(private fb : FormBuilder, private router:Router) {
-   
-   }
+  constructor(private fb : FormBuilder, private router:Router, private userService: UserService) {
+  }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -43,8 +44,22 @@ export class LoginComponent implements OnInit {
       const password : string = this.form.value.password;
       console.log(password);
 
-      this.message = "Login succesful";
-      this.isLogged = true;
+      this.userService.getUserByEmail(email).subscribe({
+        next: (data:any) => {
+          //console.log(data);
+          if(data.password == password){
+            this.message = "Login succesful";
+            this.isLogged = true;
+          }
+          else {
+            this.message = "Password is incorrect";
+          }
+      },
+        error: error => {
+          this.message = error.message;
+          console.error('There was an error!', error);
+      }
+      });;
     }
   }
   clearForm() {
