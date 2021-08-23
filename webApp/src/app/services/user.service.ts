@@ -1,4 +1,4 @@
-import { User } from './../models/User';
+import { User } from '../models/User';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -10,7 +10,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 
-export class SignupService {
+export class UserService {
   constructor(private httpClient : HttpClient) { }
 
   localhost = 'http://localhost:8080/api/v1/';

@@ -1,4 +1,4 @@
-import { SignupService } from './../services/signup.service';
+import { UserService } from '../services/user.service';
 import { CustomValidators } from '../helpers/custom-validators';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -19,7 +19,7 @@ export class SignupComponent implements OnInit {
   // message to be display if Issue added or not
   message = '';
   
-  constructor(private fb: FormBuilder, private signupService: SignupService) {
+  constructor(private fb: FormBuilder, private userService: UserService) {
     this.user = new User;
   }
 
@@ -50,7 +50,7 @@ export class SignupComponent implements OnInit {
       this.user.name = this.form.get('fullName').value
       this.user.email = this.form.get('email').value
       this.user.password = this.form.get('password').value
-      this.signupService.saveUser(this.user).subscribe({
+      this.userService.saveUser(this.user).subscribe({
         error: error => {
           this.message = "This email already exists.";
           console.log(error.message);
