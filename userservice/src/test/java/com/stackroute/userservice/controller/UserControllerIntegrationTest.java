@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.persistence.EntityManager;
 import javax.validation.ConstraintViolationException;
 
 import java.util.ArrayList;
@@ -29,8 +30,12 @@ public class UserControllerIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EntityManager entityManager;
+
     private User user1, user2, user3;
     private List<User> userList;
+    private List<String> usersEmail, savedUsersEmail;
     private Logger logger;
 
     @BeforeEach
@@ -40,6 +45,8 @@ public class UserControllerIntegrationTest {
         user2 = new User(2, "Justin", "justin@hotmail.com", false, "password2");
         user3 = new User(3, "Justin", "justin@cgi.com", true, "password3");
         userList = new ArrayList<User>();
+        savedUsersEmail = new ArrayList<>();
+        usersEmail = new ArrayList<>();
     }
 
     @AfterEach
@@ -47,13 +54,14 @@ public class UserControllerIntegrationTest {
         userRepository.deleteAll();
         user1 = user2 = user3 = null;
         userList = null;
+        usersEmail = savedUsersEmail = null;
     }
 
     @Test
     public void givenUserToSaveThenShouldReturnSavedUser() throws UserAlreadyExistsException {
         User savedUser = userController.saveUser(user1).getBody();
         assertNotNull(savedUser);
-        assertEquals(user1, savedUser);
+        assertEquals(user1.getEmail(), savedUser.getEmail());
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
@@ -68,15 +76,17 @@ public class UserControllerIntegrationTest {
 
     @Test
     public void givenGetAllUsersThenShouldReturnListOfAllUsers() {
+        User savedUser1 = userController.saveUser(user1).getBody();
+        User savedUser2 = userController.saveUser(user2).getBody();
+        User savedUser3 = userController.saveUser(user3).getBody();
         userList.add(user1);
         userList.add(user2);
         userList.add(user3);
-        userController.saveUser(user1);
-        userController.saveUser(user2);
-        userController.saveUser(user3);
         List<User> users = userController.getAllUsers().getBody();
+        for (User user : userList) { usersEmail.add(user.getEmail()); }
+        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
         assertNotNull(users);
-        assertEquals(userList, users);
+        assertEquals(usersEmail, savedUsersEmail);
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
@@ -89,8 +99,10 @@ public class UserControllerIntegrationTest {
         userController.saveUser(user2);
         userController.saveUser(user3);
         List<User> users = userController.getUsersByName(user2.getName()).getBody();
+        for (User user : userList) { usersEmail.add(user.getEmail()); }
+        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
         assertNotNull(users);
-        assertEquals(userList, users);
+        assertEquals(usersEmail, savedUsersEmail);
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
@@ -100,11 +112,13 @@ public class UserControllerIntegrationTest {
         userList.add(user1);
         userList.add(user3);
         userController.saveUser(user1);
-        userController.saveUser(user2);
+        //userController.saveUser(user2);
         userController.saveUser(user3);
         List<User> users = userController.getUsersByAdmin(user1.isAdmin()).getBody();
+        for (User user : userList) { usersEmail.add(user.getEmail()); }
+        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
         assertNotNull(users);
-        assertEquals(userList, users);
+        assertEquals(usersEmail, savedUsersEmail);
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
@@ -116,7 +130,7 @@ public class UserControllerIntegrationTest {
         userController.saveUser(user3);
         User getUser = userController.getUserById(savedUser.getId()).getBody();
         assertNotNull(getUser);
-        assertEquals(user1, getUser);
+        assertEquals(user1.getEmail(), getUser.getEmail());
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
@@ -135,7 +149,7 @@ public class UserControllerIntegrationTest {
         userController.saveUser(user3);
         User getUser = userController.getUserByEmail(savedUser.getEmail()).getBody();
         assertNotNull(getUser);
-        assertEquals(user1, getUser);
+        assertEquals(user1.getEmail(), getUser.getEmail());
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
@@ -154,7 +168,7 @@ public class UserControllerIntegrationTest {
         userController.saveUser(user3);
         User deletedUser = userController.deleteUser(savedUser.getId()).getBody();
         assertNotNull(deletedUser);
-        assertEquals(user1, deletedUser);
+        assertEquals(user1.getEmail(), deletedUser.getEmail());
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
@@ -189,7 +203,8 @@ public class UserControllerIntegrationTest {
     /******* VALIDATION *****/
     @Test
     void givenValidUserThenReturnRespectiveUser(){
-        assertEquals(user1, userController.saveUser(user1).getBody());
+        User savedUser = userController.saveUser(user1).getBody();
+        assertEquals(user1.getEmail(), savedUser.getEmail());
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
