@@ -9,10 +9,10 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>userservice</artifactId>
+	<artifactId>orderservice</artifactId>
 	<version>1.0.0</version>
-	<name>userservice</name>
-	<description>User Service</description>
+	<name>orderservice</name>
+	<description>Order Service</description>
 
 	<properties>
 		<java.version>11</java.version>
@@ -21,18 +21,7 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.9.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-    </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>
@@ -42,5 +31,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
