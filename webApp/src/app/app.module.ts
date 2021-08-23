@@ -12,7 +12,8 @@ import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './signup/signup.component';
 import {MatButtonModule} from '@angular/material/button';
-import { HttpClientModule } from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     ReactiveFormsModule,
     MatCheckboxModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

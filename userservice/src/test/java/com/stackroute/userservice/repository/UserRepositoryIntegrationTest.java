@@ -43,6 +43,7 @@ public class UserRepositoryIntegrationTest {
     public void tearDown() {
         user1 = user2 = user3 = null;
         userList = null;
+        entityManager.createNativeQuery("ALTER TABLE user ALTER COLUMN id RESTART WITH 1").executeUpdate();
     }
 
     @Test
@@ -145,16 +146,6 @@ public class UserRepositoryIntegrationTest {
     @Test
     void givenValidUserThenReturnRespectiveUser(){
         assertEquals(user1, userRepository.save(user1));
-    }
-
-    @Test
-    void givenUserWithInvalidIdThenThrowsException() {
-        assertThrows(ConstraintViolationException.class, () -> {
-            user1.setId(0);
-            userRepository.save(user1);
-            entityManager.flush();
-            entityManager.clear();
-        });
     }
 
     @Test
