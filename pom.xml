@@ -18,16 +18,9 @@
 	
 	<properties>
 		<java.version>11</java.version>
-        <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
-
-    <modules>
-        <module>userservice</module>
-        <module>orderservice</module>
-        <module>inventoryservice</module>
-    </modules>
 
     <dependencyManagement>
         <dependencies>
@@ -40,6 +33,13 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <modules>
+        <module>userservice</module>
+        <module>orderservice</module>
+        <module>inventoryservice</module>
+        <module>api-gateway-service</module>
+    </modules>
 
 	<dependencies>
         <dependency>

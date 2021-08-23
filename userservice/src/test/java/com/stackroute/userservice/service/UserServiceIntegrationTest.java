@@ -61,14 +61,6 @@ public class UserServiceIntegrationTest {
     }
 
     @Test
-    public void givenUserWithDuplicateIdToSaveThenShouldNotReturnSavedUser() throws UserAlreadyExistsException {
-        User savedUser = userService.saveUser(user1);
-        assertNotNull(savedUser);
-        user2.setId(user1.getId());
-        Assertions.assertThrows(UserAlreadyExistsException.class, () -> userService.saveUser(user2));
-    }
-
-    @Test
     public void givenUserWithDuplicateEmailToSaveThenShouldNotReturnSavedUser() throws UserAlreadyExistsException {
         User savedUser = userService.saveUser(user1);
         assertNotNull(savedUser);
@@ -178,12 +170,6 @@ public class UserServiceIntegrationTest {
     @Test
     void givenValidUserThenReturnRespectiveUser(){
         assertEquals(user1, userService.saveUser(user1));
-    }
-
-    @Test
-    void givenUserWithInvalidIdThenThrowsException(){
-        user1.setId(0);
-        assertThrows(ConstraintViolationException.class, () -> userService.saveUser(user1));
     }
 
     @Test

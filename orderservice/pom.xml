@@ -6,9 +6,9 @@
 		<groupId>com.stackroute</groupId>
 		<artifactId>onlinebuyandsell</artifactId>
 		<version>1.0.0</version>
-		<relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
+		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<groupId>com.stackroute</groupId>
+
 	<artifactId>orderservice</artifactId>
 	<version>1.0.0</version>
 	<name>orderservice</name>
@@ -16,10 +16,11 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
 
 	<dependencies>
-
 	</dependencies>
 
 	<build>
@@ -30,5 +31,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

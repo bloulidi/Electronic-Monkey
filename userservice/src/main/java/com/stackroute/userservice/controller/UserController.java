@@ -45,7 +45,7 @@ public class UserController {
 
     @GetMapping("/user/{id}")
     @ApiOperation("Returns a specific user by their identifier. 404 if does not exist.")
-    public ResponseEntity<User> getUserById(@ApiParam("Id of the user to be obtained. Cannot be empty.") @Valid @PathVariable int id) throws UserNotFoundException {
+    public ResponseEntity<User> getUserById(@ApiParam("Id of the user to be obtained. Cannot be empty.") @PathVariable int id) throws UserNotFoundException {
         log.info("Return user with id = " + id);
         return new ResponseEntity<User>(userService.getUserById(id), HttpStatus.OK);
     }

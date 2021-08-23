@@ -148,16 +148,6 @@ public class UserRepositoryIntegrationTest {
     }
 
     @Test
-    void givenUserWithInvalidIdThenThrowsException() {
-        assertThrows(ConstraintViolationException.class, () -> {
-            user1.setId(0);
-            userRepository.save(user1);
-            entityManager.flush();
-            entityManager.clear();
-        });
-    }
-
-    @Test
     void givenUserWithInvalidEmailThenThrowsException(){
         assertThrows(ConstraintViolationException.class, () -> {
             user1.setEmail("anas");
