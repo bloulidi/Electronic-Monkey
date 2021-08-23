@@ -4,6 +4,5 @@ export class User {
     name?: string;
     email?: string;
     admin?: boolean;
-    username?: string;
     password?: string;
 }
