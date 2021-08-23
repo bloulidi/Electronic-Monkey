@@ -5,14 +5,11 @@ import com.stackroute.userservice.repository.UserRepository;
 import com.stackroute.userservice.service.UserService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 class UserserviceApplicationTests {
 
@@ -24,7 +21,6 @@ class UserserviceApplicationTests {
 
 	@Autowired
 	private UserRepository userRepository;
-
 
 	@AfterEach
 	void tearDown() {
