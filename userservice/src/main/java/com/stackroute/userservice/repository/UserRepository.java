@@ -14,5 +14,4 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     List<User> findByName(String name);
     List<User> findByAdmin(boolean admin);
     boolean existsByEmail(String email);
-    Optional<User> findByEmailAndPassword(String email, String password);
 }
