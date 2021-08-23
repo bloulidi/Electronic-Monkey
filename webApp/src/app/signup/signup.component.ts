@@ -12,7 +12,6 @@ import { User } from '../models/User';
 
 export class SignupComponent implements OnInit {
 
-  emailRegx = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
   form;
   user: User;
   
@@ -27,7 +26,7 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       fullName: [null, Validators.required],
-      email: [null, [Validators.required, Validators.pattern(this.emailRegx)]],
+      email: [null, [Validators.required, Validators.email]],
       password: [null, Validators.compose([
         Validators.required,
         CustomValidators.patternValidator(/\d/, {hasNumber: true}),

@@ -63,7 +63,7 @@ public class UserControllerTest {
     @Test
     void givenUserToSaveThenShouldReturnSavedUser() throws Exception {
         when(userService.saveUser(any())).thenReturn(user);
-        mockMvc.perform(post("/api/v1/user").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
+        mockMvc.perform(post("/api/v1/users").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(status().isCreated()).andDo(MockMvcResultHandlers.print());
         verify(userService).saveUser(any());
         verify(userService, times(1)).saveUser(any());
@@ -72,7 +72,7 @@ public class UserControllerTest {
     @Test
     void givenUserToSaveThenShouldNotReturnSavedUser() throws Exception {
         when(userService.saveUser((User) any())).thenThrow(UserAlreadyExistsException.class);
-        mockMvc.perform(post("/api/v1/user").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
+        mockMvc.perform(post("/api/v1/users").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(status().isConflict()).andDo(MockMvcResultHandlers.print());
         verify(userService).saveUser(any());
         verify(userService, times(1)).saveUser(any());
@@ -93,7 +93,7 @@ public class UserControllerTest {
     @Test
     void givenUserIdThenShouldReturnRespectiveUser() throws Exception, UserNotFoundException {
         when(userService.getUserById(user.getId())).thenReturn(user);
-        mockMvc.perform(get("/api/v1/user/" + user.getId()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
+        mockMvc.perform(get("/api/v1/users/" + user.getId()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
         verify(userService).getUserById(anyInt());
         verify(userService, times(1)).getUserById(anyInt());
@@ -102,7 +102,7 @@ public class UserControllerTest {
     @Test
     void givenUserIdToDeleteThenShouldReturnDeletedUser() throws Exception {
         when(userService.deleteUser(user.getId())).thenReturn(user);
-        mockMvc.perform(delete("/api/v1/user/" + user.getId()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
+        mockMvc.perform(delete("/api/v1/users/" + user.getId()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
         verify(userService).deleteUser(anyInt());
         verify(userService, times(1)).deleteUser(anyInt());
@@ -111,7 +111,7 @@ public class UserControllerTest {
     @Test
     void givenUserIdToDeleteThenShouldNotReturnDeletedUser() throws UserNotFoundException, Exception {
         when(userService.deleteUser(user.getId())).thenThrow(UserNotFoundException.class);
-        mockMvc.perform(delete("/api/v1/user/" + user.getId()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
+        mockMvc.perform(delete("/api/v1/users/" + user.getId()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(MockMvcResultMatchers.status().isNotFound()).andDo(MockMvcResultHandlers.print());
         verify(userService).deleteUser(anyInt());
         verify(userService, times(1)).deleteUser(anyInt());
@@ -120,7 +120,7 @@ public class UserControllerTest {
     @Test
     public void givenUserToUpdateThenShouldReturnUpdatedUser() throws Exception {
         when(userService.updateUser(any())).thenReturn(user);
-        mockMvc.perform(patch("/api/v1/user").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
+        mockMvc.perform(patch("/api/v1/users").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
         verify(userService).updateUser(any());
         verify(userService, times(1)).updateUser(any());
@@ -129,7 +129,7 @@ public class UserControllerTest {
     @Test
     public void givenUserToUpdateThenShouldNotReturnUpdatedUser() throws UserNotFoundException, Exception {
         when(userService.updateUser(any())).thenThrow(UserNotFoundException.class);
-        mockMvc.perform(patch("/api/v1/user").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
+        mockMvc.perform(patch("/api/v1/users").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(status().isNotFound()).andDo(MockMvcResultHandlers.print());
         verify(userService).updateUser(any());
         verify(userService, times(1)).updateUser(any());
@@ -140,7 +140,7 @@ public class UserControllerTest {
         userList.add(user);
         userList.add(user2);
         when(userService.getUsersByName(user.getName())).thenReturn(userList);
-        mockMvc.perform(get("/api/v1/users/" + user.getName()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
+        mockMvc.perform(get("/api/v1/users/name/" + user.getName()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
         verify(userService).getUsersByName(anyString());
         verify(userService, times(1)).getUsersByName(anyString());

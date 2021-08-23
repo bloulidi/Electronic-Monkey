@@ -16,27 +16,27 @@ export class UserService {
   localhost = 'http://localhost:8080/api/v1/';
 
   saveUser(user)  {
-    return this.httpClient.post(this.localhost + "user", user, httpOptions);
+    return this.httpClient.post(this.localhost + "users", user, httpOptions);
   }
   getAllUsers()  {
     return this.httpClient.get(this.localhost + 'users');
   }
   getUserById(id)  {
-    return this.httpClient.get(this.localhost + 'user/' + id);
+    return this.httpClient.get(this.localhost + 'users/' + id);
   }
   getUserByEmail(email)  {
-    return this.httpClient.get(this.localhost + 'user/email/' + email);
+    return this.httpClient.get(this.localhost + 'users/email/' + email);
   }
   getUsersByName(name)  {
-    return this.httpClient.get(this.localhost + 'users/' + name);
+    return this.httpClient.get(this.localhost + 'users/name/' + name);
   }
   getUsersByAdmin(admin)  {
     return this.httpClient.get(this.localhost + 'users/admin/' + admin);
   }
   deleteUser(id)  {
-    return this.httpClient.delete(this.localhost + 'user/' + id);
+    return this.httpClient.delete(this.localhost + 'users/' + id);
   }
   updateUser(user)  {
-    return this.httpClient.patch(this.localhost + 'user', user, httpOptions);
+    return this.httpClient.patch(this.localhost + 'users', user, httpOptions);
   }
 }

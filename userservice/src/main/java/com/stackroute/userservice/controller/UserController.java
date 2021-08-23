@@ -56,7 +56,7 @@ public class UserController {
         return new ResponseEntity<User>(userService.getUserByEmail(email), HttpStatus.OK);
     }
 
-    @GetMapping("/users/{name}")
+    @GetMapping("/users/name/{name}")
     @ApiOperation("Returns a list of users by their name.")
     public ResponseEntity<List<User>> getUsersByName(@ApiParam("Name of the users to be obtained. Cannot be empty.") @PathVariable String name) {
         log.info("Return users with name = " + name);
