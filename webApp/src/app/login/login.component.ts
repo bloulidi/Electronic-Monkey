@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   isLogged: boolean;
   isRememberMe: boolean;
 
-  constructor(private fb : FormBuilder) {
+  constructor(private fb : FormBuilder, private router:Router) {
    
    }
 
@@ -52,5 +53,8 @@ export class LoginComponent implements OnInit {
   onRememberMeChanged(value:boolean){
     this.isRememberMe = value;
     console.log(value);
+  }
+  onClickSignUp(){
+    this.router.navigate(['signUp']);
   }
 }

@@ -1,6 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppRoutingModule } from '../app-routing.module';
 
 import { LoginComponent } from './login.component';
 
@@ -11,9 +13,9 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ HttpClientModule, ReactiveFormsModule],
+      imports: [ HttpClientModule, ReactiveFormsModule, AppRoutingModule],
       declarations: [ LoginComponent ],
-      //providers: [UserService]
+      providers: []
     })
     .compileComponents();
     //userService = TestBed.get(UserService);
@@ -54,8 +56,13 @@ describe('LoginComponent', () => {
   });
 
   it('testing email field invalidity', () => {
-    component.form.value.email = 'testing';
-    component.form.value.password = 'admin';
+    
+    const email = component.form.controls.email;
+    email.setValue('testing');
+
+    const password = component.form.controls.password;
+    password.setValue('admin');
+
     component.onSubmit();
     expect(component.message).toEqual('Email is not valid !');
   });
