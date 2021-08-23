@@ -47,11 +47,16 @@ export class SignupComponent implements OnInit {
       this.message = "Fields should not be empty!!! Please verify details";
     }
     else{
-      this.user.admin = false
       this.user.name = this.form.get('fullName').value
       this.user.email = this.form.get('email').value
       this.user.password = this.form.get('password').value
-      this.signupService.saveUser(this.user).subscribe();
+      this.signupService.saveUser(this.user).subscribe({
+        error: error => {
+          this.message = "This email already exists.";
+          console.log(error.message);
+        }
+      }
+      );
     } 
   }
 
