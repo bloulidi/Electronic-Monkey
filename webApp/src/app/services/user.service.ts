@@ -2,6 +2,7 @@ import { User } from '../models/User';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseUrl } from '../global-variables';
+import { map } from "rxjs/operators";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -20,7 +21,25 @@ export class UserService {
     return this.httpClient.post(this.localhost, user, httpOptions);
   }
   loginUser(user)  {
-    return this.httpClient.post(this.localhost + '/login', user, httpOptions);
+    return this.httpClient.post(this.localhost + '/login', user, httpOptions).pipe(
+      map((data:any) => {
+        sessionStorage.setItem("username", user.email);
+        let tokenStr = "Bearer " + data.token;
+        sessionStorage.setItem("token", tokenStr);
+        return data;
+      })
+    );
+  }
+  isUserLoggedIn() {
+    let user = sessionStorage.getItem("username");
+    let isLoggedIn:boolean = !(user === null);
+    if(isLoggedIn) console.log(user + " is logged in")
+    else console.log("Not logged in")
+    return isLoggedIn;
+  }
+  logOut() {
+    sessionStorage.removeItem("username");
+    console.log("logout")
   }
   getAllUsers()  {
     return this.httpClient.get(this.localhost);

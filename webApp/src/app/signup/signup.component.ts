@@ -3,6 +3,7 @@ import { CustomValidators } from '../helpers/custom-validators';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from '../models/User';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +19,7 @@ export class SignupComponent implements OnInit {
   // message to be display if Issue added or not
   message = '';
   
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) {
     this.user = new User;
   }
 
@@ -53,6 +54,7 @@ export class SignupComponent implements OnInit {
       this.user.email = this.form.get('email').value
       this.user.password = this.form.get('password').value
       this.userService.saveUser(this.user).subscribe({
+        next: res => this.router.navigate(['/login']),
         error: error => {
           this.message = "This email already exists.";
           console.log(error.message);
