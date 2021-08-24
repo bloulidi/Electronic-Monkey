@@ -114,7 +114,7 @@ public class UserServiceTest {
 
     @Test
     public void givenUserEmailThenShouldReturnRespectiveUser() throws UserNotFoundException {
-        when(userRepository.findByEmail(any())).thenReturn(optional);
+        when(userRepository.findByEmail(any())).thenReturn(user);
         assertEquals(user, userService.getUserByEmail(user.getEmail()));
         verify(userRepository, times(1)).findByEmail(anyString());
     }

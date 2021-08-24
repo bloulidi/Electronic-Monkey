@@ -1,5 +1,6 @@
 package com.stackroute.userservice.controller;
 
+import com.stackroute.userservice.config.JWTTokenGenerator;
 import com.stackroute.userservice.exception.UserAlreadyExistsException;
 import com.stackroute.userservice.exception.UserNotFoundException;
 import com.stackroute.userservice.model.User;
@@ -13,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
@@ -23,17 +23,43 @@ import java.util.List;
 @Api(tags = { com.stackroute.userservice.swagger.SpringFoxConfig.USER_TAG })
 public class UserController {
     private UserService userService;
+    private JWTTokenGenerator jwtTokenGenerator;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JWTTokenGenerator jwtTokenGenerator) {
         this.userService = userService;
+        this.jwtTokenGenerator = jwtTokenGenerator;
     }
 
-    @PostMapping("/user")
+    @PostMapping("/users")
     @ApiOperation("Creates a new user.")
-    public ResponseEntity<User> saveUser(@ApiParam("User information for a new user to be created. 409 if already exists.") @Valid @RequestBody User user) throws UserAlreadyExistsException {
+    public ResponseEntity<User> saveUser(@ApiParam("User information for a new user to be created. 409 if already exists.") @RequestBody User user) throws UserAlreadyExistsException {
         log.info("Create a new user: " + user.toString());
         return new ResponseEntity<User>(userService.saveUser(user), HttpStatus.CREATED);
+    }
+
+    @PostMapping("users/login")
+    @ApiOperation("Login user.")
+    public ResponseEntity<?> loginUser(@ApiParam("User login credentials.") @RequestBody User user) {
+        ResponseEntity<?> responseEntity;
+        try {
+            if (user.getEmail() == null || user.getPassword() == null) {
+                throw new UserNotFoundException("Cannot have empty email and password!");
+            }
+            System.out.println("user: " + user.toString());
+            User userLogin = userService.getUserByEmailAndPassword(user.getEmail(), user.getPassword());
+            System.out.println("userLogin: " + userLogin.toString());
+            if (userLogin == null) {
+                throw new UserNotFoundException();
+            } else if (!(user.getPassword().equals(userLogin.getPassword()))) {
+                throw new UserNotFoundException("Invalid email and/or password!");
+            }
+
+            responseEntity = new ResponseEntity<>(jwtTokenGenerator.generateToken(userLogin), HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        }
+        return responseEntity;
     }
 
     @GetMapping("/users")
@@ -43,23 +69,23 @@ public class UserController {
         return new ResponseEntity<List<User>>(userService.getAllUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     @ApiOperation("Returns a specific user by their identifier. 404 if does not exist.")
-    public ResponseEntity<User> getUserById(@ApiParam("Id of the user to be obtained. Cannot be empty.") @PathVariable int id) throws UserNotFoundException {
+    public ResponseEntity<User> getUserById(@ApiParam("Id of the user to be obtained. Cannot be empty.")  @PathVariable int id) throws UserNotFoundException {
         log.info("Return user with id = " + id);
         return new ResponseEntity<User>(userService.getUserById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/user/email/{email}")
+    @GetMapping("/users/email/{email}")
     @ApiOperation("Returns a specific user by their email. 404 if does not exist.")
-    public ResponseEntity<User> getUserByEmail(@ApiParam("Email of the user to be obtained. Cannot be empty.") @Valid @PathVariable String email) throws UserNotFoundException {
+    public ResponseEntity<User> getUserByEmail(@ApiParam("Email of the user to be obtained. Cannot be empty.") @PathVariable String email) throws UserNotFoundException {
         log.info("Return user with email = " + email);
         return new ResponseEntity<User>(userService.getUserByEmail(email), HttpStatus.OK);
     }
 
-    @GetMapping("/users/{name}")
+    @GetMapping("/users/name/{name}")
     @ApiOperation("Returns a list of users by their name.")
-    public ResponseEntity<List<User>> getUsersByName(@ApiParam("Name of the users to be obtained. Cannot be empty.") @Valid @PathVariable String name) {
+    public ResponseEntity<List<User>> getUsersByName(@ApiParam("Name of the users to be obtained. Cannot be empty.") @PathVariable String name) {
         log.info("Return users with name = " + name);
         return new ResponseEntity<List<User>>(userService.getUsersByName(name), HttpStatus.OK);
     }
@@ -71,17 +97,19 @@ public class UserController {
         return new ResponseEntity<List<User>>(userService.getUsersByAdmin(admin), HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/users/{id}")
     @ApiOperation("Deletes a user from the system. 404 if the person's identifier is not found.")
-    public ResponseEntity<User> deleteUser(@ApiParam("Id of the user to be deleted. Cannot be empty.") @Valid @PathVariable int id) throws UserNotFoundException {
+    public ResponseEntity<User> deleteUser(@ApiParam("Id of the user to be deleted. Cannot be empty.") @PathVariable int id) throws UserNotFoundException {
         log.info("Delete user with id = " + id);
         return new ResponseEntity<User>(userService.deleteUser(id), HttpStatus.OK);
     }
 
-    @PatchMapping("/user")
+    @PatchMapping("/users")
     @ApiOperation("Updates a new user.")
-    public ResponseEntity<User> updateUser(@ApiParam("User information for a user to be updated. 404 if does not exist.") @Valid @RequestBody User user) throws UserNotFoundException {
+    public ResponseEntity<User> updateUser(@ApiParam("User information for a user to be updated. 404 if does not exist.") @RequestBody User user) throws UserNotFoundException {
         log.info("Update user: " + user.toString());
         return new ResponseEntity<User>(userService.updateUser(user), HttpStatus.OK);
     }
+
+
 }

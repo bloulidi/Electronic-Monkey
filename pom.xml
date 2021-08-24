@@ -39,6 +39,7 @@
         <module>orderservice</module>
         <module>inventoryservice</module>
         <module>api-gateway-service</module>
+        <module>jwt-service</module>
     </modules>
 
 	<dependencies>

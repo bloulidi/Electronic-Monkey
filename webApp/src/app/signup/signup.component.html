@@ -31,8 +31,8 @@
         <mat-error id="passwordError" *ngIf="form.controls.password.touched && form.controls.password.invalid">
           <span *ngIf="form.controls.password.errors.required">This field is mandatory. <br></span>
           <span *ngIf="form.controls['password'].hasError('hasNumber')">Must contain at least 1 number!<br></span>
-          <span *ngIf="form.controls['password'].hasError('hasCapitalCase')">  Must contain at least 1 in Capital Case!<br></span>
-          <span *ngIf="form.controls['password'].hasError('hasSmallCase')">Must contain at least 1 Letter in Small Case!<br></span>
+          <span *ngIf="form.controls['password'].hasError('hasCapitalCase')">  Must contain at least 1 capital case!<br></span>
+          <span *ngIf="form.controls['password'].hasError('hasSmallCase')">Must contain at least 1 small case!<br></span>
           <span *ngIf="form.controls['password'].hasError('minlength')">  Must be at least 6 characters!<br></span>
         </mat-error>
       </mat-form-field>
@@ -55,6 +55,6 @@
 
 <!-- Already have an account section -->
 <div class="sign-in">
-    <div class="left-sign-in">Already Have an account ?</div>
+    <div class="left-sign-in">Already have an account ?</div>
     <div class="right-sign-in"><a href="">Sign In</a></div>
 </div>
