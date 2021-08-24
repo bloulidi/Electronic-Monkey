@@ -33,7 +33,7 @@ services:
 
   # Database Service (Mysql)
   db:
-    container_name: mysqldb
+    container_name: db
     image: mysql:8.0
     #ports:
      # - "3307:3306"
