@@ -61,7 +61,7 @@ describe('workspace-project App', () => {
     element(by.css('input[type="text"]')).sendKeys('admin');
     element(by.css('input[type="password"]')).sendKeys('admin');
     element(by.css('#btn_login')).click();
-    expect(element(by.css('.alert')).getText()).toContain("Email is not valid !");
+    expect(element(by.css('.alert')).getText()).toContain("Invalid email and/or password!");
   });
 
   it('should check sign up form is valid or not given empty email', async () => {
@@ -102,7 +102,7 @@ describe('workspace-project App', () => {
     element(by.css('#confirmPasswordField')).sendKeys('Password2');
     expect<any>(element(by.css('#confirmPasswordError')).getText()).toEqual('Password do not match');
   });*/
-    
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);

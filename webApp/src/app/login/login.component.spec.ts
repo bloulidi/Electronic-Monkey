@@ -56,7 +56,7 @@ describe('LoginComponent', () => {
   });
 
   it('testing email field invalidity', () => {
-    
+
     const email = component.form.controls.email;
     email.setValue('testing');
 
@@ -64,7 +64,7 @@ describe('LoginComponent', () => {
     password.setValue('admin');
 
     component.onSubmit();
-    expect(component.message).toEqual('Email is not valid !');
+    expect(component.message).toEqual('Invalid email and/or password!');
   });
 
   it('testing email field validity', () => {
