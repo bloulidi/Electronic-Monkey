@@ -12,6 +12,7 @@ import { UserService } from '../services/user.service';
 export class LoginComponent implements OnInit {
 
   form;
+  user: User;
   
   // message to be display if user logged in or not
   message = '';
@@ -20,12 +21,13 @@ export class LoginComponent implements OnInit {
   isRememberMe: boolean;
 
   constructor(private fb : FormBuilder, private router:Router, private userService: UserService) {
+    this.user = new User;
   }
 
   ngOnInit() {
     this.form = this.fb.group({
-      email : ['', Validators.email],
-      password : ['']
+      email : ['', [Validators.required, Validators.email]],
+      password : ['', [Validators.required, Validators.minLength(6)]]
     })
     this.isLogged = false;
     this.isRememberMe = false;
@@ -36,29 +38,28 @@ export class LoginComponent implements OnInit {
       this.message = 'Email and Password should not be empty!!! Please verify details';
     }
    else if(this.form.invalid){
-     this.message = "Email is not valid !";
+     this.message = "Invalid email and/or password!";
    }
     else {
       const email: string = this.form.value.email;
       console.log(email);
       const password : string = this.form.value.password;
       console.log(password);
-
-      this.userService.getUserByEmail(email).subscribe({
+      this.user.email = email
+      this.user.password = password
+      this.userService.loginUser(this.user).subscribe({
         next: (data:any) => {
           //console.log(data);
-          if(data.password == password){
-            this.message = "Login succesful";
+          if(data.message == "Login Successful"){
+            this.message = data.message;
             this.isLogged = true;
-          }
-          else {
-            this.message = "Password is incorrect";
           }
       },
         error: error => {
-          this.message = error.message;
+          this.isLogged = false;
+          this.message = error.error;
           console.error('There was an error!', error);
-      }
+        }
       });;
     }
   }

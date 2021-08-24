@@ -19,6 +19,9 @@ export class UserService {
   saveUser(user)  {
     return this.httpClient.post(this.localhost, user, httpOptions);
   }
+  loginUser(user)  {
+    return this.httpClient.post(this.localhost + '/login', user, httpOptions);
+  }
   getAllUsers()  {
     return this.httpClient.get(this.localhost);
   }
