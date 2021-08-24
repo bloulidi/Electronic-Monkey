@@ -36,15 +36,14 @@ services:
     container_name: db
     image: mysql:8.0
     #ports:
-     # - "3307:3306"
+    # - "3307:3306"
     restart: always
     environment:
-      MYSQL_DATABASE: testDB
+      MYSQL_DATABASE: userDB
       MYSQL_ROOT_PASSWORD: password
-#    networks:
-#      - backend
 
-# Networks to be created to facilitate communication between containers
+
+  # Networks to be created to facilitate communication between containers
 #networks:
  # backend:
   #frontend:
