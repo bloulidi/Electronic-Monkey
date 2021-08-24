@@ -26,16 +26,16 @@ export class SignupComponent implements OnInit {
   //TODO: Fix the Validation in the UI......
   ngOnInit() {
     this.form = this.fb.group({
-      fullName: [null, Validators.required],
-      email: [null, [Validators.required, Validators.email]],
-      password: [null, Validators.compose([
+      fullName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.compose([
         Validators.required,
         CustomValidators.patternValidator(/\d/, {hasNumber: true}),
         CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
         CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
         Validators.minLength(6)])
       ],
-      confirmPassword: [null, Validators.compose([Validators.required])]
+      confirmPassword: ['', Validators.compose([Validators.required])]
     },
     {
       validator: CustomValidators.passwordMatchValidator
@@ -46,7 +46,7 @@ export class SignupComponent implements OnInit {
     if(this.form.value.email === '' || this.form.value.password === '' || this.form.value.confirmPassword === '' || this.form.value.fullName === '') {
       this.message = 'Fields should not be empty!!! Please verify details.';
     }
-    if(this.form.invalid){
+    else if(this.form.invalid){
       this.message = "Invalid email and/or password!";
     }
     else{

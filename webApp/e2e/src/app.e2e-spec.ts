@@ -10,16 +10,16 @@ describe('workspace-project App', () => {
   });
 
   it('should load login component on base url', () => {
-    browser.get('/');
+    browser.get('/login');
     expect<any>(browser.getCurrentUrl())
-      .toEqual(browser.baseUrl);
+      .toEqual(browser.baseUrl + "login");
   });
 
   it('should load signUp component view on clicking SignUp and verify the url', () => {
-    browser.get('/');
+    browser.get('/login');
     element(by.css('#btn_signUp')).click();
     expect<any>(browser.getCurrentUrl())
-      .toEqual(browser.baseUrl + 'signUp');
+      .toEqual(browser.baseUrl + 'signup');
   });
 
   it('should contain <router-outlet>', () => {
@@ -29,39 +29,39 @@ describe('workspace-project App', () => {
 
   it('should check login form if email is empty', async () => {
     //browser.waitForAngularEnabled(false);
-    page.navigateTo();
+    page.navigateToLogin();
     element(by.css('input[type="text"]')).sendKeys();
     element(by.css('#btn_login')).click();
     expect<any>(element(by.css('.alert')).getText()).toEqual("Email and Password should not be empty!!! Please verify details");
   });
 
   it('should check login form if password is empty', async () => {
-    page.navigateTo();
+    page.navigateToLogin();
     element(by.css('input[type="password"]')).sendKeys();
     element(by.css('#btn_login')).click();
     expect(element(by.css('.alert')).getText()).toContain("Email and Password should not be empty!!! Please verify details");
   });
 
   it('should check login form is valid or not given valid email to form and empty password', async () => {
-    page.navigateTo();
+    page.navigateToLogin();
     element(by.css('input[type="text"]')).sendKeys('soukaina@cgi.com');
     element(by.css('#btn_login')).click();
     expect(element(by.css('.alert')).getText()).toContain("Email and Password should not be empty!!! Please verify details");
   });
 
   it('should check login form is valid or not given valid password to form and empty email', async () => {
-    page.navigateTo();
+    page.navigateToLogin();
     element(by.css('input[type="password"]')).sendKeys('admin');
     element(by.css('#btn_login')).click();
     expect(element(by.css('.alert')).getText()).toContain("Email and Password should not be empty!!! Please verify details");
   });
 
   it('should check login form is valid or not given valid password to form and invalid email', async () => {
-    page.navigateTo();
+    page.navigateToLogin();
     element(by.css('input[type="text"]')).sendKeys('admin');
     element(by.css('input[type="password"]')).sendKeys('admin');
     element(by.css('#btn_login')).click();
-    expect(element(by.css('.alert')).getText()).toContain("Invalid email and/or password!");
+    expect(element(by.css('.alert')).getText()).toContain('Invalid email and/or password!');
   });
 
   it('should check sign up form is valid or not given empty email', async () => {
@@ -79,7 +79,7 @@ describe('workspace-project App', () => {
     element(by.css('#passwordField')).sendKeys('Password1');
     element(by.css('#confirmPasswordField')).sendKeys('Password1');
     element(by.buttonText('Sign Up')).click();
-    expect(element(by.css('.alert')).getText()).toContain('Fields should not be empty!!! Please verify details');
+    expect(element(by.css('.alert')).getText()).toContain('Fields should not be empty!!! Please verify details.');
   });
 
   /*it('should check sign up form is valid or not given invalid password', async () => {
