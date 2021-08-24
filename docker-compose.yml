@@ -1,0 +1,50 @@
+# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
+version: '3.7'
+
+# Define services
+services:
+  # App backend service
+  userservice:
+    # Configuration for building the docker image for the backend service
+    build:
+      context: userservice # Use an image built from the specified dockerfile in the `userservice` directory.
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8090" # Forward the exposed port 8080 on the container to port 8090 on the host machine
+    restart: always
+    depends_on:
+      - db # This service depends on mysql. Start that first.
+#    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+#      - backend
+#      - frontend
+
+  # Frontend Service
+  webapp:
+    build:
+      context: webApp # Use an image built from the specified dockerfile in the `webApp` directory.
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80" # Map the exposed port 80 on the container to port 8081 on the host machine
+    restart: always
+    depends_on:
+      - userservice
+#    networks:
+#      - frontend
+
+  # Database Service (Mysql)
+  db:
+    container_name: mysqldb
+    image: mysql:8.0
+    #ports:
+     # - "3307:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: testDB
+      MYSQL_ROOT_PASSWORD: password
+#    networks:
+#      - backend
+
+# Networks to be created to facilitate communication between containers
+#networks:
+ # backend:
+  #frontend:

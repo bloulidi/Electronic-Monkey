@@ -1,5 +1,5 @@
 import { UserService } from '../services/user.service';
-import { CustomValidators } from '../helpers/custom-validators';
+import { CustomValidators } from '../Helpers/custom-validators';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from '../models/User';
