@@ -1,5 +1,6 @@
-import { browser, logging } from 'protractor';
+import { browser, by, element, logging } from 'protractor';
 import { AppPage } from './app.po';
+
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -8,9 +9,98 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  /*it('should display welcome message', async () => {
-    await page.navigateTo();
-    expect(await page.getTitleText()).toEqual('OnlineBuyAndSell app is running!');
+  it('should load login component on base url', () => {
+    browser.get('/');
+    expect<any>(browser.getCurrentUrl())
+      .toEqual(browser.baseUrl);
+  });
+
+  it('should load signUp component view on clicking SignUp and verify the url', () => {
+    browser.get('/');
+    element(by.css('#btn_signUp')).click();
+    expect<any>(browser.getCurrentUrl())
+      .toEqual(browser.baseUrl + 'signUp');
+  });
+
+  it('should contain <router-outlet>', () => {
+    page.navigateTo();
+    expect(page.getRouterOutlet).toBeTruthy('<router-outlet> should exist in app.component.html');
+  });
+
+  it('should check login form if email is empty', async () => {
+    //browser.waitForAngularEnabled(false);
+    page.navigateTo();
+    element(by.css('input[type="text"]')).sendKeys();
+    element(by.css('#btn_login')).click();
+    expect<any>(element(by.css('.alert')).getText()).toEqual("Email and Password should not be empty!!! Please verify details");
+  });
+
+  it('should check login form if password is empty', async () => {
+    page.navigateTo();
+    element(by.css('input[type="password"]')).sendKeys();
+    element(by.css('#btn_login')).click();
+    expect(element(by.css('.alert')).getText()).toContain("Email and Password should not be empty!!! Please verify details");
+  });
+
+  it('should check login form is valid or not given valid email to form and empty password', async () => {
+    page.navigateTo();
+    element(by.css('input[type="text"]')).sendKeys('soukaina@cgi.com');
+    element(by.css('#btn_login')).click();
+    expect(element(by.css('.alert')).getText()).toContain("Email and Password should not be empty!!! Please verify details");
+  });
+
+  it('should check login form is valid or not given valid password to form and empty email', async () => {
+    page.navigateTo();
+    element(by.css('input[type="password"]')).sendKeys('admin');
+    element(by.css('#btn_login')).click();
+    expect(element(by.css('.alert')).getText()).toContain("Email and Password should not be empty!!! Please verify details");
+  });
+
+  it('should check login form is valid or not given valid password to form and invalid email', async () => {
+    page.navigateTo();
+    element(by.css('input[type="text"]')).sendKeys('admin');
+    element(by.css('input[type="password"]')).sendKeys('admin');
+    element(by.css('#btn_login')).click();
+    expect(element(by.css('.alert')).getText()).toContain("Invalid email and/or password!");
+  });
+
+  it('should check sign up form is valid or not given empty email', async () => {
+    page.navigateToSignUp();
+    element(by.css('#fullNameField')).sendKeys('admin admin');
+    element(by.css('#passwordField')).sendKeys('Password1');
+    element(by.css('#confirmPasswordField')).sendKeys('Password1');
+    element(by.buttonText('Sign Up')).click();
+    expect(element(by.css('.alert')).getText()).toContain('Fields should not be empty!!! Please verify details');
+  });
+
+  it('should check sign up form is valid or not given empty full name', async () => {
+    page.navigateToSignUp();
+    element(by.css('#emailField')).sendKeys('admin@cgi.com');
+    element(by.css('#passwordField')).sendKeys('Password1');
+    element(by.css('#confirmPasswordField')).sendKeys('Password1');
+    element(by.buttonText('Sign Up')).click();
+    expect(element(by.css('.alert')).getText()).toContain('Fields should not be empty!!! Please verify details');
+  });
+
+  /*it('should check sign up form is valid or not given invalid password', async () => {
+    page.navigateToSignUp();
+    element(by.css('#fullNameField')).sendKeys('admin admin');
+    element(by.css('#emailField')).sendKeys('admin@cgi.com');
+
+    //element(by.css('#passwordField')).click();
+    element(by.css('#passwordField')).sendKeys('Password');
+    element(by.css('#passwordField')).isPresent;
+    expect<any>(element(by.css('#passwordError')).getText()).toContain('Must contain at least 1 number!');
+    //expect($('mat-error').isPresent()).toBe(true);
+  });*/
+
+  /*it('should check sign up form is valid or not given invalid confirm password field', async () => {
+    page.navigateToSignUp();
+    element(by.css('#fullNameField')).sendKeys('admin admin');
+    element(by.css('#emailField')).sendKeys('admin@cgi.com');
+    element(by.css('#passwordField')).sendKeys('Password1');
+    element(by.css('#confirmPasswordField')).sendKeys('Password2');
+    expect<any>(element(by.css('#confirmPasswordError')).getText()).toEqual('Password do not match');
   });*/
 
   afterEach(async () => {
