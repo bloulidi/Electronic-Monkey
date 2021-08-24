@@ -42,8 +42,11 @@ export class SignupComponent implements OnInit {
   }
 
   submit() {
+    if(this.form.value.email === '' || this.form.value.password === '' || this.form.value.confirmPassword === '' || this.form.value.fullName === '') {
+      this.message = 'Fields should not be empty!!! Please verify details.';
+    }
     if(this.form.invalid){
-      this.message = "Fields should not be empty!!! Please verify details";
+      this.message = "Invalid email and/or password!";
     }
     else{
       this.user.name = this.form.get('fullName').value
