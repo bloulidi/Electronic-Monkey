@@ -119,7 +119,7 @@ public class UserRepositoryIntegrationTest {
         User savedUser = userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
-        User getUser = userRepository.findByEmail(savedUser.getEmail()).get();
+        User getUser = userRepository.findByEmail(savedUser.getEmail());
         assertNotNull(getUser);
         assertEquals(user1.getEmail(), getUser.getEmail());
         userRepository.deleteAll();
