@@ -1,8 +1,9 @@
 package com.stackroute.userservice;
 
+import com.stackroute.userservice.config.JWTTokenGeneratorImpl;
 import com.stackroute.userservice.controller.UserController;
 import com.stackroute.userservice.repository.UserRepository;
-import com.stackroute.userservice.service.UserService;
+import com.stackroute.userservice.service.UserServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
-class UserserviceApplicationTests {
+class UserApplicationTests {
 
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userService;
+
+	@Autowired
+	private JWTTokenGeneratorImpl jwtTokenGenerator;
 
 	@Autowired
 	private UserController userController;
@@ -30,6 +34,7 @@ class UserserviceApplicationTests {
 	@Test
 	void contextLoads() {
 		assertThat(userService).isNotNull();
+		assertThat(jwtTokenGenerator).isNotNull();
 		assertThat(userController).isNotNull();
 		assertThat(userRepository).isNotNull();
 	}

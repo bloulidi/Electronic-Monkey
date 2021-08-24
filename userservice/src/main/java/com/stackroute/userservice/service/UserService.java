@@ -14,6 +14,9 @@ public interface UserService {
     User saveUser(@Valid User user) throws UserAlreadyExistsException;
     User getUserById(@NotNull(message = "ID cannot be null. Must be a positive integer excluding zero.") @Min(1) int id) throws UserNotFoundException;
     User getUserByEmail(@Email(message = "Please provide a valid email address") String email) throws UserNotFoundException;
+    User getUserByEmailAndPassword(@Email(message = "Please provide a valid email address") String email,
+                                   @NotBlank(message = "Password cannot be empty")
+                                   @Size(min = 6, message = "Password must consist of at least 6 characters.") String password) throws UserNotFoundException;
     User deleteUser(@NotNull(message = "ID cannot be null. Must be a positive integer excluding zero.") @Min(1) int id) throws UserNotFoundException;
     User updateUser(@Valid User user) throws UserNotFoundException;
     List<User> getAllUsers();
