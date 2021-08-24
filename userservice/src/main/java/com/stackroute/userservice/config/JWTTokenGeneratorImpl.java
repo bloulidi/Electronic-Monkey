@@ -26,6 +26,7 @@ public class JWTTokenGeneratorImpl implements JWTTokenGenerator {
         jwtToken = Jwts.builder().setSubject(user.getEmail()).setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, secret).compact();
         Map<String, String> jwtTokenMap = new HashMap<>();
         jwtTokenMap.put("token", jwtToken);
+        jwtTokenMap.put("username", user.getEmail());
         jwtTokenMap.put("message", message);
         return jwtTokenMap;
     }

@@ -1,7 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+//import { Router } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
 
 import { LoginComponent } from './login.component';
@@ -13,7 +14,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ HttpClientModule, ReactiveFormsModule, AppRoutingModule],
+      imports: [ HttpClientModule, ReactiveFormsModule, RouterTestingModule],
       declarations: [ LoginComponent ],
       providers: []
     })
