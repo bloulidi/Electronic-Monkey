@@ -29,7 +29,7 @@ import {MatIconModule} from '@angular/material/icon';
     SignupComponent,
     LogoutComponent,
     DashboardComponent,
-      PostComponent
+    PostComponent
    ],
   imports: [
     BrowserModule,
