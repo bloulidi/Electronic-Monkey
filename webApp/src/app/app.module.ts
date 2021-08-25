@@ -17,16 +17,20 @@ import { LogoutComponent } from './logout/logout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { RouterModule } from '@angular/router';
+import { PostComponent } from './Post/Post.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     LoginComponent,
     SignupComponent,
     LogoutComponent,
-    DashboardComponent
-  ],
+    DashboardComponent,
+      PostComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -41,7 +45,9 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     MatCheckboxModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    MatIconModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent]

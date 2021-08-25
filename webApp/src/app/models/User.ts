@@ -1,6 +1,6 @@
 // Data model for User
 export class User {
-    id?: Number;
+    title?: Number;
     name?: string;
     email?: string;
     admin?: boolean;

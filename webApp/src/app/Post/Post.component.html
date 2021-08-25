@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Post a Product</h1>
+
+<div class="example-container">
+  <div class="form-container">
+    <form [formGroup]="form" (submit)="submit()">
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Title" formControlName="title" required>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Category" formControlName="category" required>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Description" formControlName="description" required>
+      </mat-form-field>
+      <div>
+        <label>Add Photos</label>
+        <input type="file" (change)="handleFileInput($event.target.files)" required>
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button (click)="cancel()">Cancel</button>
+        <button mat-button  type="submit">Post</button>
+      </div>    
+    </form>
+    <div class="alert" *ngIf="message" role="alert">
+      {{ message }}
+    </div>
+</div>
