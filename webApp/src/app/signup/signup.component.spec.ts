@@ -3,6 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AppRoutingModule } from '../app-routing.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SignupComponent', () => {
   let component: SignupComponent;
@@ -10,7 +12,7 @@ describe('SignupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ ReactiveFormsModule, HttpClientTestingModule],
+      imports: [ ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule],
       declarations: [ SignupComponent ]
     })
     .compileComponents();
@@ -37,7 +39,7 @@ describe('SignupComponent', () => {
   it('onSubmit() should verify form is valid or not ', () => {
     component.form.fullName = 'Badreddine';
     component.submit();
-    expect(component.message).toEqual('Fields should not be empty!!! Please verify details');
+    expect(component.message).toEqual('Invalid email and/or password!');
   });
 
   it('testing full name field validity', () => {

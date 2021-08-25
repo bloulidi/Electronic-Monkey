@@ -6,9 +6,12 @@ export class AppPage {
     return browser.get(browser.baseUrl) as Promise<any>;
   }
 
+  navigateToLogin() {
+    return browser.get('/login');
+  }
 
   navigateToSignUp() {
-    return browser.get('/signUp');
+    return browser.get('/signup');
   }
 
   getRouterOutlet(): ElementFinder {

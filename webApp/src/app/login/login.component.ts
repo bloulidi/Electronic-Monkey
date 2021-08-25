@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   // message to be display if user logged in or not
   message = '';
 
-  isLogged: boolean;
+  isLoggedIn: boolean;
   isRememberMe: boolean;
 
   constructor(private fb : FormBuilder, private router:Router, private userService: UserService) {
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       email : ['', [Validators.required, Validators.email]],
       password : ['', [Validators.required, Validators.minLength(6)]]
     })
-    this.isLogged = false;
+    this.isLoggedIn = false;
     this.isRememberMe = false;
   }
 
@@ -49,14 +49,16 @@ export class LoginComponent implements OnInit {
       this.user.password = password
       this.userService.loginUser(this.user).subscribe({
         next: (data:any) => {
-          //console.log(data);
+          console.log(data);
           if(data.message == "Login Successful"){
             this.message = data.message;
-            this.isLogged = true;
+            this.isLoggedIn = true;
           }
+          console.log('navigate')
+          this.router.navigate(['']);
       },
         error: error => {
-          this.isLogged = false;
+          this.isLoggedIn = false;
           this.message = error.error;
           console.error('There was an error!', error);
         }
@@ -71,6 +73,6 @@ export class LoginComponent implements OnInit {
     console.log(value);
   }
   onClickSignUp(){
-    this.router.navigate(['signUp']);
+    this.router.navigate(['signup']);
   }
 }
