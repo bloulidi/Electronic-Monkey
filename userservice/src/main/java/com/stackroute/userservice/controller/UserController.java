@@ -5,6 +5,7 @@ import com.stackroute.userservice.exception.UserAlreadyExistsException;
 import com.stackroute.userservice.exception.UserNotFoundException;
 import com.stackroute.userservice.model.User;
 import com.stackroute.userservice.service.UserService;
+import com.stackroute.userservice.swagger.SpringFoxConfig;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -20,7 +21,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("api/v1")
-@Api(tags = { com.stackroute.userservice.swagger.SpringFoxConfig.USER_TAG })
+@Api(tags = { SpringFoxConfig.USER_TAG })
 public class UserController {
     private UserService userService;
     private JWTTokenGenerator jwtTokenGenerator;
@@ -110,6 +111,4 @@ public class UserController {
         log.info("Update user: " + user.toString());
         return new ResponseEntity<User>(userService.updateUser(user), HttpStatus.OK);
     }
-
-
 }
