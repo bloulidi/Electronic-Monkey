@@ -1,6 +1,6 @@
-package com.stackroute.config;
+package com.stackroute.apigateway.config;
 
-import com.stackroute.filter.JwtFilter;
+import com.stackroute.apigateway.filter.JwtFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
