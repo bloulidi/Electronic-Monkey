@@ -21,7 +21,7 @@
         <input id="emailField" matInput formControlName="email" required>
         <mat-error id="emailError" *ngIf="form.controls.email.touched && form.controls.email.invalid">
           <span *ngIf="form.controls.email.errors.required">This field is mandatory.</span>
-          <span *ngIf="form.controls.email.errors.pattern">This field is invalid.</span>
+          <span *ngIf="form.controls.email.errors.email">This field is invalid.</span>
         </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field" appearance="outline">

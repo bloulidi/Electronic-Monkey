@@ -56,12 +56,13 @@ export class SignupComponent implements OnInit {
       this.userService.saveUser(this.user).subscribe({
         next: res => this.router.navigate(['/login']),
         error: error => {
-          this.message = "This email already exists.";
-          console.log(error.message);
+          if(error.status == 409){
+            this.message = "This email already exists.";
+          } else {
+            this.message = "An error was encountered!";
+          }
         }
-      }
-      );
+      });
     } 
   }
-
 }
