@@ -45,7 +45,7 @@ public class ProductController {
 
     @GetMapping("/products/{id}")
     @ApiOperation("Returns a specific product by their identifier. 404 if does not exist.")
-    public ResponseEntity<Product> getProductById(@ApiParam("Id of the product to be obtained. Cannot be empty.")  @PathVariable long id) throws ProductNotFoundException {
+    public ResponseEntity<Product> getProductById(@ApiParam("Id of the product to be obtained. Cannot be empty.")  @PathVariable String id) throws ProductNotFoundException {
         log.info("Return product with id = " + id);
         return new ResponseEntity<Product>(productService.getProductById(id), HttpStatus.OK);
     }
@@ -59,7 +59,7 @@ public class ProductController {
 
     @DeleteMapping("/products/{id}")
     @ApiOperation("Deletes a product from the system. 404 if the person's identifier is not found.")
-    public ResponseEntity<Product> deleteProduct(@ApiParam("Id of the product to be deleted. Cannot be empty.") @PathVariable long id) throws ProductNotFoundException {
+    public ResponseEntity<Product> deleteProduct(@ApiParam("Id of the product to be deleted. Cannot be empty.") @PathVariable String id) throws ProductNotFoundException {
         log.info("Delete product with id = " + id);
         return new ResponseEntity<Product>(productService.deleteProduct(id), HttpStatus.OK);
     }

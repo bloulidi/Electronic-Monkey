@@ -1,4 +1,4 @@
-package com.stackroute;
+package com.stackroute.catalog;
 
 import static org.junit.Assert.assertTrue;
 

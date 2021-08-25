@@ -21,14 +21,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product saveProduct(Product product) throws ProductAlreadyExistsException {
-        if(productRepository.existsById(product.getId()) || productRepository.existsByCode(product.getCode())){
+        if(productRepository.existsByCode(product.getCode())){
             throw new ProductAlreadyExistsException();
         }
         return (Product) productRepository.save(product);
     }
 
     @Override
-    public Product getProductById(long id) throws ProductNotFoundException {
+    public Product getProductById(String id) throws ProductNotFoundException {
         Product product = null;
         Optional<Product> userOptional = productRepository.findById(id);
         if(userOptional.isPresent()){
@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product deleteProduct(long id) throws ProductNotFoundException {
+    public Product deleteProduct(String id) throws ProductNotFoundException {
         Product product = getProductById(id);
         if(product != null){
             productRepository.deleteById(id);
