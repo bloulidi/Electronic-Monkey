@@ -1,4 +1,4 @@
-package com.stackroute.filter;
+package com.stackroute.apigateway.filter;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
