@@ -26,6 +26,7 @@ public class User {
     private String name;
 
     @Email(message = "Please provide a valid email address")
+    @Column(unique = true)
     @ApiModelProperty(notes = "Email of the user", example = "justin.trudeau@cgi.com", required = true, position = 2)
     private String email;
 
