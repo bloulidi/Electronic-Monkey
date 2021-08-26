@@ -15,7 +15,7 @@ export class PostProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  localhost = baseUrl + 'user/api/v1/users';
+  localhost = baseUrl + 'catalog/api/v1/products';
 
   //TODO: add the product object and the file to the backend
   postProduct(product: Product, fileToUpload: File): Observable<any> {
