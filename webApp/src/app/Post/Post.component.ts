@@ -18,13 +18,16 @@ export class PostComponent implements OnInit {
   message = '';
   product: Product;
 
-  constructor(private fb: FormBuilder, private router: Router, public postProductService: PostProductService, public dialogRef: MatDialogRef<DashboardComponent>) { }
+  constructor(private fb: FormBuilder, private router: Router, public postProductService: PostProductService, public dialogRef: MatDialogRef<DashboardComponent>) {
+    this.product = new Product;
+  }
 
   ngOnInit() {
     this.form = this.fb.group({
       title: ['', Validators.required],
       category: ['', Validators.required],
       description: [''],
+      price: ['', Validators.required]
     })
   }
 
@@ -33,13 +36,14 @@ export class PostComponent implements OnInit {
   }
 
   submit() {
-    if (this.form.value.title === '' || this.form.value.category === '' || this.form.value.description === '') {
+    if (this.form.value.title === '' || this.form.value.category === '' || this.form.value.description === '' || this.form.value.price === '') {
       this.message = 'Fields should not be empty!!! Please verify details.';
     }
     else {
-      this.product.title = this.form.get('title').value
-      this.product.category = this.form.get('category').value
-      this.product.description = this.form.get('description').value
+      this.product.title = this.form.get("title").value
+      this.product.category = this.form.get("category").value
+      this.product.description = this.form.get("description").value
+      this.product.description = this.form.get("price").value
       this.postProductService.postProduct(this.product, this.fileToUpload).subscribe({
         next: res => this.router.navigate(['/']),
       }

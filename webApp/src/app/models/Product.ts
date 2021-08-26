@@ -2,6 +2,6 @@
 export class Product {
     title?: string;
     description?: string;
-    category?: String;
+    category?: string;
     price?: Number;
 }
