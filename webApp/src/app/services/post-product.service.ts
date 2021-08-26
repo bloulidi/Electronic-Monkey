@@ -5,7 +5,7 @@ import { baseUrl } from '../global-variables';
 import { Product } from '../models/Product';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Accept': "multipart/form-data" })
 };
 
 @Injectable({
@@ -17,10 +17,14 @@ export class PostProductService {
 
   localhost = baseUrl + 'catalog/api/v1/products';
 
-  //TODO: add the product object and the file to the backend
+  //TODO: Ask how to send multiple arguments with POST method.
+  //? Is formData still a file or is it still a file ????
+
   postProduct(product: Product, fileToUpload: File): Observable<any> {
     const formData: FormData = new FormData();
-    formData.append('fileKey', fileToUpload, fileToUpload.name);
+    formData.append('imageFile', fileToUpload, fileToUpload.name);
+    formData.append('product', new Blob([JSON.stringify(product)], {type: 'application/json'}));
+    console.log(formData.get('product'))
     return this.httpClient.post(this.localhost, formData, httpOptions);
   }
 }

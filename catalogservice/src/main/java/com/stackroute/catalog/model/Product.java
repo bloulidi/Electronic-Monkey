@@ -6,11 +6,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import org.bson.types.Binary;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.FieldType;
 
 import javax.validation.constraints.*;
 
@@ -42,4 +40,8 @@ public class Product extends BaseModel {
     @Min(0) @Max(999999999)
     @ApiModelProperty(notes = "Price of the product", example = "19.99", required = true, position = 5)
     private float price;
+
+    @NotNull(message = "Image cannot be null")
+    @ApiModelProperty(notes = "Image of the product", example = "img.png", required = true, position = 6)
+    private Binary image;
 }
