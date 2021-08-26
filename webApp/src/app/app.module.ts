@@ -20,6 +20,7 @@ import { RouterModule } from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MyprofileComponent } from './myprofile/myprofile.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     LoginComponent,
     SignupComponent,
     LogoutComponent,
-    DashboardComponent
+    DashboardComponent,
+    MyprofileComponent
   ],
   imports: [
     BrowserModule,

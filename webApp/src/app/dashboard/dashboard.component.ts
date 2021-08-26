@@ -24,4 +24,8 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['logout']);
   }
 
+  onClickMyProfile(){
+    this.router.navigate(['myprofile']);
+  }
+
 }

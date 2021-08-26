@@ -25,9 +25,10 @@
             <mat-icon svgIcon="profil_icon" ></mat-icon>
         </button>
         <mat-menu  #menu="matMenu">
-            <button mat-menu-item>My account </button>
-            <button mat-menu-item>Order History </button>
-            <button mat-menu-item (click)="onClickLogOut()">Log out </button>
+            <button mat-menu-item (click)="onClickMyProfile()">My Profile</button>
+            <button mat-menu-item>My Posts</button>
+            <button mat-menu-item>My Orders</button>
+            <button mat-menu-item (click)="onClickLogOut()">Log out</button>
         </mat-menu>
  
     </div>
