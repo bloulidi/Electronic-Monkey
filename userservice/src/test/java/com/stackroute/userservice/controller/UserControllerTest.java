@@ -146,6 +146,17 @@ public class UserControllerTest {
         verify(userService, times(1)).getUsersByName(anyString());
     }
 
+    /*@Test
+    public void givenGetUserByEmailThenShouldReturnRespectiveUser() throws Exception {
+        userList.add(user);
+        userList.add(user2);
+        when(userService.getUserByEmail(user.getEmail())).thenReturn(user);
+        mockMvc.perform(get("/api/v1/users/email/" + user.getEmail()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
+                .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
+        verify(userService).getUserByEmail(anyString());
+        verify(userService, times(1)).getUserByEmail(anyString());
+    }*/
+
     @Test
     public void givenGetAllUsersByAdminThenShouldReturnListOfAllAdminUsers() throws Exception{
         userList.add(user);

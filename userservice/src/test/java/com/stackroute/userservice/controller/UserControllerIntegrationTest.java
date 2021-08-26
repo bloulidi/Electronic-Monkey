@@ -12,8 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.reactive.server.StatusAssertions;
 
-import javax.persistence.EntityManager;
 import javax.validation.ConstraintViolationException;
 
 import java.util.ArrayList;
@@ -30,8 +30,6 @@ public class UserControllerIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private EntityManager entityManager;
 
     private User user1, user2, user3;
     private List<User> userList;
@@ -200,6 +198,21 @@ public class UserControllerIntegrationTest {
         assertTrue(logger.isErrorEnabled());
     }
 
+    @Test
+    public void givenValidUserToLoginThenShouldReturnOkStatus() throws UserNotFoundException {
+        User savedUser = userController.saveUser(user1).getBody();
+        assertEquals(200, userController.loginUser(user1).getStatusCode().value());
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
+    }
+
+    @Test
+    public void givenInValidUserToLoginThenThrowsError() throws UserNotFoundException {
+        assertEquals(409, userController.loginUser(user1).getStatusCode().value());
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
+    }
+
     /******* VALIDATION *****/
     @Test
     void givenValidUserThenReturnRespectiveUser(){
@@ -225,6 +238,8 @@ public class UserControllerIntegrationTest {
             user1.setName("");
             userController.saveUser(user1);
         });
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
@@ -233,5 +248,7 @@ public class UserControllerIntegrationTest {
             user1.setPassword("12345");
             userController.saveUser(user1);
         });
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 }
