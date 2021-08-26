@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  numProductCart:number = 0;
+  message:string ="";
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
+    this.numProductCart = 5;
+  }
+  onClickPost(){
+    this.message ="Add a Product";
+    console.log(this.message);
+  }
+
+  onClickLogOut(){
+    this.router.navigate(['logout']);
   }
 
 }
