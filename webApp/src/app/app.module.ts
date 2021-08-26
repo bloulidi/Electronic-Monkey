@@ -20,15 +20,17 @@ import { RouterModule } from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     LoginComponent,
     SignupComponent,
     LogoutComponent,
-    DashboardComponent
-  ],
+    DashboardComponent,
+      CartComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,

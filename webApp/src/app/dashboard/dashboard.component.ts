@@ -24,4 +24,7 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['logout']);
   }
 
+  onClickCart(){
+    this.router.navigate(['cart']);
+  }
 }

@@ -34,7 +34,7 @@
 
     <div class="cartImg">
         <button mat-button >
-            <mat-icon svgIcon="cart_icon" matBadge={{numProductCart}} mat-raised-button matBadgeSize="medium" matBadgeColor="accent">
+            <mat-icon (click)="onClickCart()" svgIcon="cart_icon" matBadge={{numProductCart}} mat-raised-button matBadgeSize="medium" matBadgeColor="accent">
             </mat-icon>
         </button>
     </div>
