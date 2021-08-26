@@ -1,1 +1,74 @@
-<p>dashboard works!</p>
+<header>
+    <div class ="appName">
+         Electronic Monkey
+    </div>
+
+    <div class ="appImg">
+        <img src="../../assets/monkey.png">
+    </div>
+
+    <div class="phones" >
+        <a href=''> Phones </a>
+    </div>
+
+    <div class="computers">
+        <a href=''> Computers </a>
+    </div>
+
+    <div class="accessories">
+        <a href=''> Accessories </a>
+    </div>
+
+    <div class="profilImg">
+
+        <button  mat-button [matMenuTriggerFor]="menu">
+            <mat-icon svgIcon="profil_icon" ></mat-icon>
+        </button>
+        <mat-menu  #menu="matMenu">
+            <button mat-menu-item>My account </button>
+            <button mat-menu-item>Order History </button>
+            <button mat-menu-item (click)="onClickLogOut()">Log out </button>
+        </mat-menu>
+ 
+    </div>
+
+    <div class="cartImg">
+        <button mat-button >
+            <mat-icon svgIcon="cart_icon" matBadge={{numProductCart}} mat-raised-button matBadgeSize="medium" matBadgeColor="accent">
+            </mat-icon>
+        </button>
+    </div>
+
+    <div class="postBtn" >
+        <button type="button" (click)="onClickPost()" class = "postBtnText">
+             Post 
+        </button>
+    </div> 
+</header>
+
+
+<footer>
+    <div class= "separator">
+    </div>
+
+    <div >
+        <ul class="discovery"> Discovery 
+            <li> Most searched </li>
+            <li> Most selled </li>
+        </ul>
+
+        <ul class="about"> About
+            <li> Help </li>
+            <li> Shipping </li>
+        </ul>
+
+        <ul class="info"> Info 
+            <li> Contact us </li>
+            <li> Privacy Policies </li>
+        </ul>
+    </div>
+
+    <div class="appNameFooter">
+        Electronic Monkey
+    </div>
+</footer>
