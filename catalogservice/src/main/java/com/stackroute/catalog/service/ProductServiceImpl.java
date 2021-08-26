@@ -2,11 +2,13 @@ package com.stackroute.catalog.service;
 
 import com.stackroute.catalog.exception.ProductAlreadyExistsException;
 import com.stackroute.catalog.exception.ProductNotFoundException;
+import com.stackroute.catalog.model.Category;
 import com.stackroute.catalog.model.Product;
 import com.stackroute.catalog.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +23,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product saveProduct(Product product) throws ProductAlreadyExistsException {
+        if(product.getId() != null && !product.getId().isBlank()){
+            if(productRepository.existsById(product.getId())){
+                throw new ProductAlreadyExistsException();
+            }
+        }
         if(productRepository.existsByCode(product.getCode())){
             throw new ProductAlreadyExistsException();
         }

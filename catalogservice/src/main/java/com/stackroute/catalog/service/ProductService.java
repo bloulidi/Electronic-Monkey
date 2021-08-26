@@ -14,9 +14,9 @@ import java.util.List;
 @Validated
 public interface ProductService {
     Product saveProduct(@Valid Product product) throws ProductAlreadyExistsException;
-    Product getProductById(@NotNull(message = "ID cannot be empty.") String id) throws ProductNotFoundException;
+    Product getProductById(@NotBlank(message = "ID cannot be empty.") String id) throws ProductNotFoundException;
     Product getProductByCode(@NotBlank(message = "Code cannot be empty.") String code) throws ProductNotFoundException;
-    Product deleteProduct(@NotNull(message = "ID cannot be empty.") String id) throws ProductNotFoundException;
+    Product deleteProduct(@NotBlank(message = "ID cannot be empty.") String id) throws ProductNotFoundException;
     Product updateProduct(@Valid Product product) throws ProductNotFoundException;
     List<Product> getAllProducts();
 }

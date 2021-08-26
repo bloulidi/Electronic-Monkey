@@ -43,23 +43,29 @@ public class UserController {
     @ApiOperation("Login user.")
     public ResponseEntity<?> loginUser(@ApiParam("User login credentials.") @RequestBody User user) {
         ResponseEntity<?> responseEntity;
+        log.info("Login user.. username: " + user.getEmail() + " password: " + user.getPassword());
+        System.out.println("1");
         try {
             if (user.getEmail() == null || user.getPassword() == null) {
                 throw new UserNotFoundException("Cannot have empty email and password!");
             }
-            System.out.println("user: " + user.toString());
+            System.out.println("2");
             User userLogin = userService.getUserByEmailAndPassword(user.getEmail(), user.getPassword());
-            System.out.println("userLogin: " + userLogin.toString());
+            System.out.println("3");
             if (userLogin == null) {
+                System.out.println("4");
                 throw new UserNotFoundException();
             } else if (!(user.getPassword().equals(userLogin.getPassword()))) {
+                System.out.println("5");
                 throw new UserNotFoundException("Invalid email and/or password!");
             }
-
+            System.out.println("6");
             responseEntity = new ResponseEntity<>(jwtTokenGenerator.generateToken(userLogin), HttpStatus.OK);
         } catch (UserNotFoundException e) {
+            System.out.println("7");
             responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
+        System.out.println("8");
         return responseEntity;
     }
 

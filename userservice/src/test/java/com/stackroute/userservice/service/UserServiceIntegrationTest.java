@@ -146,6 +146,34 @@ public class UserServiceIntegrationTest {
     }
 
     @Test
+    void givenUserEmailAndPasswordThenShouldReturnRespectiveUser() throws UserNotFoundException {
+        User savedUser = userService.saveUser(user1);
+        userService.saveUser(user2);
+        userService.saveUser(user3);
+        User getUser = userService.getUserByEmailAndPassword(savedUser.getEmail(), savedUser.getPassword());
+        assertNotNull(getUser);
+        assertEquals(user1.getEmail(), getUser.getEmail());
+    }
+
+    @Test
+    void givenValidUserEmailAndInvalidPasswordThenShouldNotReturnRespectiveUser() throws UserNotFoundException {
+        User savedUser = userService.saveUser(user1);
+        userService.saveUser(user2);
+        userService.saveUser(user3);
+        user1.setPassword("sdfsdf");
+        Assertions.assertThrows(UserNotFoundException.class, () -> userService.getUserByEmailAndPassword(savedUser.getEmail(), user1.getPassword()));
+    }
+
+    @Test
+    void givenInvalidUserEmailAndValidPasswordThenShouldNotReturnRespectiveUser() throws UserNotFoundException {
+        User savedUser = userService.saveUser(user1);
+        userService.saveUser(user2);
+        userService.saveUser(user3);
+        user1.setEmail("sdfsdf@cfd.cd");
+        Assertions.assertThrows(UserNotFoundException.class, () -> userService.getUserByEmailAndPassword(user1.getEmail(), savedUser.getPassword()));
+    }
+
+    @Test
     void givenUserIdToDeleteThenShouldReturnDeletedUser() throws UserNotFoundException {
         User savedUser = userService.saveUser(user1);
         userService.saveUser(user2);

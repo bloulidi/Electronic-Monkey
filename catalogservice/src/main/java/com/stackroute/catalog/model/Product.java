@@ -1,18 +1,18 @@
 package com.stackroute.catalog.model;
 
+import com.stackroute.catalog.exception.CategoryConstraint;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
+
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
@@ -33,12 +33,13 @@ public class Product extends BaseModel {
     @ApiModelProperty(notes = "Description of the product", example = "i7-7700 CPU, GTX 1650", position = 3)
     private String description = "";
 
+    @CategoryConstraint
     @Indexed
-    @Field(targetType = FieldType.STRING)
     @ApiModelProperty(notes = "Category of the product", example = "Computers", required = true, position = 4)
-    private Category category;
+    private String category;
 
-    @NotNull(message = "Price cannot be null.")
+    @Digits(integer = 9, fraction = 2, message = "Please provide a number with a maximum of only 2 decimal places and 9 integer digits")
+    @Min(0) @Max(999999999)
     @ApiModelProperty(notes = "Price of the product", example = "19.99", required = true, position = 5)
-    private double price;
+    private float price;
 }

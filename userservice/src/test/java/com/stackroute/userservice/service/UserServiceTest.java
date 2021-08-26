@@ -46,7 +46,8 @@ public class UserServiceTest {
 
     @AfterEach
     public void tearDown() {
-        user = null;
+        user = user1 = user2 = null;
+        optional = null;
     }
 
     @Test
@@ -84,7 +85,7 @@ public class UserServiceTest {
     public void givenGetAllUsersByNameThenShouldReturnListOfAllRespectiveUsers() {
         userList.add(user1);
         userList.add(user2);
-        when(userRepository.findByName(any())).thenReturn(userList);
+        when(userRepository.findByName(anyString())).thenReturn(userList);
         assertEquals(userList, userService.getUsersByName(user1.getName()));
         verify(userRepository, times(1)).findByName(anyString());
     }
@@ -107,14 +108,14 @@ public class UserServiceTest {
 
     @Test
     void givenUserIdThenShouldNotReturnRespectiveUser() throws UserNotFoundException {
-        when(userRepository.findById(any())).thenThrow(UserNotFoundException.class);
+        when(userRepository.findById(anyInt())).thenThrow(UserNotFoundException.class);
         Assertions.assertThrows(UserNotFoundException.class, () -> userService.getUserById(user.getId()));
         verify(userRepository, times(1)).findById(anyInt());
     }
 
     @Test
     public void givenUserEmailThenShouldReturnRespectiveUser() throws UserNotFoundException {
-        when(userRepository.findByEmail(any())).thenReturn(user);
+        when(userRepository.findByEmail(anyString())).thenReturn(user);
         assertEquals(user, userService.getUserByEmail(user.getEmail()));
         verify(userRepository, times(1)).findByEmail(anyString());
     }
@@ -127,10 +128,24 @@ public class UserServiceTest {
     }
 
     @Test
+    void givenInValidUserEmailThenShouldNotReturnRespectiveUser() throws UserNotFoundException {
+        when(userRepository.findByEmailAndPassword(anyString(), anyString())).thenThrow(UserNotFoundException.class);
+        Assertions.assertThrows(UserNotFoundException.class, () -> userService.getUserByEmailAndPassword(user.getEmail(), user.getPassword()));
+        verify(userRepository, times(1)).findByEmailAndPassword(anyString(), anyString());
+    }
+
+    @Test
+    void givenValidUserEmailThenShouldNotReturnRespectiveUser() throws UserNotFoundException {
+        when(userRepository.findByEmailAndPassword(anyString(), anyString())).thenReturn(user);
+        assertEquals(user, userService.getUserByEmailAndPassword(user.getEmail(), user.getPassword()));
+        verify(userRepository, times(1)).findByEmailAndPassword(anyString(), anyString());
+    }
+
+    @Test
     void givenUserIdToDeleteThenShouldReturnDeletedUser() throws UserNotFoundException {
         when(userRepository.findById(user.getId())).thenReturn(optional);
         User deletedUser = userService.deleteUser(user.getId());
-        assertEquals(1, deletedUser.getId());
+        assertEquals(user.getId(), deletedUser.getId());
 
         verify(userRepository, times(1)).findById(anyInt());
         verify(userRepository, times(1)).deleteById(anyInt());
