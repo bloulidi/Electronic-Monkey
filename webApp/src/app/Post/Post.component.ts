@@ -36,7 +36,7 @@ export class PostComponent implements OnInit {
   }
 
   submit() {
-    if (this.form.value.title === '' || this.form.value.category === '' || this.form.value.description === '' || this.form.value.price === '') {
+    if (this.form.value.title === '' || this.form.value.category === '' || this.form.value.price === '') {
       this.message = 'Fields should not be empty!!! Please verify details.';
     }
     else {

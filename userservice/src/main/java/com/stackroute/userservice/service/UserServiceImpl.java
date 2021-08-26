@@ -84,9 +84,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User updateUser(User user) throws UserNotFoundException {
+    public User updateUser(User user) throws UserNotFoundException, UserAlreadyExistsException {
         if(!userRepository.existsById(user.getId())){
-            throw new UserNotFoundException();
+            throw new UserAlreadyExistsException();
+        }
+        if(getUserByEmail(user.getEmail()) != null){
+            throw new UserAlreadyExistsException();
         }
         return (User) userRepository.save(user);
     }
