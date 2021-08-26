@@ -13,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -31,9 +34,8 @@ public class ProductController {
 
     @PostMapping("/products")
     @ApiOperation("Creates a new product.")
-    public ResponseEntity<Product> saveProduct(@ApiParam("Product information for a new product to be created. 409 if already exists.") @RequestBody Product product) throws ProductAlreadyExistsException {
-        log.info("Create a new product: " + product.toString());
-        return new ResponseEntity<Product>(productService.saveProduct(product), HttpStatus.CREATED);
+    public ResponseEntity<Product> saveProduct(@ApiParam("Product information for a new product to be created. 409 if already exists.") @RequestBody MultipartFile file, @RequestBody Product product) throws ProductAlreadyExistsException, IOException {
+        return new ResponseEntity<Product>(productService.saveProduct(product, file), HttpStatus.CREATED);
     }
 
     @GetMapping("/products")

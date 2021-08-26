@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -41,4 +42,8 @@ public class Product extends BaseModel {
     @NotNull(message = "Price cannot be null.")
     @ApiModelProperty(notes = "Price of the product", example = "19.99", required = true, position = 5)
     private double price;
+
+    @NotNull(message = "image cannot be empty")
+    @ApiModelProperty(notes = "Image of the product", example = "img.png", required = true, position = 6)
+    private Binary image;
 }

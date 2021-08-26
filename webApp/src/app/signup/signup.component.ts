@@ -23,7 +23,6 @@ export class SignupComponent implements OnInit {
     this.user = new User;
   }
 
-  //TODO: Fix the Validation in the UI......
   ngOnInit() {
     this.form = this.fb.group({
       fullName: ['', Validators.required],

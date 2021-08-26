@@ -4,9 +4,17 @@ import com.stackroute.catalog.exception.ProductAlreadyExistsException;
 import com.stackroute.catalog.exception.ProductNotFoundException;
 import com.stackroute.catalog.model.Product;
 import com.stackroute.catalog.repository.ProductRepository;
+import org.apache.commons.io.IOUtils;
+import org.bson.BsonBinarySubType;
+import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.mock.web.MockMultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +28,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product saveProduct(Product product) throws ProductAlreadyExistsException {
+    public Product saveProduct(Product product, MultipartFile file) throws ProductAlreadyExistsException, IOException {
         if(productRepository.existsByCode(product.getCode())){
             throw new ProductAlreadyExistsException();
         }
-        return (Product) productRepository.save(product);
+        product.setImage(new Binary(BsonBinarySubType.BINARY, file.getBytes()));
+        return (Product) productRepository.insert(product);
     }
 
     @Override
