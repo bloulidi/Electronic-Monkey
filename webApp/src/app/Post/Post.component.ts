@@ -45,10 +45,13 @@ export class PostComponent implements OnInit {
       this.product.description = this.form.get("description").value
       this.product.price = this.form.get("price").value
       this.postProductService.saveProduct(this.product).subscribe({
-        next: res => this.router.navigate(['/']),
+        next: res => {
+          this.message = "The post was added successfully!"
+          setTimeout(() => this.cancel(), 1000);
+        },
         error: error => {
           this.message = "Failed to add product!";
-          console.log(error.message);
+          console.log(error);
         }
       });
     }

@@ -56,7 +56,7 @@ export class SignupComponent implements OnInit {
         next: res => this.router.navigate(['login']),
         error: error => {
           this.message = "This email already exists.";
-          console.log(error.message);
+          console.log(error);
         }
       });
     }
