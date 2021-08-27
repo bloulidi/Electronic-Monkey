@@ -32,7 +32,6 @@ export class CartComponent implements OnInit {
   handleMinus(product) {
     if(product.quantity == 0){
       product.quantity = 0;
-      product.total = "$0";
     }
     else{
       product.quantity--;
