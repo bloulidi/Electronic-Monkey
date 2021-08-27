@@ -17,12 +17,12 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @Document(collection = "products")
 @ApiModel(description = "Class representing a product tracked by the application.")
-public class Product extends BaseModel {
+public class Product extends BaseModel{
 
-    @NotBlank(message = "Code cannot be empty.")
+    /*@NotBlank(message = "Code cannot be empty.")
     @Indexed(unique = true)
     @ApiModelProperty(notes = "Code of the product", example = "38MT7H2", required = true, position = 1)
-    private String code;
+    private String code;*/
 
     @NotBlank(message = "Title cannot be empty.")
     @ApiModelProperty(notes = "Title of the product", example = "DELL Laptop", required = true, position = 2)
@@ -41,7 +41,7 @@ public class Product extends BaseModel {
     @ApiModelProperty(notes = "Price of the product", example = "19.99", required = true, position = 5)
     private float price;
 
-    @NotNull(message = "Image cannot be null")
+    /*@NotNull(message = "Image cannot be null")
     @ApiModelProperty(notes = "Image of the product", example = "img.png", required = true, position = 6)
-    private Binary image;
+    private Binary image;*/
 }

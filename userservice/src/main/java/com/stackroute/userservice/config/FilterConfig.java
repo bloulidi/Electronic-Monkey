@@ -1,6 +1,5 @@
-package com.stackroute.apigateway.config;
+package com.stackroute.userservice.config;
 
-import com.stackroute.apigateway.filter.JwtFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +11,7 @@ public class FilterConfig {
     public FilterRegistrationBean jwtFilter() {
         FilterRegistrationBean filter = new FilterRegistrationBean();
         filter.setFilter(new JwtFilter());
-        filter.addUrlPatterns("/api/v1/*");
+        filter.addUrlPatterns("/authenticate/**");
         return filter;
     }
 }

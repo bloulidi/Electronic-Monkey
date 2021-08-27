@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
         error: error => {
           this.isLoggedIn = false;
           this.message = error.error;
-          console.error('There was an error!', error);
+          console.error('Failed to login!', error);
         }
       });;
     }

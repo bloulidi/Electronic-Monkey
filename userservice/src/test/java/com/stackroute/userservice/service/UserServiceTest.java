@@ -47,6 +47,7 @@ public class UserServiceTest {
     @AfterEach
     public void tearDown() {
         user = user1 = user2 = null;
+        userList = null;
         optional = null;
     }
 
@@ -159,18 +160,21 @@ public class UserServiceTest {
     }
 
     @Test
-    public void givenUserToUpdateThenShouldReturnUpdatedUser() {
+    public void givenUserToUpdateThenShouldReturnUpdatedUser() throws UserNotFoundException, UserAlreadyExistsException{
         when(userRepository.save(any())).thenReturn(user);
         when(userRepository.existsById(user.getId())).thenReturn(true);
+        when(userRepository.findById(anyInt())).thenReturn(optional);
+        assertEquals(user, userService.getUserById(user.getId()));
         user.setPassword(user1.getPassword());
         User updatedUser = userService.updateUser(user);
         assertEquals(updatedUser.getPassword(), user1.getPassword());
+        verify(userRepository, times(2)).findById(anyInt());
         verify(userRepository, times(1)).save(any());
         verify(userRepository, times(1)).existsById(anyInt());
     }
 
     @Test
-    public void givenUserToUpdateThenShouldNotReturnUpdatedUser() throws UserNotFoundException {
+    public void givenUserToUpdateThenShouldNotReturnUpdatedUser() throws UserNotFoundException, UserAlreadyExistsException {
         when(userRepository.existsById(user.getId())).thenReturn(false);
         Assertions.assertThrows(UserNotFoundException.class, () -> userService.updateUser(user));
         verify(userRepository, times(1)).existsById(anyInt());

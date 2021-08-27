@@ -18,7 +18,7 @@ public interface UserService {
                                    @NotBlank(message = "Password cannot be empty")
                                    @Size(min = 6, message = "Password must consist of at least 6 characters.") String password) throws UserNotFoundException;
     User deleteUser(@Min(1) int id) throws UserNotFoundException;
-    User updateUser(@Valid User user) throws UserNotFoundException;
+    User updateUser(@Valid User user) throws UserNotFoundException, UserAlreadyExistsException;
     List<User> getAllUsers();
     List<User> getUsersByName(@NotBlank(message = "Name cannot be empty") String name);
     List<User> getUsersByAdmin(boolean admin);

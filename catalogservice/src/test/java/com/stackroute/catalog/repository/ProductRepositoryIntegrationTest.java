@@ -24,17 +24,19 @@ public class ProductRepositoryIntegrationTest {
 
     private Product product1, product2, product3;
     private List<Product> productList;
-    private List<String> productsCode, savedProductsCode;
+    //private List<String> productsCode, savedProductsCode;
 
     @BeforeEach
     void setUp() {
-        product1 = new Product("1AB", "Dell Laptop", "Good computer", Category.COMPUTERS.getCategory(), 800.5F);
+        product1 = new Product("Dell Laptop", "Good computer", Category.COMPUTERS.getCategory(), 800.5F);
         product1.setId("1");
-        product2 = new Product("2AB", "Apple iPhone 12", "Good phone", Category.PHONES.getCategory(), 1000.99F);
-        product3 = new Product("3AB", "Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20);
+        product2 = new Product("Apple iPhone 12", "Good phone", Category.PHONES.getCategory(), 1000.99F);
+        product2.setId("2");
+        product3 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20);
+        product3.setId("3");
         productList = new ArrayList<Product>();
-        savedProductsCode = new ArrayList<>();
-        productsCode = new ArrayList<>();
+        //savedProductsCode = new ArrayList<>();
+        //productsCode = new ArrayList<>();
     }
 
     @AfterEach
@@ -42,14 +44,14 @@ public class ProductRepositoryIntegrationTest {
         productRepository.deleteAll();
         product1 = product2 = product3 = null;
         productList = null;
-        productsCode = savedProductsCode = null;
+        //productsCode = savedProductsCode = null;
     }
 
     @Test
     public void givenProductToSaveThenShouldReturnSavedProduct() throws ProductAlreadyExistsException {
         Product savedProduct = productRepository.save(product1);
         assertNotNull(savedProduct);
-        assertEquals(product1.getCode(), savedProduct.getCode());
+        assertEquals(product1.getId(), savedProduct.getId());
     }
 
     @Test
@@ -61,10 +63,10 @@ public class ProductRepositoryIntegrationTest {
         productRepository.save(product2);
         productRepository.save(product3);
         List<Product> products = (List<Product>) productRepository.findAll();
-        for (Product product : productList) { productsCode.add(product.getCode()); }
-        for (Product product : products) { savedProductsCode.add(product.getCode()); }
+        //for (Product product : productList) { productsCode.add(product.getCode()); }
+        //for (Product product : products) { savedProductsCode.add(product.getCode()); }
         assertNotNull(products);
-        assertEquals(productsCode, savedProductsCode);
+        assertEquals(productList, products);
     }
 
     @Test
@@ -74,10 +76,10 @@ public class ProductRepositoryIntegrationTest {
         productRepository.save(product3);
         Product getProduct = productRepository.findById(savedProduct.getId()).get();
         assertNotNull(getProduct);
-        assertEquals(product1.getCode(), getProduct.getCode());
+        assertEquals(product1.getId(), getProduct.getId());
     }
 
-    @Test
+    /*@Test
     public void givenProductCodeThenShouldReturnRespectiveProduct() throws ProductNotFoundException {
         Product savedProduct = productRepository.save(product1);
         productRepository.save(product2);
@@ -85,7 +87,7 @@ public class ProductRepositoryIntegrationTest {
         Product getProduct = productRepository.findByCode(savedProduct.getCode());
         assertNotNull(getProduct);
         assertEquals(product1.getCode(), getProduct.getCode());
-    }
+    }*/
 
     @Test
     void givenProductIdToDeleteThenShouldReturnDeletedProduct() throws ProductNotFoundException {
@@ -96,17 +98,17 @@ public class ProductRepositoryIntegrationTest {
         productList.add(product2);
         productList.add(product3);
         List<Product> products = (List<Product>)productRepository.findAll();
-        for (Product product : productList) { productsCode.add(product.getCode()); }
-        for (Product product : products) { savedProductsCode.add(product.getCode()); }
+        //for (Product product : productList) { productsCode.add(product.getCode()); }
+        //for (Product product : products) { savedProductsCode.add(product.getCode()); }
         assertNotNull(products);
-        assertEquals(productsCode, savedProductsCode);
+        assertEquals(productList, products);
     }
 
     @Test
     public void givenProductToUpdateThenShouldReturnUpdatedProduct() {
         Product savedProduct = productRepository.save(product1);
         assertNotNull(savedProduct);
-        assertEquals(product1.getCode(), savedProduct.getCode());;
+        assertEquals(product1.getId(), savedProduct.getId());;
         savedProduct.setPrice(product2.getPrice());
         assertEquals(true, productRepository.existsById(savedProduct.getId()));
         Product updatedProduct = productRepository.save(savedProduct);

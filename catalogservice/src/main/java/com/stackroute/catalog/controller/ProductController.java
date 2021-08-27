@@ -34,9 +34,15 @@ public class ProductController {
 
     @PostMapping
     @ApiOperation("Creates a new product.")
+    public ResponseEntity<Product> saveProduct(@ApiParam("Product information for a new product to be created. 409 if already exists.") @RequestBody Product product) throws ProductAlreadyExistsException {
+        return new ResponseEntity<Product>(productService.saveProduct(product), HttpStatus.CREATED);
+    }
+
+    /*@PostMapping
+    @ApiOperation("Creates a new product.")
     public ResponseEntity<Product> saveProduct(@ApiParam("Product information for a new product to be created. 409 if already exists.") @RequestBody MultipartFile file, @RequestBody Product product) throws ProductAlreadyExistsException, IOException {
         return new ResponseEntity<Product>(productService.saveProduct(product, file), HttpStatus.CREATED);
-    }
+    }*/
 
     @GetMapping
     @ApiOperation("Returns list of all products in the system.")
@@ -52,12 +58,12 @@ public class ProductController {
         return new ResponseEntity<Product>(productService.getProductById(id), HttpStatus.OK);
     }
 
-    @GetMapping("code/{code}")
+    /*@GetMapping("code/{code}")
     @ApiOperation("Returns a specific product by their code. 404 if does not exist.")
     public ResponseEntity<Product> getProductByCode(@ApiParam("Code of the product to be obtained. Cannot be empty.") @PathVariable String code) throws ProductNotFoundException {
         log.info("Return product with code = " + code);
         return new ResponseEntity<Product>(productService.getProductByCode(code), HttpStatus.OK);
-    }
+    }*/
 
     @DeleteMapping("{id}")
     @ApiOperation("Deletes a product from the system. 404 if the person's identifier is not found.")

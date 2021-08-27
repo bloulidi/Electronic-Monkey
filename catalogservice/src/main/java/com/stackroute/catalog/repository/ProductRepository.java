@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends MongoRepository<Product, String> {
-    boolean existsByCode(String code);
-    Product findByCode(String code);
+    //boolean existsByCode(String code);
+    //Product findByCode(String code);
 }

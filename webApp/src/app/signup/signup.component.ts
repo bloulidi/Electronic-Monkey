@@ -53,14 +53,12 @@ export class SignupComponent implements OnInit {
       this.user.email = this.form.get('email').value
       this.user.password = this.form.get('password').value
       this.userService.saveUser(this.user).subscribe({
-        next: res => this.router.navigate(['/login']),
+        next: res => this.router.navigate(['login']),
         error: error => {
           this.message = "This email already exists.";
           console.log(error.message);
         }
-      }
-      );
+      });
     }
   }
-
 }

@@ -38,17 +38,21 @@ public class ProductServiceTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        productList = new ArrayList<Product>();
-        product = new Product("1AB", "Dell Laptop", "Good computer", Category.COMPUTERS.getCategory(), 800.5F);
+        product = new Product("Dell Laptop", "Good computer", Category.COMPUTERS.getCategory(), 800.5F);
         product.setId("1");
-        product1 = new Product("2AB", "Apple iPhone 12", "Good phone", Category.PHONES.getCategory(), 1000.99F);
-        product2 = new Product("3AB", "Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20);
+        product1 = new Product("Apple iPhone 12", "Good phone", Category.PHONES.getCategory(), 1000.99F);
+        product1.setId("2");
+        product2 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20);
+        product2.setId("3");
+        productList = new ArrayList<Product>();
         optional = Optional.of(product);
     }
 
     @AfterEach
     public void tearDown() {
-        product = null;
+        product = product1 = product2 = null;
+        productList = null;
+        optional = null;
     }
 
     @Test
@@ -65,14 +69,14 @@ public class ProductServiceTest {
         verify(productRepository, times(1)).existsById(anyString());
     }
 
-    @Test
+    /*@Test
     public void givenProductWithDuplicateCodeToSaveThenShouldNotReturnSavedProduct() throws ProductAlreadyExistsException {
         when(productRepository.existsById(product.getId())).thenReturn(false);
         when(productRepository.existsByCode(product.getCode())).thenReturn(true);
         Assertions.assertThrows(ProductAlreadyExistsException.class, () -> productService.saveProduct(product));
         verify(productRepository, times(1)).existsById(anyString());
         verify(productRepository, times(1)).existsByCode(anyString());
-    }
+    }*/
 
     @Test
     public void givenGetAllProductsThenShouldReturnListOfAllProducts() {
@@ -96,7 +100,7 @@ public class ProductServiceTest {
         verify(productRepository, times(1)).findById(anyString());
     }
 
-    @Test
+    /*@Test
     public void givenProductCodeThenShouldReturnRespectiveProduct() throws ProductNotFoundException {
         when(productRepository.findByCode(any())).thenReturn(product);
         assertEquals(product, productService.getProductByCode(product.getCode()));
@@ -108,7 +112,7 @@ public class ProductServiceTest {
         when(productRepository.findByCode(any())).thenThrow(ProductNotFoundException.class);
         Assertions.assertThrows(ProductNotFoundException.class, () -> productService.getProductByCode(product.getCode()));
         verify(productRepository, times(1)).findByCode(anyString());
-    }
+    }*/
 
     @Test
     void givenProductIdToDeleteThenShouldReturnDeletedProduct() throws ProductNotFoundException {
@@ -127,12 +131,15 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void givenProductToUpdateThenShouldReturnUpdatedProduct() {
+    public void givenProductToUpdateThenShouldReturnUpdatedProduct() throws ProductAlreadyExistsException, ProductNotFoundException {
         when(productRepository.save(any())).thenReturn(product);
         when(productRepository.existsById(product.getId())).thenReturn(true);
+        when(productRepository.findById(anyString())).thenReturn(Optional.of(product));
+        assertEquals(product, productService.getProductById(product.getId()));
         product.setPrice(product1.getPrice());
         Product updatedProduct = productService.updateProduct(product);
         assertEquals(updatedProduct.getPrice(), product1.getPrice());
+        verify(productRepository, times(1)).findById(anyString());
         verify(productRepository, times(1)).save(any());
         verify(productRepository, times(1)).existsById(anyString());
     }

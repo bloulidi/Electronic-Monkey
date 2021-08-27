@@ -36,14 +36,20 @@ public class ProductServiceImpl implements ProductService {
                 throw new ProductAlreadyExistsException();
             }
         }
-    @Override
+        /*if(productRepository.existsByCode(product.getCode())){
+            throw new ProductAlreadyExistsException();
+        }*/
+        return (Product) productRepository.save(product);
+    }
+
+    /*@Override
     public Product saveProduct(Product product, MultipartFile file) throws ProductAlreadyExistsException, IOException {
         if(productRepository.existsByCode(product.getCode())){
             throw new ProductAlreadyExistsException();
         }
         product.setImage(new Binary(BsonBinarySubType.BINARY, file.getBytes()));
         return (Product) productRepository.insert(product);
-    }
+    }*/
 
     @Override
     public Product getProductById(String id) throws ProductNotFoundException {
@@ -57,14 +63,14 @@ public class ProductServiceImpl implements ProductService {
         return product;
     }
 
-    @Override
+    /*@Override
     public Product getProductByCode(String code) throws ProductNotFoundException {
         Product product = productRepository.findByCode(code);
         if(product == null){
             throw new ProductNotFoundException();
         }
         return product;
-    }
+    }*/
 
     @Override
     public Product deleteProduct(String id) throws ProductNotFoundException {
@@ -78,10 +84,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Product product) throws ProductNotFoundException {
+    public Product updateProduct(Product product) throws ProductNotFoundException, ProductAlreadyExistsException {
         if(!productRepository.existsById(product.getId())){
             throw new ProductNotFoundException();
         }
+        /*Product getProduct = getProductById(product.getId());
+        if(!getProduct.getCode().equals(product.getCode())){
+            if(productRepository.existsByCode(product.getCode())){
+                throw new ProductAlreadyExistsException();
+            }
+        }*/
         return (Product) productRepository.save(product);
     }
 
