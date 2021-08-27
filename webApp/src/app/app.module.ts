@@ -21,6 +21,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CartComponent } from './cart/cart.component';
+import {MatDividerModule} from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table'
 
 @NgModule({
   declarations: [	
@@ -29,7 +32,7 @@ import { CartComponent } from './cart/cart.component';
     SignupComponent,
     LogoutComponent,
     DashboardComponent,
-      CartComponent
+    CartComponent
    ],
   imports: [
     BrowserModule,
@@ -48,7 +51,10 @@ import { CartComponent } from './cart/cart.component';
     FormsModule,
     MatIconModule,
     MatMenuModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatDividerModule,
+    MatListModule,
+    MatTableModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent]
