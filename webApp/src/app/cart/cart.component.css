@@ -16,6 +16,8 @@ img{
     font-style: normal;
     font-weight: normal;
     font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
 }
 .title{
     font-family: 'Poppins', sans-serif;
@@ -67,3 +69,42 @@ input {
     border: none;
     font-size: 15px;
   }
+  .checkoutBtnText{
+    cursor: pointer;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    color: #FFFFFF;
+    background: #56B280;
+    border: none;
+}
+.checkoutBtn{
+    cursor: pointer;
+    position: relative;
+    width: 183px;
+    float: right;
+    margin-top: 50px;
+    margin-right: 100px;
+    background: #56B280;
+    border-radius: 4px;
+    text-align: center;
+    padding: 0.5em 0.5em;
+}
+.sub-total{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+}
+.sub-total-text{
+    margin-top: 50px;
+    float: right;
+    padding-right: 75px;
+}
+.sub-total-price{
+    float: right;
+    padding-right: 45px;
+    margin-top: 50px;
+}

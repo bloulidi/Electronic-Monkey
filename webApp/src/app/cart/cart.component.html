@@ -7,9 +7,9 @@
 
     <ng-container matColumnDef="title">
         <th class="text-cart" mat-header-cell *matHeaderCellDef> </th>
-        <td mat-cell *matCellDef="let product">
+        <td mat-cell *matCellDef="let product;">
              <div class="title">{{product.title}}</div>
-             <a class="remove-button" href="">Remove</a>
+             <a class="remove-button" (click)="remove(product)" href="/cart"> Remove </a>
         </td>
     </ng-container>
 
@@ -37,3 +37,13 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+  <div class="sub-total">
+    <div class="checkoutBtn" >
+        <button type="button" class = "checkoutBtnText" (click)="onCheckout()">
+                Checkout 
+        </button>
+    </div> 
+    <div class="sub-total-text">$9.99</div>
+    <div class="sub-total-price">Sub-total</div>
+  </div>
