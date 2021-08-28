@@ -1,13 +1,12 @@
-package com.stackroute.inventoryservice;
+package com.stackroute.orderservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class InventoryApplication {
+public class OrderApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(InventoryApplication.class, args);
+        SpringApplication.run(OrderApplication.class, args);
     }
-
 }
