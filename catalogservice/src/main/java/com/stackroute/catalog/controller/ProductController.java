@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,9 +35,9 @@ public class ProductController {
 
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
     @ApiOperation("Creates a new product with an image.")
-    public ResponseEntity<Product> saveProductWithImage(@ApiParam("Product information for a new product to be created. 409 if already exists.") @RequestPart("product") String product, @ApiParam("Image information for a new product to be created.") @RequestPart("image") MultipartFile image) throws ProductAlreadyExistsException, IOException{
+    public ResponseEntity<Product> saveProduct(@ApiParam("Product information for a new product to be created. 409 if already exists.") @RequestPart("product") String product, @ApiParam("Image information for a new product to be created.") @RequestPart("image") MultipartFile image) throws ProductAlreadyExistsException, IOException{
         log.info("Create a new product with image=" + image.getOriginalFilename() + ": " + product);
-        return new ResponseEntity<Product>(productService.saveProductWithImage(product, image), HttpStatus.CREATED);
+        return new ResponseEntity<Product>(productService.saveProduct(product, image), HttpStatus.CREATED);
     }
 
     @PostMapping("noimage")

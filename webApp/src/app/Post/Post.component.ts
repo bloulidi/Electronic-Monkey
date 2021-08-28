@@ -58,7 +58,7 @@ export class PostComponent implements OnInit {
       this.product.description = this.form.get("description").value
       this.product.price = this.form.get("price").value
       this.product.photo.title = this.fileToUpload.name
-      this.postProductService.saveProductWithImage(this.product, this.fileToUpload).subscribe({
+      this.postProductService.saveProduct(this.product, this.fileToUpload).subscribe({
         next: (res: any) => {
           this.message = "Post added successfully!"
           setTimeout(() => this.cancel(), 1000);

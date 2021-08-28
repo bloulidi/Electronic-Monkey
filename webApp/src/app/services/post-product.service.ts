@@ -18,7 +18,7 @@ export class PostProductService {
 
   localhost = baseUrl + 'catalog/api/v1/products';
 
-  saveProductWithImage(product: Product, fileToUpload: File)  {
+  saveProduct(product: Product, fileToUpload: File)  {
     const formData: FormData = new FormData();
     const productBlob = new Blob([JSON.stringify(product)],{ type: "application/json"})
     formData.append('product', productBlob);

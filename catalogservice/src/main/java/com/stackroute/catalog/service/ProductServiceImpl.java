@@ -3,23 +3,16 @@ package com.stackroute.catalog.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.catalog.exception.ProductAlreadyExistsException;
 import com.stackroute.catalog.exception.ProductNotFoundException;
-import com.stackroute.catalog.model.Category;
 import com.stackroute.catalog.model.Photo;
 import com.stackroute.catalog.model.Product;
 import com.stackroute.catalog.repository.ProductRepository;
-import org.apache.commons.io.IOUtils;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.mock.web.MockMultipartFile;
 
-import javax.validation.ConstraintViolationException;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product saveProductWithImage(String product, MultipartFile image) throws ProductAlreadyExistsException, IOException {
+    public Product saveProduct(String product, MultipartFile image) throws ProductAlreadyExistsException, IOException {
         Product productJson = new Product();
         try {
             ObjectMapper objectMapper = new ObjectMapper();

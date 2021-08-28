@@ -3,7 +3,6 @@ package com.stackroute.catalog.service;
 import com.stackroute.catalog.exception.ProductAlreadyExistsException;
 import com.stackroute.catalog.exception.ProductNotFoundException;
 import com.stackroute.catalog.model.Category;
-import com.stackroute.catalog.model.Photo;
 import com.stackroute.catalog.model.Product;
 import com.stackroute.catalog.repository.ProductRepository;
 import org.junit.jupiter.api.AfterEach;

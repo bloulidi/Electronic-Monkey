@@ -7,17 +7,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 @Validated
 public interface ProductService {
     Product saveProduct(@Valid Product product) throws ProductAlreadyExistsException;
-    Product saveProductWithImage(@NotBlank(message = "Product cannot be empty") String product, @NotNull(message = "Image cannot be null") MultipartFile image) throws ProductAlreadyExistsException, IOException;
+    Product saveProduct(@NotBlank(message = "Product cannot be empty") String product, @NotNull(message = "Image cannot be null") MultipartFile image) throws ProductAlreadyExistsException, IOException;
     Product getProductById(@NotBlank(message = "ID cannot be empty.") String id) throws ProductNotFoundException;
     Product deleteProduct(@NotBlank(message = "ID cannot be empty.") String id) throws ProductNotFoundException;
     Product updateProduct(@Valid Product product) throws ProductAlreadyExistsException, ProductNotFoundException;

@@ -5,7 +5,6 @@ import com.stackroute.catalog.exception.ProductNotFoundException;
 import com.stackroute.catalog.model.Category;
 import com.stackroute.catalog.model.Product;
 import com.stackroute.catalog.repository.ProductRepository;
-import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,9 +60,9 @@ public class ProductControllerIntegrationTest {
 
     @Test
     public void givenProductToSaveThenShouldReturnSavedProduct() throws ProductAlreadyExistsException, IOException {
-        JSONObject savedProduct = new JSONObject(productController.saveProduct(product1).getBody());
+        Product savedProduct = productController.saveProduct(product1).getBody();
         assertNotNull(savedProduct);
-        assertEquals(product1.getId(), savedProduct.getString("id"));
+        assertEquals(product1.getId(), savedProduct.getId());
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
