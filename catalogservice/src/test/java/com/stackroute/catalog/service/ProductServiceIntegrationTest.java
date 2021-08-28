@@ -3,6 +3,7 @@ package com.stackroute.catalog.service;
 import com.stackroute.catalog.exception.ProductAlreadyExistsException;
 import com.stackroute.catalog.exception.ProductNotFoundException;
 import com.stackroute.catalog.model.Category;
+import com.stackroute.catalog.model.Photo;
 import com.stackroute.catalog.model.Product;
 import com.stackroute.catalog.repository.ProductRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -30,7 +31,6 @@ public class ProductServiceIntegrationTest {
 
     private Product product1, product2, product3;
     private List<Product> productList;
-    //private List<String> productsCode, savedProductsCode;
 
     @BeforeEach
     void setUp() {
@@ -41,8 +41,6 @@ public class ProductServiceIntegrationTest {
         product3 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20);
         product3.setId("3");
         productList = new ArrayList<Product>();
-        //savedProductsCode = new ArrayList<>();
-        //productsCode = new ArrayList<>();
     }
 
     @AfterEach
@@ -50,7 +48,6 @@ public class ProductServiceIntegrationTest {
         productRepository.deleteAll();
         product1 = product2 = product3 = null;
         productList = null;
-        //productsCode = savedProductsCode = null;
     }
 
     @Test
@@ -74,14 +71,6 @@ public class ProductServiceIntegrationTest {
         Assertions.assertThrows(ProductAlreadyExistsException.class, () -> productService.saveProduct(product2));
     }
 
-    /*@Test
-    public void givenProductWithDuplicateCodeToSaveThenShouldNotReturnSavedProduct() throws ProductAlreadyExistsException {
-        Product savedProduct = productService.saveProduct(product1);
-        assertNotNull(savedProduct);
-        product2.setCode(product1.getCode());
-        Assertions.assertThrows(ProductAlreadyExistsException.class, () -> productService.saveProduct(product2));
-    }*/
-
     @Test
     public void givenGetAllProductsThenShouldReturnListOfAllProducts() throws ProductAlreadyExistsException {
         productList.add(product1);
@@ -91,8 +80,6 @@ public class ProductServiceIntegrationTest {
         productService.saveProduct(product2);
         productService.saveProduct(product3);
         List<Product> products = productService.getAllProducts();
-        //for (Product product : productList) { productsCode.add(product.getCode()); }
-        //for (Product product : products) { savedProductsCode.add(product.getCode()); }
         assertNotNull(products);
         assertEquals(productList, products);
     }
@@ -111,21 +98,6 @@ public class ProductServiceIntegrationTest {
     void givenProductIdThenShouldNotReturnRespectiveProduct() throws ProductNotFoundException {
         Assertions.assertThrows(ProductNotFoundException.class, () -> productService.getProductById(product1.getId()));
     }
-
-    /*@Test
-    public void givenProductCodeThenShouldReturnRespectiveProduct() throws ProductAlreadyExistsException, ProductNotFoundException {
-        Product savedProduct = productService.saveProduct(product1);
-        productService.saveProduct(product2);
-        productService.saveProduct(product3);
-        Product getProduct = productService.getProductByCode(savedProduct.getCode());
-        assertNotNull(getProduct);
-        assertEquals(product1.getCode(), getProduct.getCode());
-    }
-
-    @Test
-    void givenProductCodeThenShouldNotReturnRespectiveProduct() throws ProductNotFoundException {
-        Assertions.assertThrows(ProductNotFoundException.class, () -> productService.getProductByCode(product1.getCode()));
-    }*/
 
     @Test
     void givenProductIdToDeleteThenShouldReturnDeletedProduct() throws ProductAlreadyExistsException, ProductNotFoundException {
@@ -152,16 +124,6 @@ public class ProductServiceIntegrationTest {
         assertNotNull(savedProduct);
         assertEquals(savedProduct, updatedProduct);
     }
-
-    /*@Test
-    public void givenProductToUpdateWithAlreadyExistingCodeThenShouldNotReturnUpdatedProduct() throws ProductNotFoundException, ProductAlreadyExistsException {
-        Product savedProduct = productService.saveProduct(product1);
-        productService.saveProduct(product2);
-        assertNotNull(savedProduct);
-        assertEquals(product1.getCode(), savedProduct.getCode());;
-        savedProduct.setCode(product2.getCode());
-        Assertions.assertThrows(ProductAlreadyExistsException.class, () -> productService.updateProduct(savedProduct));
-    }*/
 
     @Test
     public void givenProductToUpdateThenShouldNotReturnUpdatedProduct() throws ProductNotFoundException {
@@ -193,14 +155,6 @@ public class ProductServiceIntegrationTest {
             productService.getProductById(savedProduct.getId());
         });
     }
-
-    /*@Test
-    void givenProductWithInvalidCodeThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException {
-        assertThrows(ConstraintViolationException.class, () -> {
-            product1.setCode("");
-            productService.saveProduct(product1);
-        });
-    }*/
 
     @Test
     void givenProductWithInvalidTitleThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException {

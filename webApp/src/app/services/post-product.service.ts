@@ -1,15 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { StringifyOptions } from 'querystring';
 import { Observable } from 'rxjs';
 import { baseUrl } from '../global-variables';
 import { Product } from '../models/Product';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-
-const httpOptionsImage = {
-  headers: new HttpHeaders({ 'Accept': "multipart/form-data" })
 };
 
 @Injectable({
@@ -21,30 +18,26 @@ export class PostProductService {
 
   localhost = baseUrl + 'catalog/api/v1/products';
 
-  //TODO: add the product object and the file to the backend
-  postProduct(product: Product, fileToUpload: File): Observable<any> {
+  saveProductWithImage(product: Product, fileToUpload: File)  {
     const formData: FormData = new FormData();
-    formData.append('imageFile', fileToUpload, fileToUpload.name);
-    formData.append('product', new Blob([JSON.stringify(product)], {type: 'application/json'}));
-    console.log(formData.get('product'))
-    return this.httpClient.post(this.localhost, formData, httpOptionsImage);
+    const productBlob = new Blob([JSON.stringify(product)],{ type: "application/json"})
+    formData.append('product', productBlob);
+    formData.append('image', fileToUpload, fileToUpload.name);
+    return this.httpClient.post(this.localhost, formData);
   }
-  saveProduct(product)  {
-    return this.httpClient.post(this.localhost, product, httpOptions);
-  }
-  getProductById(id)  {
+  getProductById(id: string)  {
     return this.httpClient.get(this.localhost + '/' + id);
   }
-  getProductByCode(code)  {
+  getProductByCode(code: string)  {
     return this.httpClient.get(this.localhost + '/code/' + code);
   }
-  deleteProduct(id)  {
+  deleteProduct(id: string)  {
     return this.httpClient.delete(this.localhost + '/' + id);
   }
   getAllProducts()  {
     return this.httpClient.get(this.localhost);
   }
-  updateProduct(product)  {
+  updateProduct(product: Product)  {
     return this.httpClient.patch(this.localhost, product, httpOptions);
   }
 }

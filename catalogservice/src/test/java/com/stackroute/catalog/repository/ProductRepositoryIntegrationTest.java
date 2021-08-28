@@ -24,7 +24,6 @@ public class ProductRepositoryIntegrationTest {
 
     private Product product1, product2, product3;
     private List<Product> productList;
-    //private List<String> productsCode, savedProductsCode;
 
     @BeforeEach
     void setUp() {
@@ -35,8 +34,6 @@ public class ProductRepositoryIntegrationTest {
         product3 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20);
         product3.setId("3");
         productList = new ArrayList<Product>();
-        //savedProductsCode = new ArrayList<>();
-        //productsCode = new ArrayList<>();
     }
 
     @AfterEach
@@ -63,8 +60,6 @@ public class ProductRepositoryIntegrationTest {
         productRepository.save(product2);
         productRepository.save(product3);
         List<Product> products = (List<Product>) productRepository.findAll();
-        //for (Product product : productList) { productsCode.add(product.getCode()); }
-        //for (Product product : products) { savedProductsCode.add(product.getCode()); }
         assertNotNull(products);
         assertEquals(productList, products);
     }
@@ -79,16 +74,6 @@ public class ProductRepositoryIntegrationTest {
         assertEquals(product1.getId(), getProduct.getId());
     }
 
-    /*@Test
-    public void givenProductCodeThenShouldReturnRespectiveProduct() throws ProductNotFoundException {
-        Product savedProduct = productRepository.save(product1);
-        productRepository.save(product2);
-        productRepository.save(product3);
-        Product getProduct = productRepository.findByCode(savedProduct.getCode());
-        assertNotNull(getProduct);
-        assertEquals(product1.getCode(), getProduct.getCode());
-    }*/
-
     @Test
     void givenProductIdToDeleteThenShouldReturnDeletedProduct() throws ProductNotFoundException {
         Product savedProduct = productRepository.save(product1);
@@ -98,8 +83,6 @@ public class ProductRepositoryIntegrationTest {
         productList.add(product2);
         productList.add(product3);
         List<Product> products = (List<Product>)productRepository.findAll();
-        //for (Product product : productList) { productsCode.add(product.getCode()); }
-        //for (Product product : products) { savedProductsCode.add(product.getCode()); }
         assertNotNull(products);
         assertEquals(productList, products);
     }

@@ -5,6 +5,7 @@ import com.stackroute.catalog.exception.ProductNotFoundException;
 import com.stackroute.catalog.model.Category;
 import com.stackroute.catalog.model.Product;
 import com.stackroute.catalog.repository.ProductRepository;
+import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,9 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.ConstraintViolationException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +36,8 @@ public class ProductControllerIntegrationTest {
 
     private Product product1, product2, product3;
     private List<Product> productList;
-    //private List<String> productsCode, savedProductsCode;
     private Logger logger;
+    private MultipartFile file;
 
     @BeforeEach
     void setUp() {
@@ -45,8 +49,7 @@ public class ProductControllerIntegrationTest {
         product3 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20);
         product3.setId("3");
         productList = new ArrayList<Product>();
-        //savedProductsCode = new ArrayList<>();
-        //productsCode = new ArrayList<>();
+        file = new MockMultipartFile("null","null",null, (byte[]) null);
     }
 
     @AfterEach
@@ -54,14 +57,13 @@ public class ProductControllerIntegrationTest {
         productRepository.deleteAll();
         product1 = product2 = product3 = null;
         productList = null;
-        //productsCode = savedProductsCode = null;
     }
 
     @Test
-    public void givenProductToSaveThenShouldReturnSavedProduct() throws ProductAlreadyExistsException {
-        Product savedProduct = productController.saveProduct(product1).getBody();
+    public void givenProductToSaveThenShouldReturnSavedProduct() throws ProductAlreadyExistsException, IOException {
+        JSONObject savedProduct = new JSONObject(productController.saveProduct(product1).getBody());
         assertNotNull(savedProduct);
-        assertEquals(product1.getId(), savedProduct.getId());
+        assertEquals(product1.getId(), savedProduct.getString("id"));
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
@@ -76,19 +78,13 @@ public class ProductControllerIntegrationTest {
 
     @Test
     public void givenGetAllProductsThenShouldReturnListOfAllProducts() throws ProductAlreadyExistsException {
-        Product savedProduct1 = productController.saveProduct(product1).getBody();
-        Product savedProduct2 = productController.saveProduct(product2).getBody();
-        Product savedProduct3 = productController.saveProduct(product3).getBody();
+        productController.saveProduct(product1).getBody();
+        productController.saveProduct(product2).getBody();
+        productController.saveProduct(product3).getBody();
         productList.add(product1);
         productList.add(product2);
         productList.add(product3);
         List<Product> products = productController.getAllProducts().getBody();
-        /*for (Product product : productList) {
-            productsCode.add(product.getCode());
-        }
-        for (Product product : products) {
-            savedProductsCode.add(product.getCode());
-        }*/
         assertNotNull(products);
         assertEquals(productList, products);
         assertTrue(logger.isInfoEnabled());
@@ -114,25 +110,6 @@ public class ProductControllerIntegrationTest {
         assertTrue(logger.isErrorEnabled());
     }
 
-    /*@Test
-    public void givenProductCodeThenShouldReturnRespectiveProduct() throws ProductAlreadyExistsException, ProductNotFoundException {
-        Product savedProduct = productController.saveProduct(product1).getBody();
-        productController.saveProduct(product2);
-        productController.saveProduct(product3);
-        Product getProduct = productController.getProductByCode(savedProduct.getId()).getBody();
-        assertNotNull(getProduct);
-        assertEquals(product1.getCode(), getProduct.getCode());
-        assertTrue(logger.isInfoEnabled());
-        assertTrue(logger.isErrorEnabled());
-    }
-
-    @Test
-    void givenProductCodeThenShouldNotReturnRespectiveProduct() throws ProductNotFoundException {
-        Assertions.assertThrows(ProductNotFoundException.class, () -> productController.getProductByCode(product1.getCode()));
-        assertTrue(logger.isInfoEnabled());
-        assertTrue(logger.isErrorEnabled());
-    }*/
-
     @Test
     void givenProductIdToDeleteThenShouldReturnDeletedProduct() throws ProductAlreadyExistsException, ProductNotFoundException {
         Product savedProduct = productController.saveProduct(product1).getBody();
@@ -151,31 +128,6 @@ public class ProductControllerIntegrationTest {
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
-
-    @Test
-    public void givenProductToUpdateThenShouldReturnUpdatedProduct() throws ProductAlreadyExistsException, ProductNotFoundException{
-        Product savedProduct = productController.saveProduct(product1).getBody();
-        assertNotNull(savedProduct);
-        assertEquals(product1.getId(), savedProduct.getId());
-        savedProduct.setPrice(product2.getPrice());
-        Product updatedProduct = productController.updateProduct(savedProduct).getBody();
-        assertNotNull(savedProduct);
-        assertEquals(savedProduct, updatedProduct);
-        assertTrue(logger.isInfoEnabled());
-        assertTrue(logger.isErrorEnabled());
-    }
-
-    /*@Test
-    public void givenProductToUpdateWithAlreadyExistingCodeThenShouldNotReturnUpdatedProduct() throws ProductNotFoundException, ProductAlreadyExistsException {
-        Product savedProduct = productController.saveProduct(product1).getBody();
-        productController.saveProduct(product2);
-        assertNotNull(savedProduct);
-        assertEquals(product1.getCode(), savedProduct.getCode());;
-        savedProduct.setCode(product2.getCode());
-        Assertions.assertThrows(ProductAlreadyExistsException.class, () -> productController.updateProduct(savedProduct).getBody());
-        assertTrue(logger.isInfoEnabled());
-        assertTrue(logger.isErrorEnabled());
-    }*/
 
     @Test
     public void givenProductToUpdateThenShouldNotReturnUpdatedProduct() throws ProductAlreadyExistsException, ProductNotFoundException {
@@ -214,16 +166,6 @@ public class ProductControllerIntegrationTest {
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
-
-    /*@Test
-    void givenProductWithInvalidCodeThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException {
-        assertThrows(ConstraintViolationException.class, () -> {
-            product1.setCode("");
-            productController.saveProduct(product1);
-        });
-        assertTrue(logger.isInfoEnabled());
-        assertTrue(logger.isErrorEnabled());
-    }*/
 
     @Test
     void givenProductWithInvalidCategoryThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException{

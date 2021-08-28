@@ -42,14 +42,11 @@ export class LoginComponent implements OnInit {
    }
     else {
       const email: string = this.form.value.email;
-      console.log(email);
       const password : string = this.form.value.password;
-      console.log(password);
       this.user.email = email
       this.user.password = password
       this.userService.loginUser(this.user).subscribe({
         next: (data:any) => {
-          console.log(data);
           if(data.message == "Login Successful"){
             this.message = data.message;
             this.isLoggedIn = true;

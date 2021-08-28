@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -67,7 +66,7 @@ public class ProductControllerTest {
     @Test
     void givenProductToSaveThenShouldReturnSavedProduct() throws ProductAlreadyExistsException, Exception {
         when(productService.saveProduct(any())).thenReturn(product);
-        mockMvc.perform(post("/api/v1/products").contentType(MediaType.APPLICATION_JSON).content(asJsonString(product)))
+        mockMvc.perform(post("/api/v1/products/noimage").contentType(MediaType.APPLICATION_JSON).content(asJsonString(product)))
                 .andExpect(status().isCreated()).andDo(MockMvcResultHandlers.print());
         verify(productService).saveProduct(any());
         verify(productService, times(1)).saveProduct(any());
@@ -76,7 +75,7 @@ public class ProductControllerTest {
     @Test
     void givenProductToSaveThenShouldNotReturnSavedProduct() throws ProductAlreadyExistsException, Exception {
         when(productService.saveProduct((Product) any())).thenThrow(ProductAlreadyExistsException.class);
-        mockMvc.perform(post("/api/v1/products").contentType(MediaType.APPLICATION_JSON).content(asJsonString(product)))
+        mockMvc.perform(post("/api/v1/products/noimage").contentType(MediaType.APPLICATION_JSON).content(asJsonString(product)))
                 .andExpect(status().isConflict()).andDo(MockMvcResultHandlers.print());
         verify(productService).saveProduct(any());
         verify(productService, times(1)).saveProduct(any());
@@ -138,17 +137,6 @@ public class ProductControllerTest {
         verify(productService).updateProduct(any());
         verify(productService, times(1)).updateProduct(any());
     }
-
-    /*@Test
-    public void givenProductByCodeThenShouldReturnRespectiveProduct() throws ProductNotFoundException, Exception {
-        productList.add(product);
-        productList.add(product2);
-        when(productService.getProductByCode(product.getCode())).thenReturn(product);
-        mockMvc.perform(get("/api/v1/products/code/" + product.getCode()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(product)))
-                .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
-        verify(productService).getProductByCode(anyString());
-        verify(productService, times(1)).getProductByCode(anyString());
-    }*/
 
     public static String asJsonString(final Object obj) {
         try {

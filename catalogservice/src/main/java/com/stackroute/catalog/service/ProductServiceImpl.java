@@ -1,8 +1,10 @@
 package com.stackroute.catalog.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.catalog.exception.ProductAlreadyExistsException;
 import com.stackroute.catalog.exception.ProductNotFoundException;
 import com.stackroute.catalog.model.Category;
+import com.stackroute.catalog.model.Photo;
 import com.stackroute.catalog.model.Product;
 import com.stackroute.catalog.repository.ProductRepository;
 import org.apache.commons.io.IOUtils;
@@ -17,6 +19,7 @@ import javax.validation.ConstraintViolationException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,20 +39,33 @@ public class ProductServiceImpl implements ProductService {
                 throw new ProductAlreadyExistsException();
             }
         }
-        /*if(productRepository.existsByCode(product.getCode())){
-            throw new ProductAlreadyExistsException();
-        }*/
-        return (Product) productRepository.save(product);
+        return (Product) productRepository.insert(product);
     }
 
-    /*@Override
-    public Product saveProduct(Product product, MultipartFile file) throws ProductAlreadyExistsException, IOException {
-        if(productRepository.existsByCode(product.getCode())){
-            throw new ProductAlreadyExistsException();
+    @Override
+    public Product saveProductWithImage(String product, MultipartFile image) throws ProductAlreadyExistsException, IOException {
+        Product productJson = new Product();
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            productJson = objectMapper.readValue(product, Product.class);
+        } catch (IOException e){
+            System.out.println("Error in mapping Product string to POJO");
+            e.printStackTrace();
         }
-        product.setImage(new Binary(BsonBinarySubType.BINARY, file.getBytes()));
-        return (Product) productRepository.insert(product);
-    }*/
+        if(productJson.getId() != null && !productJson.getId().isBlank()){
+            if(productRepository.existsById(productJson.getId())){
+                throw new ProductAlreadyExistsException();
+            }
+        }
+
+        Photo photo = new Photo();
+        photo.setTitle(image.getOriginalFilename());
+        photo.setType(image.getContentType());
+        photo.setImage(new Binary(BsonBinarySubType.BINARY, image.getBytes()));
+        productJson.setPhoto(photo);
+
+        return (Product) productRepository.insert(productJson);
+    }
 
     @Override
     public Product getProductById(String id) throws ProductNotFoundException {
@@ -62,15 +78,6 @@ public class ProductServiceImpl implements ProductService {
         }
         return product;
     }
-
-    /*@Override
-    public Product getProductByCode(String code) throws ProductNotFoundException {
-        Product product = productRepository.findByCode(code);
-        if(product == null){
-            throw new ProductNotFoundException();
-        }
-        return product;
-    }*/
 
     @Override
     public Product deleteProduct(String id) throws ProductNotFoundException {
@@ -88,12 +95,8 @@ public class ProductServiceImpl implements ProductService {
         if(!productRepository.existsById(product.getId())){
             throw new ProductNotFoundException();
         }
-        /*Product getProduct = getProductById(product.getId());
-        if(!getProduct.getCode().equals(product.getCode())){
-            if(productRepository.existsByCode(product.getCode())){
-                throw new ProductAlreadyExistsException();
-            }
-        }*/
+        Product getProduct = getProductById(product.getId());
+        product.setPhoto(getProduct.getPhoto());
         return (Product) productRepository.save(product);
     }
 
