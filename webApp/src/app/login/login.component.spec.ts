@@ -53,7 +53,7 @@ describe('LoginComponent', () => {
     component.form.value.email = '';
     component.form.value.password = '';
     component.onSubmit();
-    expect(component.message).toEqual('Email and Password should not be empty!!! Please verify details');
+    expect(component.message).toEqual('Email is required');
   });
 
   it('testing email field invalidity', () => {

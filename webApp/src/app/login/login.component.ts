@@ -36,7 +36,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.form.value.email === ''){
+    if(this.form.value.email === '' && this.form.value.password === ''){
+      this.message = 'All fields are required';
+    } else if(this.form.value.email === ''){
       this.message = 'Email is required';
     } else if(this.form.value.password =''){
       this.message = 'Password is required';

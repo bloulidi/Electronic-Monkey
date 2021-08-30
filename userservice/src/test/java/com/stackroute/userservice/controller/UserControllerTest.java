@@ -63,7 +63,7 @@ public class UserControllerTest {
     @Test
     void givenUserToSaveThenShouldReturnSavedUser() throws UserAlreadyExistsException, Exception {
         when(userService.saveUser(any())).thenReturn(user);
-        mockMvc.perform(post("/api/v1/users").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
+        mockMvc.perform(post("/api/v1/users/signup").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(status().isCreated()).andDo(MockMvcResultHandlers.print());
         verify(userService).saveUser(any());
         verify(userService, times(1)).saveUser(any());
@@ -72,7 +72,7 @@ public class UserControllerTest {
     @Test
     void givenUserToSaveThenShouldNotReturnSavedUser() throws UserAlreadyExistsException, Exception {
         when(userService.saveUser((User) any())).thenThrow(UserAlreadyExistsException.class);
-        mockMvc.perform(post("/api/v1/users").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
+        mockMvc.perform(post("/api/v1/users/signup").contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(status().isConflict()).andDo(MockMvcResultHandlers.print());
         verify(userService).saveUser(any());
         verify(userService, times(1)).saveUser(any());
