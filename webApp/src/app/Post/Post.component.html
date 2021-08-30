@@ -1,12 +1,12 @@
-<h1 mat-dialog-title>Post a Product</h1>
 
 <div class="example-container">
+  <h1 class="form-title" mat-dialog-title>Post a Product</h1>
   <div class="form-container">
     <form [formGroup]="form" (submit)="submit()" enctype="multipart/form-data">
       <mat-form-field class="form-field">
         <input matInput type="text" placeholder="Title" formControlName="title" required>
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field class="form-field">
         <mat-label>Category</mat-label>
         <select matNativeControl formControlName="category" required>
           <option value="Phones">Phones</option>
@@ -17,24 +17,24 @@
       <mat-form-field class="form-field">
         <input matInput type="text" placeholder="Description" formControlName="description">
       </mat-form-field>
-      <mat-form-field class="form-field">
-        <input matInput type="number" placeholder="Price" formControlName="price" required>
+
+      <mat-form-field floatLabel="always" class="form-field">
+        <mat-label>Amount</mat-label>
+        <input formControlName="price" matInput type="number" class="example-right-align" placeholder="0" required>
+        <span matPrefix>$&nbsp;</span>
       </mat-form-field>
+
       <div>
         <label>Add Photos</label>
         <input type="file" accept="image/*" (change)="handleFileInput($event)" required>
       </div>
-      <div mat-dialog-actions>
-        <button mat-button (click)="cancel()" value="cancel">Cancel</button>
-        <button mat-button  type="submit" value="upload">Post</button>
+      <div mat-dialog-actions class="buttons">
+        <button mat-raised-button class="cancel-button" (click)="cancel()" value="cancel">Cancel</button>
+        <button mat-raised-button  type="submit" class="post-button" value="upload">Post</button>
       </div>    
     </form>
     <div class="alert" *ngIf="message" role="alert">
       {{ message }}
     </div>
-    <!-- Show picture -->
-    <!-- <div *ngIf=retrievedImage>
-      <img [src]="retrievedImage">
-    </div> -->
   </div>
 </div>
