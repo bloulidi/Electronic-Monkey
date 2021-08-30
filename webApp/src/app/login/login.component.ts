@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       this.message = 'All fields are required';
     } else if(this.form.value.email === ''){
       this.message = 'Email is required';
-    } else if(this.form.value.password =''){
+    } else if(this.form.value.password === ''){
       this.message = 'Password is required';
     } else if(this.form.invalid){
      this.message = "Invalid email and/or password!";

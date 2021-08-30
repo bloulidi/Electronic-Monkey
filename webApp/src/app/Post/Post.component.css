@@ -22,9 +22,6 @@ input.example-right-align {
 .form-title{
     color: #56B280;
     font-weight: 500;
-}
-
-.example-container{
     text-align: center;
 }
 
@@ -36,4 +33,8 @@ input.example-right-align {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.cancel-button{
+    margin-right: 40px;
 }

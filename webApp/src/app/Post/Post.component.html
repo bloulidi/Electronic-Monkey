@@ -20,17 +20,17 @@
 
       <mat-form-field floatLabel="always" class="form-field">
         <mat-label>Amount</mat-label>
-        <input formControlName="price" matInput type="number" class="example-right-align" placeholder="0" required>
-        <span matPrefix>$&nbsp;</span>
+        <span matSuffix>$&nbsp;</span>
+        <input formControlName="price" matInput type="number" class="example-left-align" placeholder="0" required>
       </mat-form-field>
 
       <div>
-        <label>Add Photos</label>
+        <label class="add-photos">Add Photos</label>
         <input type="file" accept="image/*" (change)="handleFileInput($event)" required>
       </div>
       <div mat-dialog-actions class="buttons">
-        <button mat-raised-button class="cancel-button" (click)="cancel()" value="cancel">Cancel</button>
-        <button mat-raised-button  type="submit" class="post-button" value="upload">Post</button>
+        <button class="cancel-button" mat-raised-button class="cancel-button" (click)="cancel()" value="cancel">Cancel</button>
+        <button class="post-button" mat-raised-button type="submit" class="post-button" value="upload">Post</button>
       </div>    
     </form>
     <div class="alert" *ngIf="message" role="alert">
