@@ -1,8 +1,8 @@
-import { PostProductService } from '../services/product.service';
+import { ProductService } from '../services/product.service';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../models/Product';
 import { Router } from '@angular/router';
 import { Photo } from '../models/Photo';
@@ -14,14 +14,14 @@ import { Photo } from '../models/Photo';
 })
 export class PostComponent implements OnInit {
 
-  form;
+  form: FormGroup;
   fileToUpload: File;
   message = '';
   product: Product;
   photo: Photo;
   retrievedImage = '';
 
-  constructor(private fb: FormBuilder, private router: Router, public postProductService: PostProductService, public dialogRef: MatDialogRef<DashboardComponent>) {
+  constructor(private fb: FormBuilder, private router: Router, public productService: ProductService, public dialogRef: MatDialogRef<DashboardComponent>) {
     this.product = new Product;
     this.photo = new Photo;
     this.product.photo = this.photo;
@@ -42,7 +42,7 @@ export class PostComponent implements OnInit {
 
   submit() {
     if (this.form.value.title === ''){
-      this.message = 'Email is required';
+      this.message = 'Title is required';
     } else if (this.form.value.category === ''){
       this.message = 'Category is required';
     } else if (this.form.value.price === '') {
@@ -60,7 +60,7 @@ export class PostComponent implements OnInit {
       this.product.price = this.form.value.price
       this.product.photo.title = this.fileToUpload.name
       this.product.userId = Number(localStorage.getItem("userId"))
-      this.postProductService.saveProduct(this.product, this.fileToUpload).subscribe({
+      this.productService.saveProduct(this.product, this.fileToUpload).subscribe({
         next: (res: any) => {
           this.message = "Post added successfully!"
           setTimeout(() => this.cancel(), 1000);

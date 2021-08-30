@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthenticationService } from '../services/authentication.service';
-import { first } from 'rxjs/operators';
 import { User } from '../models/User';
 
 @Component({
@@ -56,9 +55,6 @@ export class LoginComponent implements OnInit {
           if(error.status == '404') {
             this.message = "User not found!";
             console.error("User not found!", error);
-          } else if(error.status == '401'){
-            this.message = "Unauthorized error!";
-            console.error("Unauthorized error!", error);
           } else {
             this.message = "Failed to login!";
             console.error("Failed to login!", error);
@@ -72,7 +68,7 @@ export class LoginComponent implements OnInit {
   }
   onRememberMeChanged(value:boolean){
     this.isRememberMe = value;
-    console.log(value);
+    //console.log(value);
   }
   onClickSignUp(){
     this.router.navigate(['signup']);

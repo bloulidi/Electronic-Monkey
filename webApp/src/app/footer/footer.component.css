@@ -1,0 +1,80 @@
+footer {
+    position: fixed;
+    width: 100vw;
+    height: 150px;
+    left: 0;
+    bottom: 0;
+    background-color:#525151;
+    text-align: left;
+}
+.discovery {
+    position: absolute;
+    left: 51.04%;
+    right: 37.15%;
+    top: 38.61%;
+    bottom: 41.74%;
+}
+
+.about {
+    position: absolute;
+    left: 62.85%;
+    right: 25.35%;
+    top: 38.61%;
+    bottom: 41.74%;
+}
+
+.info {
+    position: absolute;
+    left: 74.65%;
+    right: 13.54%;
+    top: 38.61%;
+    bottom: 41.74%;
+}
+
+ul {
+    margin:  0;
+    padding: 0;
+    display: inline-block; 
+    color: #56B280;
+    list-style-type: none;
+    padding-left : 0;
+
+}
+
+li {
+    color: #E1E1E1;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+.separator {
+    position: absolute;
+    border: 0.5px solid #FFFFFF;
+    left: 4.65%;
+    right: 13.54%;
+    top: 20.61%;
+    width: 76%;
+}
+
+.appNameFooter {
+    position: absolute;
+    width: 250px;
+    padding-left: 90px;
+    padding-top: 60px;
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 35px;
+    
+    color: #6B9090;
+}
+
+.appImgFooter {
+    position: absolute;
+    left: 21.19%;
+    right: 71.46%;
+    top: 20.49%;
+    bottom: 92.56%;
+    
+}

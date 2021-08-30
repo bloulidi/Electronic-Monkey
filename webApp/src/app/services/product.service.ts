@@ -11,7 +11,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class PostProductService {
+export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
