@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { PostComponent } from '../post/post.component';
 
 @Component({
   selector: 'app-header',
@@ -10,15 +12,17 @@ export class HeaderComponent implements OnInit {
 
   numProductCart:number = 0;
   message:string ="";
-  constructor(private router:Router) { }
+  constructor(private router:Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.numProductCart = 5;
   }
   onClickPost(){
-    this.message ="Add a Product";
-    console.log(this.message);
+    const dialogRef = this.dialog.open(PostComponent, {
+      width: '350px',
+    });
   }
+  
 
   onClickLogOut(){
     this.router.navigate(['logout']);

@@ -42,7 +42,7 @@ export class MyprofileComponent implements OnInit {
   }
   
   retreiveUserInfo() {
-    let email = sessionStorage.getItem("username");
+    let email = localStorage.getItem("username");
      this.userService.getUserByEmail(email).subscribe({
         next:(data:any) => {
             console.log(data);

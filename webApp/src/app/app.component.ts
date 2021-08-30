@@ -22,4 +22,3 @@ export class AppComponent {
     
   }
 }
-export class AppComponent {}

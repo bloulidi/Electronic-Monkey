@@ -15,7 +15,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import { LogoutComponent } from './logout/logout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { RouterModule } from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
@@ -63,7 +62,7 @@ import {MatSelectModule} from '@angular/material/select';
     FormsModule,
     MatIconModule,
     MatMenuModule,
-    MatBadgeModule
+    MatBadgeModule,
     MatDialogModule,
     MatIconModule,
     MatSelectModule

@@ -11,16 +11,13 @@ export class MypostsComponent implements OnInit {
 
   productList: Product[] = [];
 
-  constructor(private productService: ProductService) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.loadProducts();
   }
 
   loadProducts() {
-    this.productService.getProducts().subscribe((products) => {
-      this.productList = products;
-    })
   }
 
 }
