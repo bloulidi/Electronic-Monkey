@@ -6,16 +6,21 @@ import { LogoutComponent } from './logout/logout.component';
 import { MypostsComponent } from './myposts/myposts.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { AuthGuardService } from './services/auth-guard.service'
+import { AuthGuard } from './helpers/auth.guard'
 import { SignupComponent } from './signup/signup.component';
 
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent, canActivate:[AuthGuardService] },
+  { path: '', component: DashboardComponent, canActivate:[AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent, canActivate:[AuthGuardService] },
   { path: 'signup', component: SignupComponent },
   { path: 'myprofile', component: MyprofileComponent},
-  {path: 'myposts', component: MypostsComponent}
+  {path: 'myposts', component: MypostsComponent},
+  { path: 'logout', component: LogoutComponent, canActivate:[AuthGuard] },
+  { path: 'signup', component: SignupComponent },
+  // otherwise redirect to home
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

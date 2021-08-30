@@ -12,8 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.reactive.server.StatusAssertions;
 
-import javax.persistence.EntityManager;
 import javax.validation.ConstraintViolationException;
 
 import java.util.ArrayList;
@@ -30,8 +30,6 @@ public class UserControllerIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private EntityManager entityManager;
 
     private User user1, user2, user3;
     private List<User> userList;
@@ -75,7 +73,7 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    public void givenGetAllUsersThenShouldReturnListOfAllUsers() {
+    public void givenGetAllUsersThenShouldReturnListOfAllUsers() throws UserAlreadyExistsException {
         User savedUser1 = userController.saveUser(user1).getBody();
         User savedUser2 = userController.saveUser(user2).getBody();
         User savedUser3 = userController.saveUser(user3).getBody();
@@ -92,7 +90,7 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    public void givenGetAllUsersByNameThenShouldReturnListOfAllRespectiveUsers() {
+    public void givenGetAllUsersByNameThenShouldReturnListOfAllRespectiveUsers() throws UserAlreadyExistsException {
         userList.add(user2);
         userList.add(user3);
         userController.saveUser(user1);
@@ -108,7 +106,7 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    public void givenGetAllUsersByAdminThenShouldReturnListOfAllAdminUsers() {
+    public void givenGetAllUsersByAdminThenShouldReturnListOfAllAdminUsers() throws UserAlreadyExistsException {
         userList.add(user1);
         userList.add(user3);
         userController.saveUser(user1);
@@ -124,7 +122,7 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    public void givenUserIdThenShouldReturnRespectiveUser() throws UserNotFoundException {
+    public void givenUserIdThenShouldReturnRespectiveUser() throws UserAlreadyExistsException, UserNotFoundException {
         User savedUser = userController.saveUser(user1).getBody();
         userController.saveUser(user2);
         userController.saveUser(user3);
@@ -143,7 +141,7 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    public void givenUserEmailThenShouldReturnRespectiveUser() throws UserNotFoundException {
+    public void givenUserEmailThenShouldReturnRespectiveUser() throws UserAlreadyExistsException, UserNotFoundException {
         User savedUser = userController.saveUser(user1).getBody();
         userController.saveUser(user2);
         userController.saveUser(user3);
@@ -162,7 +160,7 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    void givenUserIdToDeleteThenShouldReturnDeletedUser() throws UserNotFoundException {
+    void givenUserIdToDeleteThenShouldReturnDeletedUser() throws UserAlreadyExistsException, UserNotFoundException {
         User savedUser = userController.saveUser(user1).getBody();
         userController.saveUser(user2);
         userController.saveUser(user3);
@@ -181,7 +179,7 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    public void givenUserToUpdateThenShouldReturnUpdatedUser() {
+    public void givenUserToUpdateThenShouldReturnUpdatedUser() throws UserAlreadyExistsException, UserNotFoundException {
         User savedUser = userController.saveUser(user1).getBody();
         assertNotNull(savedUser);
         assertEquals(user1.getEmail(), savedUser.getEmail());;
@@ -194,15 +192,42 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    public void givenUserToUpdateThenShouldNotReturnUpdatedUser() throws UserNotFoundException {
+    public void givenUserToUpdateWithAlreadyExistingEmailThenShouldNotReturnUpdatedUser() throws UserNotFoundException, UserAlreadyExistsException {
+        User savedUser = userController.saveUser(user1).getBody();
+        userController.saveUser(user2);
+        assertNotNull(savedUser);
+        assertEquals(user1.getEmail(), savedUser.getEmail());;
+        savedUser.setEmail(user2.getEmail());
+        Assertions.assertThrows(UserAlreadyExistsException.class, () -> userController.updateUser(savedUser).getBody());
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
+    }
+
+    @Test
+    public void givenUserToUpdateThenShouldNotReturnUpdatedUser() throws UserNotFoundException, UserAlreadyExistsException {
         Assertions.assertThrows(UserNotFoundException.class, () -> userController.updateUser(user1));
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
 
+/*    @Test
+    public void givenValidUserToLoginThenShouldReturnOkStatus() throws UserAlreadyExistsException, UserNotFoundException {
+        User savedUser = userController.saveUser(user1).getBody();
+        assertEquals(200, userController.loginUser(user1).getStatusCode().value());
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
+    }
+
+    @Test
+    public void givenInValidUserToLoginThenThrowsError() throws UserNotFoundException {
+        assertEquals(409, userController.loginUser(user1).getStatusCode().value());
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
+    }
+*/
     /******* VALIDATION *****/
     @Test
-    void givenValidUserThenReturnRespectiveUser(){
+    void givenValidUserThenReturnRespectiveUser() throws UserAlreadyExistsException {
         User savedUser = userController.saveUser(user1).getBody();
         assertEquals(user1.getEmail(), savedUser.getEmail());
         assertTrue(logger.isInfoEnabled());
@@ -210,7 +235,7 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    void givenUserWithInvalidEmailThenThrowsException(){
+    void givenUserWithInvalidEmailThenThrowsException() throws UserAlreadyExistsException, ConstraintViolationException {
         assertThrows(ConstraintViolationException.class, () -> {
             user1.setEmail("anas");
             userController.saveUser(user1);
@@ -220,18 +245,22 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    void givenUserWithInvalidNameThenThrowsException(){
+    void givenUserWithInvalidNameThenThrowsException() throws UserAlreadyExistsException, ConstraintViolationException{
         assertThrows(ConstraintViolationException.class, () -> {
             user1.setName("");
             userController.saveUser(user1);
         });
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 
     @Test
-    void givenUserWithInvalidPasswordThenThrowsException(){
+    void givenUserWithInvalidPasswordThenThrowsException() throws UserAlreadyExistsException, ConstraintViolationException {
         assertThrows(ConstraintViolationException.class, () -> {
             user1.setPassword("12345");
             userController.saveUser(user1);
         });
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
     }
 }

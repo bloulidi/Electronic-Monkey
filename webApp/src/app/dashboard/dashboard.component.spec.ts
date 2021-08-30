@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { DashboardComponent } from './dashboard.component';
 
@@ -12,9 +13,8 @@ describe('DashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ HttpClientModule, ReactiveFormsModule, RouterTestingModule, MatMenuModule],
-      declarations: [ DashboardComponent ],
-      providers: []
+      imports: [ MatDialogModule ],  
+      declarations: [ DashboardComponent ]
     })
     .compileComponents();
   });
@@ -32,17 +32,5 @@ describe('DashboardComponent', () => {
   // test to check ngOnInit() method existence
   it('ngOnInit() should exists', () => {
     expect(component.ngOnInit).toBeTruthy();
-  });
-
-  it('onClickPost() should exists', () => {
-    expect(component.onClickPost).toBeTruthy();
-  });
-
-  it('onClickLogOut() should exists', () => {
-    expect(component.onClickLogOut).toBeTruthy();
-  });
-
-  it('onClickProfile() should exists', () => {
-    expect(component.onClickMyProfile).toBeTruthy();
   });
 });

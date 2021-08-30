@@ -25,9 +25,14 @@ import { MypostsComponent } from './myposts/myposts.component';
 import { PostItemComponent } from './myposts/post-item/post-item.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { PostComponent } from './post/post.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { ErrorInterceptor } from './helpers/error.interceptor';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     LoginComponent,
     SignupComponent,
@@ -37,8 +42,10 @@ import { HeaderComponent } from './header/header.component';
     MypostsComponent,
     PostItemComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    PostComponent
   ],
+  
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -57,8 +64,14 @@ import { HeaderComponent } from './header/header.component';
     MatIconModule,
     MatMenuModule,
     MatBadgeModule
+    MatDialogModule,
+    MatIconModule,
+    MatSelectModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

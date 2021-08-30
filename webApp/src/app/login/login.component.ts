@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { AuthenticationService } from '../services/authentication.service';
+import { first } from 'rxjs/operators';
 import { User } from '../models/User';
-import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -11,57 +13,56 @@ import { UserService } from '../services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  form;
+  form: FormGroup;
   user: User;
   
   // message to be display if user logged in or not
   message = '';
+  isRememberMe = false;
 
-  isLoggedIn: boolean;
-  isRememberMe: boolean;
-
-  constructor(private fb : FormBuilder, private router:Router, private userService: UserService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService) { 
     this.user = new User;
-  }
+    // redirect to home if already logged in
+    if (this.authenticationService.currentUserValue) { 
+        this.router.navigate(['/']);
+    }
+}
 
   ngOnInit() {
     this.form = this.fb.group({
       email : ['', [Validators.required, Validators.email]],
       password : ['', [Validators.required, Validators.minLength(6)]]
     })
-    this.isLoggedIn = false;
-    this.isRememberMe = false;
   }
 
   onSubmit() {
-    if(this.form.value.email === '' || this.form.value.password === '') {
-      this.message = 'Email and Password should not be empty!!! Please verify details';
-    }
-   else if(this.form.invalid){
+    if(this.form.value.email === ''){
+      this.message = 'Email is required';
+    } else if(this.form.value.password =''){
+      this.message = 'Password is required';
+    } else if(this.form.invalid){
      this.message = "Invalid email and/or password!";
-   }
-    else {
-      const email: string = this.form.value.email;
-      console.log(email);
-      const password : string = this.form.value.password;
-      console.log(password);
-      this.user.email = email
-      this.user.password = password
-      this.userService.loginUser(this.user).subscribe({
-        next: (data:any) => {
-          console.log(data);
-          if(data.message == "Login Successful"){
-            this.message = data.message;
-            this.isLoggedIn = true;
-          }
+    } else {
+      this.user.email = this.form.value.email;
+      this.user.password = this.form.value.password;
+      this.authenticationService.login(this.user).subscribe({
+        next: data => {
+          this.message = "Login Succesful!";
           this.router.navigate(['']);
       },
         error: error => {
-          this.isLoggedIn = false;
-          this.message = "This user does not exist!";
-          console.log('There was an error!', error);
+          if(error.status == '404') {
+            this.message = "User not found!";
+            console.error("User not found!", error);
+          } else if(error.status == '409') {
+            this.message = "This email already exists!";
+            console.error("This email already exists!", error);
+          } else {
+            this.message = "Failed to login!";
+            console.error("Failed to login!", error);
+          }
         }
-      });;
+      });
     }
   }
   clearForm() {
