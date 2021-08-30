@@ -58,8 +58,8 @@ export class LoginComponent implements OnInit {
       },
         error: error => {
           this.isLoggedIn = false;
-          this.message = error.error;
-          console.error('There was an error!', error);
+          this.message = "This user does not exist!";
+          console.log('There was an error!', error);
         }
       });;
     }
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
   }
   onRememberMeChanged(value:boolean){
     this.isRememberMe = value;
-    console.log(value);
+    //console.log(value);
   }
   onClickSignUp(){
     this.router.navigate(['signup']);

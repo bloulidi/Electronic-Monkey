@@ -16,28 +16,45 @@ export class UserService {
   constructor(private httpClient : HttpClient) { }
 
   localhost = baseUrl + 'user/api/v1/users';
+  isRememberMe:boolean;
 
   saveUser(user)  {
     return this.httpClient.post(this.localhost, user, httpOptions);
   }
-  loginUser(user)  {
+  loginUser(user, isRememberMe)  {
+    this.isRememberMe = isRememberMe;
+    console.log("login user remember me = ", isRememberMe);
     return this.httpClient.post(this.localhost + '/login', user, httpOptions).pipe(
       map((data:any) => {
         sessionStorage.setItem("username", user.email);
         let tokenStr = "Bearer " + data.token;
         sessionStorage.setItem("token", tokenStr);
+        if(isRememberMe){
+          localStorage.setItem("username", user.email);
+          localStorage.setItem("token", tokenStr);
+        }
         return data;
       })
     );
   }
+
   isUserLoggedIn() {
-    let user = sessionStorage.getItem("username");
+    let user:any ;
+    if(this.isRememberMe){
+      user = localStorage.getItem("username");
+      console.log("user from remember me", user);
+    }
+    else{
+      user = sessionStorage.getItem("username");
+    }
     let isLoggedIn:boolean = !(user === null);
     if(isLoggedIn) console.log(user + " is logged in")
     else console.log("Not logged in")
     return isLoggedIn;
   }
+
   logOut() {
+    localStorage.removeItem("username");
     sessionStorage.removeItem("username");
     console.log("logout")
   }

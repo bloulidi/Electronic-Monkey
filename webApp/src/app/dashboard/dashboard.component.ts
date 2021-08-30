@@ -8,24 +8,12 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  numProductCart:number = 0;
-  message:string ="";
   constructor(private router:Router) { }
 
   ngOnInit(): void {
-    this.numProductCart = 5;
+  
   }
-  onClickPost(){
-    this.message ="Add a Product";
-    console.log(this.message);
-  }
-
-  onClickLogOut(){
-    this.router.navigate(['logout']);
-  }
-
-  onClickMyProfile(){
-    this.router.navigate(['myprofile']);
-  }
+  
+  
 
 }

@@ -1,19 +1,15 @@
-<!-- Title of the page -->
-<div class="website">Electronic Monkey</div>
-<div class ="appImg">
-  <img src="../../assets/monkey.png">
-</div>
 
-<!-- Title of the page -->
-<div class="form-title">Create Account</div>
+<app-header></app-header>
 
-<!-- Form to sign up -->
+<!-- Form to edit my Profile -->
 <div class="example-container">
+  <div class="white-container"> 
+    <div class="form-title">Edit profile</div>
   <div class="form-container">
-    <form [formGroup]="form" (submit)="submit()">
+    <form [formGroup]="form">
       <mat-form-field class="form-field" appearance="outline">
         <mat-label>Full Name</mat-label>
-        <input id="fullNameField" matInput formControlName="fullName" required>
+        <input id="fullNameField" matInput formControlName="fullName" required >
         <mat-error *ngIf="form.controls.fullName.touched && form.controls.fullName.invalid">
           <span *ngIf="form.controls.fullName.errors.required">This field is mandatory.</span>
         </mat-error>
@@ -28,7 +24,7 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field" appearance="outline">
-        <mat-label> Password
+        <mat-label > Password
         </mat-label>
         <input id="passwordField" matInput formControlName="password" type="password" required>
         <mat-error id="passwordError" *ngIf="form.controls.password.touched && form.controls.password.invalid">
@@ -39,15 +35,9 @@
           <span *ngIf="form.controls['password'].hasError('minlength')">  Must be at least 6 characters!<br></span>
         </mat-error>
       </mat-form-field>
-      <mat-form-field class="form-field" appearance="outline">
-        <mat-label> Confirm Password</mat-label>
-        <input id="confirmPasswordField" matInput formControlName="confirmPassword" type="password" required>
-        <mat-error *ngIf="form.controls.confirmPassword.touched && form.controls.confirmPassword.invalid" id="confirmPasswordError">
-          <span *ngIf="form.controls.confirmPassword.errors.required">This field is mandatory.</span>
-          <span *ngIf="form.controls['confirmPassword'].hasError('NoPassswordMatch')">Password do not match</span>
-        </mat-error>
-      </mat-form-field>
-      <button class="signup-button" mat-raised-button color="primary" type="submit">Sign Up</button>
+
+      <button class="signup-button" mat-raised-button color="primary" type="submit" (click)="onSubmit()" >Save changes</button>
+      <button class="cancel-button" mat-raised-button color="primary"  (click)="onCancel()">Cancel</button>
     </form>
     <!-- write logic to display message if form is submitted-->
     <div class="alert" *ngIf="message" role="alert">
@@ -55,9 +45,6 @@
     </div>
   </div>
 </div>
-
-<!-- Already have an account section -->
-<div class="sign-in">
-    <div class="left-sign-in">Already have an account ?</div>
-    <div class="right-sign-in"><a routerLink="/login">Sign In</a></div>
 </div>
+
+<app-footer></app-footer>

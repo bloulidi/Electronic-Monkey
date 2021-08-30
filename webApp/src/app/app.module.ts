@@ -21,6 +21,10 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MyprofileComponent } from './myprofile/myprofile.component';
+import { MypostsComponent } from './myposts/myposts.component';
+import { PostItemComponent } from './myposts/post-item/post-item.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { MyprofileComponent } from './myprofile/myprofile.component';
     SignupComponent,
     LogoutComponent,
     DashboardComponent,
-    MyprofileComponent
+    MyprofileComponent,
+    MypostsComponent,
+    PostItemComponent,
+    FooterComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
