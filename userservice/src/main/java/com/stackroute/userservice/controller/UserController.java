@@ -1,6 +1,6 @@
 package com.stackroute.userservice.controller;
 
-import com.stackroute.userservice.config.JWTTokenGenerator;
+import com.stackroute.userservice.config.JWTTokenUtil;
 import com.stackroute.userservice.exception.UserAlreadyExistsException;
 import com.stackroute.userservice.exception.UserNotFoundException;
 import com.stackroute.userservice.model.User;
@@ -10,9 +10,16 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,16 +30,16 @@ import java.util.List;
 @RequestMapping("api/v1/users")
 @Api(tags = { SpringFoxConfig.USER_TAG })
 public class UserController {
+    @Autowired
     private UserService userService;
-    private JWTTokenGenerator jwtTokenGenerator;
 
     @Autowired
-    public UserController(UserService userService, JWTTokenGenerator jwtTokenGenerator) {
-        this.userService = userService;
-        this.jwtTokenGenerator = jwtTokenGenerator;
-    }
+    private AuthenticationManager authenticationManager;
 
-    @PostMapping
+    @Autowired
+    private JWTTokenUtil jwtTokenUtil;
+
+    @PostMapping("signup")
     @ApiOperation("Creates a new user.")
     public ResponseEntity<User> saveUser(@ApiParam("User information for a new user to be created. 409 if already exists.") @RequestBody User user) throws UserAlreadyExistsException {
         log.info("Create a new user: " + user.toString());
@@ -41,26 +48,32 @@ public class UserController {
 
     @PostMapping("login")
     @ApiOperation("Login user.")
-    public ResponseEntity<?> loginUser(@ApiParam("User login credentials.") @RequestBody User user) {
-        ResponseEntity<?> responseEntity;
+    public ResponseEntity<String> login(@ApiParam("User credentials") @RequestBody User user) throws AuthenticationException {
         log.info("Login user.. username: " + user.getEmail() + " password: " + user.getPassword());
-        try {
-            if (user.getEmail() == null || user.getPassword() == null) {
-                throw new UserNotFoundException("Cannot have empty email and password!");
-            }
-            User userLogin = userService.getUserByEmailAndPassword(user.getEmail(), user.getPassword());
-            if (userLogin == null) {
-                throw new UserNotFoundException();
-            } else if (!(user.getPassword().equals(userLogin.getPassword()))) {
-                throw new UserNotFoundException("Invalid email and/or password!");
-            }
-            responseEntity = new ResponseEntity<>(jwtTokenGenerator.generateToken(userLogin), HttpStatus.OK);
-        } catch (UserNotFoundException e) {
-            responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+        final Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        user.getEmail(),
+                        user.getPassword()
+                )
+        );
+        User getUser = userService.getUserByEmailAndPassword(user.getEmail(), user.getPassword());
+        JSONObject jo = new JSONObject();
+        if (!authentication.isAuthenticated() || getUser == null) {
+            jo.put("error", "Could not authenticate log in!");
+            return new ResponseEntity<String>(jo.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return responseEntity;
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        final String token = jwtTokenUtil.generateToken(authentication, getUser);
+        User retrievedUser = jwtTokenUtil.parseToken(token);
+        jo.put("userId", retrievedUser.getId());
+        jo.put("email", retrievedUser.getEmail());
+        jo.put("admin", retrievedUser.isAdmin());
+        jo.put("token", token);
+        log.info("Parse token: " + jo.toString());
+        return new ResponseEntity<String>(jo.toString(), HttpStatus.OK);
     }
 
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     @ApiOperation("Returns list of all users in the system.")
     public ResponseEntity<List<User>> getAllUsers() {
@@ -70,7 +83,7 @@ public class UserController {
 
     @GetMapping("{id}")
     @ApiOperation("Returns a specific user by their identifier. 404 if does not exist.")
-    public ResponseEntity<User> getUserById(@ApiParam("Id of the user to be obtained. Cannot be empty.")  @PathVariable int id) throws UserNotFoundException {
+    public ResponseEntity<User> getUserById(@ApiParam("Id of the user to be obtained. Cannot be empty.")  @PathVariable long id) throws UserNotFoundException {
         log.info("Return user with id = " + id);
         return new ResponseEntity<User>(userService.getUserById(id), HttpStatus.OK);
     }
@@ -98,7 +111,7 @@ public class UserController {
 
     @DeleteMapping("{id}")
     @ApiOperation("Deletes a user from the system. 404 if the person's identifier is not found.")
-    public ResponseEntity<User> deleteUser(@ApiParam("Id of the user to be deleted. Cannot be empty.") @PathVariable int id) throws UserNotFoundException {
+    public ResponseEntity<User> deleteUser(@ApiParam("Id of the user to be deleted. Cannot be empty.") @PathVariable long id) throws UserNotFoundException {
         log.info("Delete user with id = " + id);
         return new ResponseEntity<User>(userService.deleteUser(id), HttpStatus.OK);
     }

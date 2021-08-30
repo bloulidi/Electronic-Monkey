@@ -210,7 +210,7 @@ public class UserControllerIntegrationTest {
         assertTrue(logger.isErrorEnabled());
     }
 
-    @Test
+/*    @Test
     public void givenValidUserToLoginThenShouldReturnOkStatus() throws UserAlreadyExistsException, UserNotFoundException {
         User savedUser = userController.saveUser(user1).getBody();
         assertEquals(200, userController.loginUser(user1).getStatusCode().value());
@@ -224,7 +224,7 @@ public class UserControllerIntegrationTest {
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
-
+*/
     /******* VALIDATION *****/
     @Test
     void givenValidUserThenReturnRespectiveUser() throws UserAlreadyExistsException {

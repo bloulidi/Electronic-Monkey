@@ -62,7 +62,7 @@ public class UserServiceTest {
     public void givenUserWithDuplicateIdToSaveThenShouldNotReturnSavedUser() throws UserAlreadyExistsException {
         when(userRepository.existsById(user.getId())).thenReturn(true);
         Assertions.assertThrows(UserAlreadyExistsException.class, () -> userService.saveUser(user));
-        verify(userRepository, times(1)).existsById(anyInt());
+        verify(userRepository, times(1)).existsById(anyLong());
     }
 
     @Test
@@ -70,7 +70,7 @@ public class UserServiceTest {
         when(userRepository.existsById(user.getId())).thenReturn(false);
         when(userRepository.existsByEmail(user.getEmail())).thenReturn(true);
         Assertions.assertThrows(UserAlreadyExistsException.class, () -> userService.saveUser(user));
-        verify(userRepository, times(1)).existsById(anyInt());
+        verify(userRepository, times(1)).existsById(anyLong());
         verify(userRepository, times(1)).existsByEmail(anyString());
     }
 
@@ -102,16 +102,16 @@ public class UserServiceTest {
 
     @Test
     public void givenUserIdThenShouldReturnRespectiveUser() throws UserNotFoundException {
-        when(userRepository.findById(anyInt())).thenReturn(optional);
+        when(userRepository.findById(anyLong())).thenReturn(optional);
         assertEquals(user, userService.getUserById(user.getId()));
-        verify(userRepository, times(1)).findById(anyInt());
+        verify(userRepository, times(1)).findById(anyLong());
     }
 
     @Test
     void givenUserIdThenShouldNotReturnRespectiveUser() throws UserNotFoundException {
-        when(userRepository.findById(anyInt())).thenThrow(UserNotFoundException.class);
+        when(userRepository.findById(anyLong())).thenThrow(UserNotFoundException.class);
         Assertions.assertThrows(UserNotFoundException.class, () -> userService.getUserById(user.getId()));
-        verify(userRepository, times(1)).findById(anyInt());
+        verify(userRepository, times(1)).findById(anyLong());
     }
 
     @Test
@@ -148,35 +148,35 @@ public class UserServiceTest {
         User deletedUser = userService.deleteUser(user.getId());
         assertEquals(user.getId(), deletedUser.getId());
 
-        verify(userRepository, times(1)).findById(anyInt());
-        verify(userRepository, times(1)).deleteById(anyInt());
+        verify(userRepository, times(1)).findById(anyLong());
+        verify(userRepository, times(1)).deleteById(anyLong());
     }
 
     @Test
     void givenUserIdToDeleteThenShouldNotReturnDeletedUser() throws UserNotFoundException {
         when(userRepository.findById(user.getId())).thenThrow(UserNotFoundException.class);
         Assertions.assertThrows(UserNotFoundException.class, () -> userService.deleteUser(user.getId()));
-        verify(userRepository, times(1)).findById(anyInt());
+        verify(userRepository, times(1)).findById(anyLong());
     }
 
     @Test
     public void givenUserToUpdateThenShouldReturnUpdatedUser() throws UserNotFoundException, UserAlreadyExistsException{
         when(userRepository.save(any())).thenReturn(user);
         when(userRepository.existsById(user.getId())).thenReturn(true);
-        when(userRepository.findById(anyInt())).thenReturn(optional);
+        when(userRepository.findById(anyLong())).thenReturn(optional);
         assertEquals(user, userService.getUserById(user.getId()));
         user.setPassword(user1.getPassword());
         User updatedUser = userService.updateUser(user);
         assertEquals(updatedUser.getPassword(), user1.getPassword());
-        verify(userRepository, times(2)).findById(anyInt());
+        verify(userRepository, times(2)).findById(anyLong());
         verify(userRepository, times(1)).save(any());
-        verify(userRepository, times(1)).existsById(anyInt());
+        verify(userRepository, times(1)).existsById(anyLong());
     }
 
     @Test
     public void givenUserToUpdateThenShouldNotReturnUpdatedUser() throws UserNotFoundException, UserAlreadyExistsException {
         when(userRepository.existsById(user.getId())).thenReturn(false);
         Assertions.assertThrows(UserNotFoundException.class, () -> userService.updateUser(user));
-        verify(userRepository, times(1)).existsById(anyInt());
+        verify(userRepository, times(1)).existsById(anyLong());
     }
 }

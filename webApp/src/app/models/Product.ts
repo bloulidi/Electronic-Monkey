@@ -5,6 +5,7 @@ export class Product {
     title?: string;
     description?: string;
     category?: string;
-    price?: Number;
+    price?: number;
     photo?: Photo;
+    userId?: number
 }

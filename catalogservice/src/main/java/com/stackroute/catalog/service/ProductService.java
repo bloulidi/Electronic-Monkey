@@ -19,5 +19,6 @@ public interface ProductService {
     Product getProductById(@NotBlank(message = "ID cannot be empty.") String id) throws ProductNotFoundException;
     Product deleteProduct(@NotBlank(message = "ID cannot be empty.") String id) throws ProductNotFoundException;
     Product updateProduct(@Valid Product product) throws ProductAlreadyExistsException, ProductNotFoundException;
+    List<Product> getProductsByUserId(long userId);
     List<Product> getAllProducts();
 }

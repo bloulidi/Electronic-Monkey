@@ -1,4 +1,4 @@
-import { PostProductService } from './../services/post-product.service';
+import { PostProductService } from '../services/product.service';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -41,23 +41,25 @@ export class PostComponent implements OnInit {
   }
 
   submit() {
-    if (this.form.value.title === '' || this.form.value.category === '' || this.form.value.price === '') {
-      this.message = 'Fields should not be empty!!! Please verify details.';
+    if (this.form.value.title === ''){
+      this.message = 'Email is required';
+    } else if (this.form.value.category === ''){
+      this.message = 'Category is required';
+    } else if (this.form.value.price === '') {
+      this.message = 'Price is required';
     } else if (this.fileToUpload == null){
       this.message = "Please select a photo before submitting.";
-    }
-    else if(!this.fileToUpload.type.startsWith("image/")){
+    } else if(!this.fileToUpload.type.startsWith("image/")){
       this.message = "File selected is not an image!"
-    }
-    else if (this.form.invalid) {
+    } else if (this.form.invalid) {
       this.message = "Invalid field(s)!";
-    }
-    else {
-      this.product.title = this.form.get("title").value
-      this.product.category = this.form.get("category").value
-      this.product.description = this.form.get("description").value
-      this.product.price = this.form.get("price").value
+    } else {
+      this.product.title = this.form.value.title
+      this.product.category = this.form.value.category
+      this.product.description = this.form.value.description
+      this.product.price = this.form.value.price
       this.product.photo.title = this.fileToUpload.name
+      this.product.userId = Number(localStorage.getItem("userId"))
       this.postProductService.saveProduct(this.product, this.fileToUpload).subscribe({
         next: (res: any) => {
           this.message = "Post added successfully!"
@@ -67,8 +69,13 @@ export class PostComponent implements OnInit {
           //this.retrievedImage = 'data:' + res.photo.type + ';base64,' + res.photo.image.data;
         },
         error: error => {
-          this.message = "Failed to add product!";
-          console.log(error);
+          if(error.status == '409') {
+            this.message = "This product already exists!";
+            console.error("This product already exists!", error);
+          } else {
+            this.message = "Failed to add product!";
+            console.error("Failed to add product!", error);
+          }
         }
       });
     }

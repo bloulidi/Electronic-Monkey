@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { StringifyOptions } from 'querystring';
-import { Observable } from 'rxjs';
-import { baseUrl } from '../global-variables';
+import { Injectable } from '@angular/core';;
+
 import { Product } from '../models/Product';
+import { environment } from '../../environments/environment'
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -16,7 +15,7 @@ export class PostProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  localhost = baseUrl + 'catalog/api/v1/products';
+  localhost = environment.apiUrl + 'catalog/api/v1/products';
 
   saveProduct(product: Product, fileToUpload: File)  {
     const formData: FormData = new FormData();
@@ -28,8 +27,8 @@ export class PostProductService {
   getProductById(id: string)  {
     return this.httpClient.get(this.localhost + '/' + id);
   }
-  getProductByCode(code: string)  {
-    return this.httpClient.get(this.localhost + '/code/' + code);
+  getProductsByUserId(userId: number)  {
+    return this.httpClient.get(this.localhost + '/user/' + userId);
   }
   deleteProduct(id: string)  {
     return this.httpClient.delete(this.localhost + '/' + id);

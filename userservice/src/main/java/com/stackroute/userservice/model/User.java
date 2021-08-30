@@ -19,7 +19,7 @@ public class User {
     @Id
     @GeneratedValue
     @ApiModelProperty(notes = "ID of the user. Must be a positive integer excluding zero", required = true, position = 0)
-    private int id;
+    private long id;
 
     @NotBlank(message = "Name cannot be empty")
     @ApiModelProperty(notes = "Name of the user", example = "Justin Trudeau", required = true, position = 1)
@@ -32,7 +32,7 @@ public class User {
 
     @NotNull(message = "admin must be a boolean value: true | false")
     @ApiModelProperty(notes = "Admin boolean value is true if user is an admin. Default: false", example = "true", position = 3)
-    private boolean admin = false;
+    private boolean admin;
 
     @NotBlank(message = "Password cannot be empty")
     @Size(min = 6, message = "Password must consist of at least 6 characters.")

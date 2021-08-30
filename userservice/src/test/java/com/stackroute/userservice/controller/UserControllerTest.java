@@ -95,8 +95,8 @@ public class UserControllerTest {
         when(userService.getUserById(user.getId())).thenReturn(user);
         mockMvc.perform(get("/api/v1/users/" + user.getId()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
-        verify(userService).getUserById(anyInt());
-        verify(userService, times(1)).getUserById(anyInt());
+        verify(userService).getUserById(anyLong());
+        verify(userService, times(1)).getUserById(anyLong());
     }
 
     @Test
@@ -104,8 +104,8 @@ public class UserControllerTest {
         when(userService.deleteUser(user.getId())).thenReturn(user);
         mockMvc.perform(delete("/api/v1/users/" + user.getId()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
-        verify(userService).deleteUser(anyInt());
-        verify(userService, times(1)).deleteUser(anyInt());
+        verify(userService).deleteUser(anyLong());
+        verify(userService, times(1)).deleteUser(anyLong());
     }
 
     @Test
@@ -113,8 +113,8 @@ public class UserControllerTest {
         when(userService.deleteUser(user.getId())).thenThrow(UserNotFoundException.class);
         mockMvc.perform(delete("/api/v1/users/" + user.getId()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(MockMvcResultMatchers.status().isNotFound()).andDo(MockMvcResultHandlers.print());
-        verify(userService).deleteUser(anyInt());
-        verify(userService, times(1)).deleteUser(anyInt());
+        verify(userService).deleteUser(anyLong());
+        verify(userService, times(1)).deleteUser(anyLong());
     }
 
     @Test
