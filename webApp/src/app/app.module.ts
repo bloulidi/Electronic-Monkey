@@ -20,6 +20,7 @@ import { RouterModule } from '@angular/router';
 import { PostComponent } from './Post/Post.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import {MatIconModule} from '@angular/material/icon';
     HttpClientModule,
     FormsModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent]

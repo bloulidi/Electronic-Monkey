@@ -6,8 +6,13 @@
       <mat-form-field class="form-field">
         <input matInput type="text" placeholder="Title" formControlName="title" required>
       </mat-form-field>
-      <mat-form-field class="form-field">
-        <input matInput type="text" placeholder="Category" formControlName="category" required>
+      <mat-form-field>
+        <mat-label>Category</mat-label>
+        <select matNativeControl formControlName="category" required>
+          <option value="Phones">Phones</option>
+          <option value="Computers">Computers</option>
+          <option value="Accessories">Accessories</option>
+        </select>
       </mat-form-field>
       <mat-form-field class="form-field">
         <input matInput type="text" placeholder="Description" formControlName="description">
