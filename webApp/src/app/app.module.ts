@@ -20,7 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
-
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [	
@@ -47,7 +47,8 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
     HttpClientModule,
     FormsModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
