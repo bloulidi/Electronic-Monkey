@@ -1,19 +1,27 @@
 package com.stackroute.orderservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.types.Binary;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document
+@Document(collection = "orders")
 public class Order {
 
     @Id
@@ -21,23 +29,33 @@ public class Order {
     @ApiModelProperty(notes = "ID of the order. Must be a positive integer excluding zero", required = true, position = 0)
     private int id;
 
-    @NotBlank(message = "image cannot be empty")
-    @ApiModelProperty(notes = "Image of the product", required = true, position = 1)
-    private String image;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dateCreated;
 
-    @NotBlank(message = "Name cannot be empty")
-    @ApiModelProperty(notes = "Name of the product", example = "Iphone X", required = true, position = 2)
-    private String name;
+    private String status;
 
-    @NotBlank(message = "Price cannot be empty")
-    @ApiModelProperty(notes = "Price of the product", example = "999", required = true, position = 3)
-    private long price;
+    @OneToMany(mappedBy = "pk.order")
+    @Valid
+    private List<OrderProduct> orderProducts = new ArrayList<>();
 
-    @NotBlank(message = "Quantity cannot be empty")
-    @ApiModelProperty(notes = "Quantity of the product", example = "2", required = true, position = 4)
-    private int quantity;
+    @NotBlank(message = "Total price cannot be empty")
+    @ApiModelProperty(notes = "Total price of the product", example = "999", required = true, position = 3)
+    private long totalPrice;
 
-    @NotBlank(message = "Total cannot be empty")
-    @ApiModelProperty(notes = "Total of the product", example = "999", required = true, position = 5)
-    private int total;
+    @Transient //Not stored in the db
+    public Double getTotalOrderPrice() {
+        double sum = 0D;
+        List<OrderProduct> orderProducts = getOrderProducts();
+        for (OrderProduct op : orderProducts) {
+            sum += op.getTotalPrice();
+        }
+        return sum;
+    }
+
+    @Transient
+    public int getNumberOfProducts() {
+        return this.orderProducts.size();
+    }
 }
+
+//Order has status, created at,
