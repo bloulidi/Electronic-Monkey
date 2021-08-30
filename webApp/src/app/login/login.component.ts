@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       this.message = 'All fields are required';
     } else if(this.form.value.email === ''){
       this.message = 'Email is required';
-    } else if(this.form.value.password =''){
+    } else if(this.form.value.password === ''){
       this.message = 'Password is required';
     } else if(this.form.invalid){
      this.message = "Invalid email and/or password!";
@@ -56,9 +56,9 @@ export class LoginComponent implements OnInit {
           if(error.status == '404') {
             this.message = "User not found!";
             console.error("User not found!", error);
-          } else if(error.status == '409') {
-            this.message = "This email already exists!";
-            console.error("This email already exists!", error);
+          } else if(error.status == '401'){
+            this.message = "Unauthorized error!";
+            console.error("Unauthorized error!", error);
           } else {
             this.message = "Failed to login!";
             console.error("Failed to login!", error);

@@ -42,7 +42,9 @@ export class SignupComponent implements OnInit {
   }
 
   submit() {
-    if(this.form.value.fullName === ''){
+    if(this.form.value.fullName === '' && this.form.value.email === '' && this.form.value.password === '' && this.form.value.confirmPassword == ''){
+      this.message = 'All fields are required';
+    } else if (this.form.value.fullName === ''){
       this.message = 'Full Name is required';
     } else if(this.form.value.email === ''){
       this.message = 'Email is required';
