@@ -38,3 +38,8 @@ input.example-right-align {
 .cancel-button{
     margin-right: 40px;
 }
+
+.alert{
+    margin-top: 20px;
+    color: red;
+}
