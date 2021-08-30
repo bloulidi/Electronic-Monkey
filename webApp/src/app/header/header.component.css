@@ -1,0 +1,142 @@
+header {
+    position: absolute;
+    width: 100vw;
+    background: white;
+    padding-bottom: 75px;
+    margin:0 auto;
+}
+.appName {
+    position: absolute;
+    margin-left: 73px;
+    top: 19px;
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 35px;
+    
+    color: #6B9090;
+}
+
+.appName a {
+    text-decoration: none;
+    color: #6B9090;
+}
+
+.appImg {
+    position: absolute;
+    margin-left:330px;
+    top:5px;
+}
+.phones {
+    position: absolute;
+    margin-left: 600px;
+    top: 29px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    /* identical to box height, or 142% */
+
+    text-align: center;
+    letter-spacing: -0.9px;
+
+    color: #000000;
+}
+.phones a{
+    text-decoration: none;
+    color: #000000;
+}
+.computers {
+    position: absolute;
+    margin-left: 720px;
+    top: 29px;
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    /* identical to box height, or 142% */
+    
+    text-align: center;
+    letter-spacing: -0.9px;
+    
+    color: #000000;
+}
+.computers a{
+    text-decoration: none;
+    color: #000000;
+}
+.accessories{
+    position: absolute;
+    margin-left: 840px;
+    top: 29px;
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    /* identical to box height, or 142% */
+    
+    text-align: center;
+    letter-spacing: -0.9px;
+    
+    color: #000000;
+}
+.accessories a{
+    text-decoration: none;
+    color: #000000;
+}
+
+.profilImg{
+    position: absolute;
+    margin-left: 1250px;
+    top: 22px;
+}
+
+.cartImg{
+    position: absolute;
+    margin-left: 1300px;
+    top: 22px;
+}
+.postBtnText{
+    
+    width: 64px;
+    height: 40px;
+    left: 1310px;
+    top: 30px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+
+    color: #FFFFFF;
+    background: #56B280;
+    border: none;
+}
+.postBtn{
+    position: absolute;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-size: 18px;
+    color: #FFFFFF;
+
+    
+    margin-left:1400px;
+    width: 70px;
+    top: 20px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+
+    background-color: #56B280;
+    border-radius: 0px;
+    text-align: center;
+}

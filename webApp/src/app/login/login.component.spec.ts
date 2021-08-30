@@ -2,15 +2,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs/internal/observable/of';
 //import { Router } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
+import { User } from '../models/User';
+import { UserService } from '../services/user.service';
 
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  //let userService: UserService;
+  let userService: UserService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -19,8 +22,8 @@ describe('LoginComponent', () => {
       providers: []
     })
     .compileComponents();
-    //userService = TestBed.get(UserService);
-   //spyOn(userService, 'login').and.returnValue(of(''));
+    userService = TestBed.get(UserService);
+    spyOn(userService, 'loginUser').and.returnValue(of(''));
   });
 
   beforeEach(() => {
@@ -78,5 +81,20 @@ describe('LoginComponent', () => {
     const password = component.form.controls.password;
     password.setValue('testing');
     expect(password.valid).toBeTruthy();
+  });
+
+  // test to check onSubmit is calling UserService or not
+  it('onSubmit() should call UserService to login', () => {
+    const user: User = {
+      email: 'testing@cgi.com',
+      password: 'Password11'
+    };
+
+    const email = component.form.controls.email;
+    email.setValue(user.email);
+    const password = component.form.controls.password;
+    password.setValue(user.password);
+    component.onSubmit();
+    expect(userService.loginUser).toHaveBeenCalled();
   });
 });

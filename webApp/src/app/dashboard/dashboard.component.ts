@@ -10,13 +10,6 @@ import { PostComponent } from '../post/post.component';
 export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   }
-
-  constructor(public dialog: MatDialog) {}
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(PostComponent, {
-      width: '350px',
-    });
-  }
+  
 
 }

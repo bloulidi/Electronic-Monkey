@@ -15,9 +15,17 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import { LogoutComponent } from './logout/logout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { RouterModule } from '@angular/router';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MyprofileComponent } from './myprofile/myprofile.component';
+import { MypostsComponent } from './myposts/myposts.component';
+import { PostItemComponent } from './myposts/post-item/post-item.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 import { PostComponent } from './post/post.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatIconModule} from '@angular/material/icon';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import {MatSelectModule} from '@angular/material/select';
@@ -29,8 +37,14 @@ import {MatSelectModule} from '@angular/material/select';
     SignupComponent,
     LogoutComponent,
     DashboardComponent,
+    MyprofileComponent,
+    MypostsComponent,
+    PostItemComponent,
+    FooterComponent,
+    HeaderComponent,
     PostComponent
-   ],
+  ],
+  
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -46,6 +60,9 @@ import {MatSelectModule} from '@angular/material/select';
     MatCheckboxModule,
     HttpClientModule,
     FormsModule,
+    MatIconModule,
+    MatMenuModule,
+    MatBadgeModule,
     MatDialogModule,
     MatIconModule,
     MatSelectModule

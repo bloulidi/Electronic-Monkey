@@ -1,0 +1,51 @@
+
+<header>
+    <div class ="appName">
+         <a routerLink="">Electronic Monkey</a>
+    </div>
+
+    <div class ="appImg">
+        <img src="../../assets/monkey.png">
+    </div>
+
+    <div class="phones" >
+        <a href=''> Phones </a>
+    </div>
+
+    <div class="computers">
+        <a href=''> Computers </a>
+    </div>
+
+    <div class="accessories">
+        <a href=''> Accessories </a>
+    </div>
+
+    <div class="profilImg">
+
+        <button  mat-button [matMenuTriggerFor]="menu">
+            <mat-icon svgIcon="profil_icon" ></mat-icon>
+        </button>
+        <mat-menu  #menu="matMenu">
+            <button mat-menu-item (click)="onClickMyProfile()">My Profile</button>
+            <button mat-menu-item (click)="onClickMyPosts()">My Posts</button>
+            <button mat-menu-item>My Orders</button>
+            <button mat-menu-item (click)="onClickLogOut()">Log out</button>
+        </mat-menu>
+ 
+    </div>
+
+    <div class="cartImg">
+        <button mat-button >
+            <mat-icon svgIcon="cart_icon" matBadge={{numProductCart}} mat-raised-button matBadgeSize="medium" matBadgeColor="accent">
+            </mat-icon>
+        </button>
+    </div>
+    <div>
+    <button class="postBtn" mat-raised-button color="primary" (click)="onClickPost()">
+             Post 
+    </button>
+    </div>
+    
+</header>
+
+<router-outlet></router-outlet>
