@@ -61,12 +61,12 @@ public class ProductController {
         return new ResponseEntity<Product>(productService.getProductById(id), HttpStatus.OK);
     }
 
-    /*@GetMapping("code/{code}")
-    @ApiOperation("Returns a specific product by their code. 404 if does not exist.")
-    public ResponseEntity<Product> getProductByCode(@ApiParam("Code of the product to be obtained. Cannot be empty.") @PathVariable String code) throws ProductNotFoundException {
-        log.info("Return product with code = " + code);
-        return new ResponseEntity<Product>(productService.getProductByCode(code), HttpStatus.OK);
-    }*/
+    @GetMapping("user/{userId}")
+    @ApiOperation("Returns a list of products by their userId. 404 if does not exist.")
+    public ResponseEntity<List<Product>> getProductByUserId(@ApiParam("Code of the product to be obtained. Cannot be empty.") @PathVariable long userId) throws ProductNotFoundException {
+        log.info("Return products with userId = " + userId);
+        return new ResponseEntity<List<Product>>(productService.getProductsByUserId(userId), HttpStatus.OK);
+    }
 
     @DeleteMapping("{id}")
     @ApiOperation("Deletes a product from the system. 404 if the person's identifier is not found.")

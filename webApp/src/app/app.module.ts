@@ -15,13 +15,12 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import { LogoutComponent } from './logout/logout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AuthInterceptorService } from './services/auth-interceptor.service';
-import { RouterModule } from '@angular/router';
-import { PostComponent } from './Post/Post.component';
+import { PostComponent } from './post/post.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { ErrorInterceptor } from './helpers/error.interceptor';
 import {MatSelectModule} from '@angular/material/select';
-
 
 @NgModule({
   declarations: [	
@@ -51,7 +50,10 @@ import {MatSelectModule} from '@angular/material/select';
     MatIconModule,
     MatSelectModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
