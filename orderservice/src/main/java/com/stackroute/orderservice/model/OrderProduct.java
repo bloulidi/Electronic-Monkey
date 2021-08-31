@@ -1,34 +1,31 @@
 package com.stackroute.orderservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.stackroute.orderservice.model.product.Product;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Transient;
 
-@Document
+@Document(collection = "orderProducts")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderProduct {
 
-    @EmbeddedId
+    @Id
     @JsonIgnore //We don't want to serialize Order part of the primary key since it'd be redundant.
     private OrderProductPK pk;
 
-    private Integer quantity;
+    private int quantity = 1;
 
-    public OrderProduct(Order order, Product product, Integer quantity) {
-        pk = new OrderProductPK();
-        pk.setOrder(order);
-        pk.setProduct(product);
-        this.quantity = quantity;
-    }
-
-    @Transient //Not stored in db
-    public Product getProduct() {
-        return this.pk.getProduct();
-    }
+    private Product product;
 
     @Transient
-    public Double getTotalPrice() {
-        return getProduct().getPrice() * getQuantity();
+    public float getTotalPrice() {
+        return product.getPrice() * getQuantity();
     }
 }

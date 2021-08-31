@@ -79,7 +79,13 @@
 			<artifactId>lombok</artifactId>
 			<scope>compile</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.stackroute</groupId>
+            <artifactId>catalogservice</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

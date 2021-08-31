@@ -11,8 +11,4 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   }
   
-
-  onClickCart(){
-    this.router.navigate(['cart']);
-  }
 }

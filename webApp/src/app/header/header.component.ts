@@ -35,4 +35,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['myposts']);
   }
 
+  onClickCart(){
+    this.router.navigate(['cart']);
+  }
+
 }

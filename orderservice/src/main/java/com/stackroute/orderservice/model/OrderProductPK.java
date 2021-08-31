@@ -1,14 +1,14 @@
 package com.stackroute.orderservice.model;
 
+import com.stackroute.orderservice.model.product.Product;
+import lombok.Data;
+
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
+@Data
 public class OrderProductPK implements Serializable {
-
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Order order;
-
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Product product;
+    private String orderId;
+    private String productId;
 }
