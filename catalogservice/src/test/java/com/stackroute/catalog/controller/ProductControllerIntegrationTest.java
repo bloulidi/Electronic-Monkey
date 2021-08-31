@@ -41,11 +41,11 @@ public class ProductControllerIntegrationTest {
     @BeforeEach
     void setUp() {
         logger = LoggerFactory.getLogger(ProductController.class);
-        product1 = new Product("Dell Laptop", "Good computer", Category.COMPUTERS.getCategory(), 800.5F);
+        product1 = new Product("Dell Laptop", "Good computer", Category.COMPUTERS.getCategory(), 800.5F, 1);
         product1.setId("1");
-        product2 = new Product("Apple iPhone 12", "Good phone", Category.PHONES.getCategory(), 1000.99F);
+        product2 = new Product("Apple iPhone 12", "Good phone", Category.PHONES.getCategory(), 1000.99F, 1);
         product2.setId("2");
-        product3 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20);
+        product3 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20, 2);
         product3.setId("3");
         productList = new ArrayList<Product>();
         file = new MockMultipartFile("null","null",null, (byte[]) null);
@@ -131,6 +131,33 @@ public class ProductControllerIntegrationTest {
     @Test
     public void givenProductToUpdateThenShouldNotReturnUpdatedProduct() throws ProductAlreadyExistsException, ProductNotFoundException {
         Assertions.assertThrows(ProductNotFoundException.class, () -> productController.updateProduct(product1));
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
+    }
+
+    @Test
+    public void givenGetAllProductsByCategoryThenShouldReturnListOfAllRespectiveProducts() {
+        productList.add(product2);
+        productController.saveProduct(product1);
+        productController.saveProduct(product2);
+        productController.saveProduct(product3);
+        List<Product> products = productController.getProductsByCategory(product2.getCategory()).getBody();
+        assertNotNull(products);
+        assertEquals(productList, products);
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
+    }
+
+    @Test
+    public void givenGetAllProductsByUserIdThenShouldReturnListOfAllRespectiveProducts() {
+        productList.add(product1);
+        productList.add(product2);
+        productController.saveProduct(product1);
+        productController.saveProduct(product2);
+        productController.saveProduct(product3);
+        List<Product> products = productController.getProductsByUserId(product1.getUserId()).getBody();
+        assertNotNull(products);
+        assertEquals(productList, products);
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }

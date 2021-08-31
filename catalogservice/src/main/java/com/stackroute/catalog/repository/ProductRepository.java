@@ -9,6 +9,5 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends MongoRepository<Product, String> {
     List<Product> findByUserId(long userId);
-    //boolean existsByCode(String code);
-    //Product findByCode(String code);
+    List<Product> findByCategory(String category);
 }
