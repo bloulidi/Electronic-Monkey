@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 .order{
-    padding-top: 100px;
+    padding-top: 50px;
     width: 80%;
     margin: auto;
     color: #565959;
@@ -16,6 +16,7 @@
 }
 .outlinedRight{
     border-left: 0ch;
+    border-right: 0ch;
     border-style:solid;
     border-color: #E5E5E5;
 }
@@ -43,7 +44,11 @@
     font-size: 26px;
 }
 .price{
-    font-family: Roboto;
+    font-family: 'Roboto';
     font-weight: 500;
     font-size: 18px;
+}
+.yourOrders{
+    text-align: center;
+    padding-top: 150px;
 }

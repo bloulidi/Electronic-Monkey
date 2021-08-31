@@ -1,5 +1,7 @@
 <app-header></app-header>
 
+<h1 class="yourOrders">Order History</h1>
+
 <mat-grid-list *ngFor="let o of order" class="order" cols="3" rowHeight="4:1">
   <mat-grid-tile class="outlinedLeft">ORDER PLACED<br>{{o.orderDate}}</mat-grid-tile>
   <mat-grid-tile class="outlinedMiddle">TOTAL<br>${{o.total}}</mat-grid-tile>
