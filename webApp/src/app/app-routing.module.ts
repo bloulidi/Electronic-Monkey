@@ -14,16 +14,16 @@ import { MyprofileComponent } from './myprofile/myprofile.component';
 
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent, canActivate:[AuthGuard] },
+  { path: '', component: DashboardComponent, canActivate:[AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'myprofile', component: MyprofileComponent, canActivate:[AuthGuard]},
-  {path: 'myposts', component: MypostsComponent, canActivate:[AuthGuard]},
-  { path: 'logout', component: LogoutComponent, canActivate:[AuthGuard] },
+  { path: 'myposts', component: MypostsComponent, canActivate:[AuthGuard]},
+  { path: 'logout', component: LogoutComponent, canActivate:[AuthGuard]},
   { path: 'signup', component: SignupComponent },
-  { path: 'cart', component: CartComponent},
-  {path: 'phones', component: PhonesComponent, canActivate:[AuthGuard]},
-  {path: 'computers', component: ComputersComponent, canActivate:[AuthGuard]},
-  {path: 'accessories', component: AccessoriesComponent, canActivate:[AuthGuard]},
+  { path: 'cart', component: CartComponent, canActivate:[AuthGuard]},
+  { path: 'phones', component: PhonesComponent, canActivate:[AuthGuard]},
+  { path: 'computers', component: ComputersComponent, canActivate:[AuthGuard]},
+  { path: 'accessories', component: AccessoriesComponent, canActivate:[AuthGuard]},
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];
