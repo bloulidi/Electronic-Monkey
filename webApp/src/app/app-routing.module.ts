@@ -12,9 +12,8 @@ import { SignupComponent } from './signup/signup.component';
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate:[AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'myprofile', component: MyprofileComponent},
-  {path: 'myposts', component: MypostsComponent},
+  { path: 'myprofile', component: MyprofileComponent, canActivate:[AuthGuard]},
+  {path: 'myposts', component: MypostsComponent, canActivate:[AuthGuard]},
   { path: 'logout', component: LogoutComponent, canActivate:[AuthGuard] },
   { path: 'signup', component: SignupComponent },
   // otherwise redirect to home

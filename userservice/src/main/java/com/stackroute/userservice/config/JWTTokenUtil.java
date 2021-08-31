@@ -1,7 +1,5 @@
 package com.stackroute.userservice.config;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -9,10 +7,8 @@ import java.util.stream.Collectors;
 import com.stackroute.userservice.model.User;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -58,8 +54,6 @@ public class JWTTokenUtil {
         claims.put("userId", user.getId());
         return Jwts.builder()
                 .setClaims(claims)
-                //.setSubject(authentication.getName())
-                //.claim(authoritiesKey, authorities)
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY*1000))
@@ -71,26 +65,9 @@ public class JWTTokenUtil {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    UsernamePasswordAuthenticationToken getAuthentication(final String token, final Authentication existingAuth, final UserDetails userDetails) {
-
-        final JwtParser jwtParser = Jwts.parser().setSigningKey(secret);
-
-        final Jws<Claims> claimsJws = jwtParser.parseClaimsJws(token);
-
-        final Claims claims = claimsJws.getBody();
-
-        final Collection<? extends GrantedAuthority> authorities =
-                Arrays.stream(claims.get(authoritiesKey).toString().split(","))
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList());
-
-        return new UsernamePasswordAuthenticationToken(userDetails, "", authorities);
-    }
-
     public User parseToken(String token) {
         try {
             Claims body = getAllClaimsFromToken(token);
-
             User user = new User();
             user.setEmail(body.getSubject());
             user.setId(Long.valueOf((Integer) body.get("userId")));
