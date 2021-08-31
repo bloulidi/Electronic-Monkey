@@ -15,54 +15,61 @@ export class SignupComponent implements OnInit {
 
   form;
   user: User;
-  
+
   // message to be display if Issue added or not
   message = '';
-  
+
   constructor(private fb: FormBuilder, private router: Router, private userService: UserService) {
     this.user = new User;
   }
 
-  //TODO: Fix the Validation in the UI......
   ngOnInit() {
     this.form = this.fb.group({
       fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.compose([
         Validators.required,
-        CustomValidators.patternValidator(/\d/, {hasNumber: true}),
+        CustomValidators.patternValidator(/\d/, { hasNumber: true }),
         CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
         CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
         Validators.minLength(6)])
       ],
       confirmPassword: ['', Validators.compose([Validators.required])]
     },
-    {
-      validator: CustomValidators.passwordMatchValidator
-    })
+      {
+        validator: CustomValidators.passwordMatchValidator
+      })
   }
 
   submit() {
-    if(this.form.value.email === '' || this.form.value.password === '' || this.form.value.confirmPassword === '' || this.form.value.fullName === '') {
-      this.message = 'Fields should not be empty!!! Please verify details.';
-    }
-    else if(this.form.invalid){
+    if(this.form.value.fullName === '' && this.form.value.email === '' && this.form.value.password === '' && this.form.value.confirmPassword == ''){
+      this.message = 'All fields are required';
+    } else if (this.form.value.fullName === ''){
+      this.message = 'Full Name is required';
+    } else if(this.form.value.email === ''){
+      this.message = 'Email is required';
+    } else if(this.form.value.password === ''){
+      this.message = 'Password is required';
+    } else if(this.form.value.confirmPassword === ''){
+      this.message = 'Confirm Password is required';
+    } else if (this.form.invalid) {
       this.message = "Invalid email and/or password!";
-    }
-    else{
-      this.user.name = this.form.get('fullName').value
-      this.user.email = this.form.get('email').value
-      this.user.password = this.form.get('password').value
+    } else {
+      this.user.name = this.form.value.fullName
+      this.user.email = this.form.value.email
+      this.user.password = this.form.value.password
       this.userService.saveUser(this.user).subscribe({
-        next: res => this.router.navigate(['/login']),
+        next: res => this.router.navigate(['login']),
         error: error => {
-          if(error.status == 409){
-            this.message = "This email already exists.";
+          if(error.status == '409') {
+            this.message = "This email already exists!";
+            console.error("This email already exists!", error);
           } else {
-            this.message = "An error was encountered!";
+            this.message = "Failed to signup!";
+            console.error("Failed to signup!", error);
           }
         }
       });
-    } 
+    }
   }
 }

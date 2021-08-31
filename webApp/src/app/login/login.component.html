@@ -1,6 +1,10 @@
 <div id = "Login">
     <div class="container">
-            <a class= "website"> Website</a>
+        <a class= "website">Electronic Monkey</a>
+
+        <div class ="appImg">
+            <img src="../../assets/monkey.png">
+        </div>
     
         <div class ="__1_platform_to_buy_and_sell_products" >
             #1 platform to buy and sell products <br/> 
@@ -8,7 +12,7 @@
         <form [formGroup]="form" (ngSubmit)=" onSubmit()">
             <mat-form-field appearance="outline" class="email_section">
                 <mat-label >Email</mat-label>
-                <input type="text" matInput formControlName="email">
+                <input type="email" matInput formControlName="email">
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="password_section">
@@ -28,7 +32,7 @@
         
         <div class="sign_up_button" >
             <!--<input class="sign_up_text" type="button"  (click) ="onClickSignUp()" value ="Sign up"/>-->
-            <button id="btn_signUp" type="button" (click)="onClickSignUp()" class = "sign_up_text"> Sign up </button>
+            <button id="btn_signUp" type="button" (click)="onClickSignUp()" class = "sign_up_text" value="signup"> Sign up </button>
         </div> 
 
         <div class="remember_me">

@@ -1,8 +1,9 @@
 // Data model for User
 export class User {
-    id?: Number;
+    id?: number;
     name?: string;
     email?: string;
-    admin?: boolean;
     password?: string;
+    admin?: boolean;
+    token?: string;
 }

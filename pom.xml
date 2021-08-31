@@ -58,6 +58,7 @@
         <module>orderservice</module>
         <module>inventoryservice</module>
         <module>api-gateway-service</module>
+        <module>catalogservice</module>
     </modules>
 
 	<dependencies>

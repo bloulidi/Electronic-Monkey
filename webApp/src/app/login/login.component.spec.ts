@@ -2,15 +2,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-//import { Router } from '@angular/router';
+import { of } from 'rxjs/internal/observable/of';
 import { AppRoutingModule } from '../app-routing.module';
+import { User } from '../models/User';
+import { AuthenticationService } from '../services/authentication.service';
 
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  //let userService: UserService;
+  let authenticationService: AuthenticationService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -19,8 +21,8 @@ describe('LoginComponent', () => {
       providers: []
     })
     .compileComponents();
-    //userService = TestBed.get(UserService);
-   //spyOn(userService, 'login').and.returnValue(of(''));
+    authenticationService = TestBed.get(AuthenticationService);
+    spyOn(authenticationService, 'login').and.returnValue(of(''));
   });
 
   beforeEach(() => {
@@ -53,7 +55,7 @@ describe('LoginComponent', () => {
     component.form.value.email = '';
     component.form.value.password = '';
     component.onSubmit();
-    expect(component.message).toEqual('Email and Password should not be empty!!! Please verify details');
+    expect(component.message).toEqual('Email is required');
   });
 
   it('testing email field invalidity', () => {
@@ -78,5 +80,20 @@ describe('LoginComponent', () => {
     const password = component.form.controls.password;
     password.setValue('testing');
     expect(password.valid).toBeTruthy();
+  });
+
+  // test to check onSubmit is calling UserService or not
+  it('onSubmit() should call UserService to login', () => {
+    const user: User = {
+      email: 'testing@cgi.com',
+      password: 'Password11'
+    };
+
+    const email = component.form.controls.email;
+    email.setValue(user.email);
+    const password = component.form.controls.password;
+    password.setValue(user.password);
+    component.onSubmit();
+    expect(authenticationService.login).toHaveBeenCalled();
   });
 });

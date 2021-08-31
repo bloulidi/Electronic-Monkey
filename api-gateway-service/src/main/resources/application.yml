@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: apigateway
+
+server:
+  port: 8080
+
+zuul:
+  sensitiveHeaders:
+  ignoredServices: '*'
+  routes:
+    user:
+      url: http://localhost:8090
+    catalog:
+      url: http://localhost:8800
