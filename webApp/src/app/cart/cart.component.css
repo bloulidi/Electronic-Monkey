@@ -3,11 +3,12 @@ table{
     width: 70%;
     margin-left:auto;
     margin-right:auto;
-    margin-top: 100px;
 }
 img{
     width:100px;
     height: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .remove-button{
     padding-top: 10px;
@@ -28,7 +29,7 @@ img{
 }
 .text-cart{
     font-weight: 500;
-    font-size: 12px;
+    font-size: 14px;
     color: #272727;
 }
 input {
@@ -107,4 +108,7 @@ input {
     float: right;
     padding-right: 45px;
     margin-top: 50px;
+}
+.cart{
+  padding-top: 100px;
 }

@@ -1,5 +1,6 @@
-<app-dashboard></app-dashboard>
-<table mat-table [dataSource]="dataSource">
+<app-header></app-header>
+
+<table class="cart" mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="imageURL">
         <th class="text-cart" mat-header-cell *matHeaderCellDef> Product </th>
         <td mat-cell *matCellDef="let product"> <img [src]="product.imageURL" /> </td>
@@ -47,3 +48,5 @@
     <div class="sub-total-text">$9.99</div>
     <div class="sub-total-price">Sub-total</div>
   </div>
+
+<app-footer></app-footer>
