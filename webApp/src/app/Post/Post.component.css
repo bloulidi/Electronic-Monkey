@@ -1,0 +1,45 @@
+.cancel-button{
+    background: #818181;
+    color: white;
+}
+.post-button{
+    background: #56B280;
+    color: white;
+}
+.example-right-align {
+    text-align: right;
+  }
+  
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+}
+
+input.example-right-align {
+    -moz-appearance: textfield;
+}
+
+.form-title{
+    color: #56B280;
+    font-weight: 500;
+    text-align: center;
+}
+
+.form-field{
+    width: 300px;
+}
+
+.buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cancel-button{
+    margin-right: 40px;
+}
+
+.alert{
+    margin-top: 20px;
+    color: red;
+}

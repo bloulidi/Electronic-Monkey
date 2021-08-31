@@ -29,7 +29,7 @@ div {
 
 .website {
     position: absolute;
-    width: 109px;
+    width: 500px;
     height: 35px;
     left: 86px;
     top: 30px;
@@ -42,6 +42,13 @@ div {
     
     color: #6B9090;
 }
+
+.appImg {
+    position: absolute;
+    margin-left: 340px;
+    top:7px;
+}
+
 .__1_platform_to_buy_and_sell_products {
     position: absolute;
     width: 484px;

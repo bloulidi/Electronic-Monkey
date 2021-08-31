@@ -36,11 +36,11 @@ describe('SignupComponent', () => {
     expect(component.ngOnInit).toBeTruthy();
   });
 
-  it('onSubmit() should verify form is valid or not ', () => {
-    component.form.fullName = 'Badreddine';
+  /*it('onSubmit() should verify form has empty fields or not ', () => {
+    component.form.controls.fullName = "Baddredine";
     component.submit();
-    expect(component.message).toEqual('Fields should not be empty!!! Please verify details.');
-  });
+    expect(component.message).toEqual('Email is required');
+  });*/
 
   it('testing full name field validity', () => {
     const fullName = component.form.controls.fullName;

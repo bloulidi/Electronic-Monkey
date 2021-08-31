@@ -1,5 +1,8 @@
 <!-- Title of the page -->
-<div class="website">Website</div>
+<div class="website">Electronic Monkey</div>
+<div class ="appImg">
+  <img src="../../assets/monkey.png">
+</div>
 
 <!-- Title of the page -->
 <div class="form-title">Create Account</div>
@@ -18,7 +21,7 @@
       <mat-form-field class="form-field" appearance="outline">
         <mat-label> E-mail
         </mat-label>
-        <input id="emailField" matInput formControlName="email" required>
+        <input id="emailField" type="email" matInput formControlName="email" required>
         <mat-error id="emailError" *ngIf="form.controls.email.touched && form.controls.email.invalid">
           <span *ngIf="form.controls.email.errors.required">This field is mandatory.</span>
           <span *ngIf="form.controls.email.errors.email">This field is invalid.</span>
@@ -44,7 +47,7 @@
           <span *ngIf="form.controls['confirmPassword'].hasError('NoPassswordMatch')">Password do not match</span>
         </mat-error>
       </mat-form-field>
-      <button class="signup-button" mat-raised-button color="primary" type="submit">Sign Up</button>
+      <button class="signup-button" mat-raised-button color="primary" type="submit" value="signup">Sign Up</button>
     </form>
     <!-- write logic to display message if form is submitted-->
     <div class="alert" *ngIf="message" role="alert">

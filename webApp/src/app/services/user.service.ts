@@ -1,65 +1,42 @@
-import { User } from '../models/User';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { baseUrl } from '../global-variables';
-import { map } from "rxjs/operators";
+
+import { User } from '../models/User';
+import { environment } from '../../environments/environment'
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-@Injectable({
-  providedIn: 'root'
-})
-
+@Injectable({ providedIn: 'root'})
 export class UserService {
   constructor(private httpClient : HttpClient) { }
 
-  localhost = baseUrl + 'user/api/v1/users';
+  localhost = environment.apiUrl + 'user/api/v1/users';
 
-  saveUser(user)  {
-    return this.httpClient.post(this.localhost, user, httpOptions);
-  }
-  loginUser(user)  {
-    return this.httpClient.post(this.localhost + '/login', user, httpOptions).pipe(
-      map((data:any) => {
-        sessionStorage.setItem("username", user.email);
-        let tokenStr = "Bearer " + data.token;
-        sessionStorage.setItem("token", tokenStr);
-        return data;
-      })
-    );
-  }
-  isUserLoggedIn() {
-    let user = sessionStorage.getItem("username");
-    let isLoggedIn:boolean = !(user === null);
-    if(isLoggedIn) console.log(user + " is logged in")
-    else console.log("Not logged in")
-    return isLoggedIn;
-  }
-  logOut() {
-    sessionStorage.removeItem("username");
-    console.log("logout")
+  saveUser(user: any)  {
+    console.log(this.localhost+ "/signup")
+    return this.httpClient.post(this.localhost + "/signup", user, httpOptions);
   }
   getAllUsers()  {
     return this.httpClient.get(this.localhost);
   }
-  getUserById(id)  {
+  getUserById(id: number)  {
     return this.httpClient.get(this.localhost + '/' + id);
   }
-  getUserByEmail(email)  {
+  getUserByEmail(email: string)  {
     return this.httpClient.get(this.localhost + '/email/' + email);
   }
-  getUsersByName(name)  {
+  getUsersByName(name: string)  {
     return this.httpClient.get(this.localhost + '/name/' + name);
   }
-  getUsersByAdmin(admin)  {
+  getUsersByAdmin(admin: boolean)  {
     return this.httpClient.get(this.localhost + '/admin/' + admin);
   }
-  deleteUser(id)  {
+  deleteUser(id: number)  {
     return this.httpClient.delete(this.localhost + '/' + id);
   }
-  updateUser(user)  {
+  updateUser(user: User)  {
     return this.httpClient.patch(this.localhost, user, httpOptions);
   }
 }

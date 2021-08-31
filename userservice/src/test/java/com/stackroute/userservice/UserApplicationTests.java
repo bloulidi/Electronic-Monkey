@@ -1,6 +1,6 @@
 package com.stackroute.userservice;
 
-import com.stackroute.userservice.config.JWTTokenGeneratorImpl;
+import com.stackroute.userservice.config.JWTTokenUtil;
 import com.stackroute.userservice.controller.UserController;
 import com.stackroute.userservice.repository.UserRepository;
 import com.stackroute.userservice.service.UserServiceImpl;
@@ -18,7 +18,7 @@ class UserApplicationTests {
 	private UserServiceImpl userService;
 
 	@Autowired
-	private JWTTokenGeneratorImpl jwtTokenGenerator;
+	private JWTTokenUtil jwtTokenGenerator;
 
 	@Autowired
 	private UserController userController;
