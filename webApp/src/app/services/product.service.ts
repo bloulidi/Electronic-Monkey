@@ -31,8 +31,8 @@ export class ProductService {
   getProductsByUserId(userId: number): Observable<Product[]> {
     return this.httpClient.get<Product[]>(this.localhost + '/user/' + userId);
   }
-  getProductsByCategory(){
-    
+  getProductsByCategory(category: string): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(this.localhost + '/category/' + category);
   }
   deleteProduct(id: string)  {
     return this.httpClient.delete(this.localhost + '/' + id);

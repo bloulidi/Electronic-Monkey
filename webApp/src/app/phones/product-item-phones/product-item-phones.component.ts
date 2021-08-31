@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/Product';
 
 @Component({
-  selector: 'app-product-item',
-  templateUrl: './product-item.component.html',
-  styleUrls: ['./product-item.component.css']
+  selector: 'app-product-item-phones',
+  templateUrl: './product-item-phones.component.html',
+  styleUrls: ['./product-item-phones.component.css']
 })
-export class ProductItemComponent implements OnInit {
+export class ProductItemPhonesComponent implements OnInit {
 
   @Input() productItem: Product;
 
@@ -23,5 +23,4 @@ export class ProductItemComponent implements OnInit {
   handleAddToCart() {
 
   }
-
 }
