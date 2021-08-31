@@ -37,9 +37,6 @@ public class Product {
     @ApiModelProperty(notes = "Image of the product", position = 5)
     private Photo photo;
 
-    @ApiModelProperty(notes = "User associated to the product", required = true, position = 6)
-    private long userId;
-
     public Product(String title, String description, String category, float price) {
         this.title = title;
         this.description = description;
