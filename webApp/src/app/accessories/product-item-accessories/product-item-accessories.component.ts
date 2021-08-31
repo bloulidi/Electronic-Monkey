@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/Product';
 
 @Component({
-  selector: 'app-product-item',
-  templateUrl: './product-item.component.html',
-  styleUrls: ['./product-item.component.css']
+  selector: 'app-product-item-accessories',
+  templateUrl: './product-item-accessories.component.html',
+  styleUrls: ['./product-item-accessories.component.css']
 })
-export class ProductItemComponent implements OnInit {
+export class ProductItemAccessoriesComponent implements OnInit {
 
   @Input() productItem: Product;
 

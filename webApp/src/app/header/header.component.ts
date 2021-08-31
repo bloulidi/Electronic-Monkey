@@ -35,4 +35,15 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['myposts']);
   }
 
+  onClickPhones(){
+    this.router.navigate(['phones']);
+  }
+
+  onClickComputers(){
+    this.router.navigate(['computers']);
+  }
+
+  onClickAccessories(){
+    this.router.navigate(['accessories']);
+  }
 }

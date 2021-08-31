@@ -1,7 +1,7 @@
 footer {
     position: fixed;
     width: 100vw;
-    height: 150px;
+    height: 110px;
     left: 0;
     bottom: 0;
     background-color:#525151;
@@ -11,7 +11,7 @@ footer {
     position: absolute;
     left: 51.04%;
     right: 37.15%;
-    top: 38.61%;
+    top: 18.61%;
     bottom: 41.74%;
 }
 
@@ -19,7 +19,7 @@ footer {
     position: absolute;
     left: 62.85%;
     right: 25.35%;
-    top: 38.61%;
+    top: 18.61%;
     bottom: 41.74%;
 }
 
@@ -27,7 +27,7 @@ footer {
     position: absolute;
     left: 74.65%;
     right: 13.54%;
-    top: 38.61%;
+    top: 18.61%;
     bottom: 41.74%;
 }
 
@@ -59,7 +59,7 @@ li {
     position: absolute;
     width: 250px;
     padding-left: 90px;
-    padding-top: 60px;
+    padding-top: 37px;
     
     font-family: Roboto;
     font-style: normal;

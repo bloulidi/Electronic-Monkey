@@ -29,7 +29,7 @@ export class AccessoriesComponent implements OnInit {
 
   loadProducts() {
     console.log("userId in load products is:" + this.userId);
-    this.productService.getProductsByUserId(this.userId).subscribe((products) => {
+    this.productService.getProductsByCategory("Accessories").subscribe((products) => {
       this.productList = products;
       console.log(this.productList);
       })
