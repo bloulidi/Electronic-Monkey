@@ -59,7 +59,7 @@ public class UserController {
         User getUser = userService.getUserByEmailAndPassword(user.getEmail(), user.getPassword());
         JSONObject jo = new JSONObject();
         if (!authentication.isAuthenticated() || getUser == null) {
-            jo.put("error", "Could not authenticate log in!");
+            jo.put("error", "Could not authenticate user!");
             return new ResponseEntity<String>(jo.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -69,7 +69,6 @@ public class UserController {
         jo.put("email", retrievedUser.getEmail());
         jo.put("admin", retrievedUser.isAdmin());
         jo.put("token", token);
-        log.info("Parse token: " + jo.toString());
         return new ResponseEntity<String>(jo.toString(), HttpStatus.OK);
     }
 
