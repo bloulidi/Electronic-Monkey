@@ -5,23 +5,23 @@ import { ProductService } from '../services/product.service';
 import { UserService } from '../services/user.service';
 
 @Component({
-  selector: 'app-myposts',
-  templateUrl: './myposts.component.html',
-  styleUrls: [
-  './myposts.component.css']
+  selector: 'app-accessories',
+  templateUrl: './accessories.component.html',
+  styleUrls: ['./accessories.component.css']
 })
-
-export class MypostsComponent implements OnInit {
+export class AccessoriesComponent implements OnInit {
 
   productList: Product[] = [];
   userId:number;
 
-  constructor(private productService: ProductService, private authenticationService: AuthenticationService, private userService: UserService) {
+  constructor(private productService: ProductService, 
+              private authenticationService: AuthenticationService, 
+              private userService: UserService) {
     let email = this.authenticationService.currentUserValue.email;
     this.userId = this.authenticationService.currentUserValue.id;
     console.log("this is the email:" + email);
     console.log("this is the ID:" + this.userId);
-   }
+  }
 
   ngOnInit(): void {
     this.loadProducts();

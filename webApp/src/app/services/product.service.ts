@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';;
 
 import { Product } from '../models/Product';
 import { environment } from '../../environments/environment'
+import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -27,8 +28,11 @@ export class ProductService {
   getProductById(id: string)  {
     return this.httpClient.get(this.localhost + '/' + id);
   }
-  getProductsByUserId(userId: number)  {
-    return this.httpClient.get(this.localhost + '/user/' + userId);
+  getProductsByUserId(userId: number): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(this.localhost + '/user/' + userId);
+  }
+  getProductsByCategory(){
+    
   }
   deleteProduct(id: string)  {
     return this.httpClient.delete(this.localhost + '/' + id);
