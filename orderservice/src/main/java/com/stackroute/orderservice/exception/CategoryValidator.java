@@ -1,6 +1,6 @@
 package com.stackroute.orderservice.exception;
 
-import com.stackroute.catalog.model.Category;
+import com.stackroute.orderservice.model.product.Category;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

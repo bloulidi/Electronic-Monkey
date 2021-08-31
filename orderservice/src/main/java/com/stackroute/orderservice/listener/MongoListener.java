@@ -1,6 +1,6 @@
 package com.stackroute.orderservice.listener;
 
-import com.stackroute.catalog.model.BaseModel;
+import com.stackroute.orderservice.model.BaseModel;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
 import org.springframework.stereotype.Component;

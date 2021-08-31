@@ -18,7 +18,7 @@ import javax.validation.constraints.*;
 @ApiModel(description = "Class representing a product tracked by the application.")
 public class Product extends BaseModel{
 
-    @NotBlank(message = "Title cannot be empty.")
+    @NotBlank(message = "Title cannot be empty")
     @ApiModelProperty(notes = "Title of the product", example = "DELL Laptop", required = true, position = 1)
     private String title;
 

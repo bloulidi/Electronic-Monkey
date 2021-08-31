@@ -1,13 +1,11 @@
 package com.stackroute.orderservice.model.product;
 
-import com.stackroute.catalog.exception.CategoryConstraint;
-import com.stackroute.orderservice.model.BaseModel;
+import com.stackroute.orderservice.exception.CategoryConstraint;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.index.Indexed;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
@@ -17,7 +15,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(description = "Class representing a product tracked by the application.")
+@ApiModel(description = "Class representing a product.")
 public class Product {
 
     @NotBlank(message = "Title cannot be empty.")
@@ -28,7 +26,6 @@ public class Product {
     private String description = "";
 
     @CategoryConstraint
-    @Indexed
     @ApiModelProperty(notes = "Category of the product", example = "Computers", required = true, position = 3)
     private String category;
 
