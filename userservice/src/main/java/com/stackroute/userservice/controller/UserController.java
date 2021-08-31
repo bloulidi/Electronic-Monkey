@@ -65,7 +65,7 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = jwtTokenUtil.generateToken(authentication, getUser);
         User retrievedUser = jwtTokenUtil.parseToken(token);
-        jo.put("userId", retrievedUser.getId());
+        jo.put("id", retrievedUser.getId());
         jo.put("email", retrievedUser.getEmail());
         jo.put("admin", retrievedUser.isAdmin());
         jo.put("token", token);

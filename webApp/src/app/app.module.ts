@@ -29,6 +29,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import {MatSelectModule} from '@angular/material/select';
+import { PhonesComponent } from './phones/phones.component';
+import { ProductItemComponent } from './phones/product-item/product-item.component';
+import { ComputersComponent } from './computers/computers.component';
+import { AccessoriesComponent } from './accessories/accessories.component';
 
 @NgModule({
   declarations: [	
@@ -42,7 +46,11 @@ import {MatSelectModule} from '@angular/material/select';
     PostItemComponent,
     FooterComponent,
     HeaderComponent,
-    PostComponent
+    PostComponent,
+    PhonesComponent,
+    ProductItemComponent,
+    ComputersComponent,
+    AccessoriesComponent
   ],
   
   imports: [
