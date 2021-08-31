@@ -29,9 +29,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import {MatSelectModule} from '@angular/material/select';
+import { OrderHistoryComponent } from './orderHistory/orderHistory.component';
+import {MatCardModule} from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
-  declarations: [	
+  declarations: [		
     AppComponent,
     LoginComponent,
     SignupComponent,
@@ -42,8 +45,9 @@ import {MatSelectModule} from '@angular/material/select';
     PostItemComponent,
     FooterComponent,
     HeaderComponent,
-    PostComponent
-  ],
+    PostComponent,
+      OrderHistoryComponent
+   ],
   
   imports: [
     BrowserModule,
@@ -65,7 +69,9 @@ import {MatSelectModule} from '@angular/material/select';
     MatBadgeModule,
     MatDialogModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

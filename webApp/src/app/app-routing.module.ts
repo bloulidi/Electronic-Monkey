@@ -1,3 +1,4 @@
+import { OrderHistoryComponent } from './orderHistory/orderHistory.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'myposts', component: MypostsComponent},
   { path: 'logout', component: LogoutComponent, canActivate:[AuthGuard] },
   { path: 'signup', component: SignupComponent },
+  { path: 'orderHistory', component: OrderHistoryComponent },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

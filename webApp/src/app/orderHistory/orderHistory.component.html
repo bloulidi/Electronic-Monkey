@@ -1,0 +1,16 @@
+<app-header></app-header>
+
+<mat-grid-list *ngFor="let o of order" class="order" cols="3" rowHeight="4:1">
+  <mat-grid-tile class="outlinedLeft">ORDER PLACED<br>{{o.orderDate}}</mat-grid-tile>
+  <mat-grid-tile class="outlinedMiddle">TOTAL<br>${{o.total}}</mat-grid-tile>
+  <mat-grid-tile class="outlinedRight">ORDER #<br>{{o.orderNumber}}</mat-grid-tile>
+  <div class="inside-order">
+    <mat-grid-list *ngFor="let product of orderProducts1; let first = first; let last = last" [ngClass]="{ first: first, last: last }" class="outlinedOrders" cols="3" rowHeight="2:1">
+      <mat-grid-tile><img src={{product.image}} width="200" height="150"></mat-grid-tile>
+      <mat-grid-tile class="name">{{product.name}}</mat-grid-tile>
+      <mat-grid-tile class="price">${{product.price}}</mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</mat-grid-list>
+
+<app-footer></app-footer>

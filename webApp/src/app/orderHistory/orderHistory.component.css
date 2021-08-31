@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+.order{
+    padding-top: 100px;
+    width: 80%;
+    margin: auto;
+    color: #565959;
+}
+.order span{
+    color: #272727;
+}
+
+.outlinedLeft{
+    border-style:solid;
+    border-right: 0ch;
+    border-color: #E5E5E5;
+}
+.outlinedRight{
+    border-left: 0ch;
+    border-style:solid;
+    border-color: #E5E5E5;
+}
+.outlinedMiddle{
+    border-right: 0ch;
+    border-left: 0ch;
+    border-style:solid;
+    border-color: #E5E5E5;
+}
+.outlinedOrders{
+    border-color: #E5E5E5;
+    border-bottom: 0ch;
+    border-style: solid;
+}
+.first{
+    padding-top: 100px;
+}
+.last{
+    border-bottom: solid;
+    border-color: #E5E5E5;
+}
+.name{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 26px;
+}
+.price{
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 18px;
+}

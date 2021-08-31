@@ -35,4 +35,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['myposts']);
   }
 
+  onClickOrderHistory(){
+    this.router.navigate(['orderHistory']);
+  }
 }
