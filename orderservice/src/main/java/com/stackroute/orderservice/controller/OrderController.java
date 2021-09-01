@@ -3,6 +3,8 @@ package com.stackroute.orderservice.controller;
 import com.stackroute.orderservice.exception.OrderAlreadyExistsException;
 import com.stackroute.orderservice.exception.OrderNotFoundException;
 import com.stackroute.orderservice.model.Order;
+import com.stackroute.orderservice.model.OrderProduct;
+import com.stackroute.orderservice.model.Status;
 import com.stackroute.orderservice.service.OrderService;
 import com.stackroute.orderservice.swagger.SpringFoxConfig;
 import io.swagger.annotations.Api;
@@ -31,8 +33,9 @@ public class OrderController {
 
     @PostMapping
     @ApiOperation("Creates a new order.")
-    public ResponseEntity<Order> saveOrder(@ApiParam("New Order is created. 409 if already exists.") @RequestBody Order order)  throws OrderAlreadyExistsException  {
-        log.info("Create a new user: " + order.toString());
+    public ResponseEntity<Order> saveOrder(@ApiParam("New order is created. 409 if already exists.") @RequestBody Order order)  throws OrderAlreadyExistsException  {
+        log.info("Create a new order: " + order.toString());
+        order.setStatus(Status.DONE.getStatus());
         return new ResponseEntity<Order>(orderService.saveOrder(order), HttpStatus.CREATED);
     }
 
