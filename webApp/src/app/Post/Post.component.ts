@@ -36,9 +36,6 @@ export class PostComponent implements OnInit {
       description: [''],
       price: ['', Validators.required]
     })
-    if(this.isProductAdded){
-      this.router.navigateByUrl('/myposts');
-    }
   }
 
   cancel(): void {
@@ -70,7 +67,6 @@ export class PostComponent implements OnInit {
           this.message = "Post added successfully!"
           this.isProductAdded = true;
           setTimeout(() => this.cancel(), 1000);
-          //this.router.navigate[('myposts')];
 
           // Show picture
           //this.retrievedImage = 'data:' + res.photo.type + ';base64,' + res.photo.image.data;
