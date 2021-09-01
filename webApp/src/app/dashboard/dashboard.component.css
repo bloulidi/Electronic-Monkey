@@ -24,6 +24,14 @@
 .hvrbox img {
 	max-width: 100%;
 }
+.hvrbox p {
+	transition: font-size 0.5s ease-in-out;
+	font-size: 20px;
+}
+.hvrbox:hover p {
+	color:#fff;
+	font-size: 21px;
+}
 .hvrbox .hvrbox-layer_bottom {
 	display: block;
 }
@@ -44,10 +52,11 @@
 	-webkit-transition: all 0.4s ease-in-out 0s;
 	-ms-transition: all 0.4s ease-in-out 0s;
 	transition: all 0.4s ease-in-out 0s;
+	opacity: 1;
 }
 .hvrbox:hover .card-body,
 .hvrbox.active .card-body {
-	opacity: 1;
+	opacity: 0;
 }
 .hvrbox .hvrbox-text {
 	text-align: center;
