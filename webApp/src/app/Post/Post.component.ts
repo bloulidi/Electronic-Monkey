@@ -21,6 +21,7 @@ export class PostComponent implements OnInit {
   product: Product;
   photo: Photo;
   retrievedImage = '';
+  isProductAdded:boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router, public productService: ProductService, public dialogRef: MatDialogRef<DashboardComponent>, private authenticationService: AuthenticationService) {
     this.product = new Product;
@@ -35,6 +36,9 @@ export class PostComponent implements OnInit {
       description: [''],
       price: ['', Validators.required]
     })
+    if(this.isProductAdded){
+      this.router.navigateByUrl('/myposts');
+    }
   }
 
   cancel(): void {
@@ -64,7 +68,9 @@ export class PostComponent implements OnInit {
       this.productService.saveProduct(this.product, this.fileToUpload).subscribe({
         next: (res: any) => {
           this.message = "Post added successfully!"
+          this.isProductAdded = true;
           setTimeout(() => this.cancel(), 1000);
+          //this.router.navigate[('myposts')];
 
           // Show picture
           //this.retrievedImage = 'data:' + res.photo.type + ';base64,' + res.photo.image.data;
