@@ -23,7 +23,6 @@ export class HeaderComponent implements OnInit {
     });
   }
   
-
   onClickLogOut(){
     this.router.navigate(['logout']);
   }

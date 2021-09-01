@@ -15,11 +15,10 @@ export class AccessoriesComponent implements OnInit {
   userId:number;
 
   constructor(private productService: ProductService, 
-              private authenticationService: AuthenticationService, 
-              private userService: UserService) {
-    let email = this.authenticationService.currentUserValue.email;
+              private authenticationService: AuthenticationService) {
+    //let email = this.authenticationService.currentUserValue.email;
     this.userId = this.authenticationService.currentUserValue.id;
-    console.log("this is the email:" + email);
+    //console.log("this is the email:" + email);
     console.log("this is the ID:" + this.userId);
   }
 
