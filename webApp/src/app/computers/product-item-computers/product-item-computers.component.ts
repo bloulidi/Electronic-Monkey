@@ -15,15 +15,14 @@ export class ProductItemComputersComponent implements OnInit {
   productOrdersArray: OrderProduct[] = [];
   orderProduct: OrderProduct = new OrderProduct();
 
-  constructor(   ) { 
+  constructor() {
   }
 
   ngOnInit(): void {
-    console.log("Product received by parent"+ this.productItem);
-    this.retrievedImage ='data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image.data; 
+    this.retrievedImage = 'data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image.data;
   }
-  
-  handleAddToCart() { 
+
+  handleAddToCart() {
     let productOrders = localStorage.getItem("productOrders");
     if (productOrders) {
       this.productOrdersArray = JSON.parse(productOrders);
@@ -33,7 +32,5 @@ export class ProductItemComputersComponent implements OnInit {
     this.orderProduct.total = this.productItem.price;
     this.productOrdersArray.push(this.orderProduct);
     localStorage.setItem("productOrders", JSON.stringify(this.productOrdersArray));
-    console.log("Item was added to local storage.");
-    console.log(localStorage);
   }
 }

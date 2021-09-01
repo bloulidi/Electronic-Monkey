@@ -18,10 +18,10 @@ describe('MypostsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule],
-      declarations: [ MypostsComponent ]
+      imports: [ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule],
+      declarations: [MypostsComponent]
     })
-    .compileComponents();
+      .compileComponents();
     productService = TestBed.get(ProductService);
     authenticationService = TestBed.get(AuthenticationService);
     spyOn(productService, 'getProductsByUserId').and.returnValue(of(productList));

@@ -13,10 +13,10 @@ describe('DashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ MatDialogModule ],  
-      declarations: [ DashboardComponent ]
+      imports: [MatDialogModule],
+      declarations: [DashboardComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

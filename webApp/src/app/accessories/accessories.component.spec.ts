@@ -18,15 +18,15 @@ describe('AccessoriesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule],
-      declarations: [ AccessoriesComponent ]
+      imports: [ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule],
+      declarations: [AccessoriesComponent]
     })
-    .compileComponents();
+      .compileComponents();
     productService = TestBed.get(ProductService);
     authenticationService = TestBed.get(AuthenticationService);
     spyOn(productService, 'getProductsByCategory').and.returnValue(of(productList));
     spyOnProperty(authenticationService, 'currentUserValue', 'get').and.returnValue(1);
-    
+
   });
 
   beforeEach(() => {

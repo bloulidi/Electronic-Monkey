@@ -12,11 +12,11 @@ import { UserService } from '../services/user.service';
 export class PhonesComponent implements OnInit {
 
   productList: Product[] = [];
-  userId:number;
+  userId: number;
 
-  constructor(private productService: ProductService, 
-              private authenticationService: AuthenticationService, 
-              private userService: UserService) {
+  constructor(private productService: ProductService,
+    private authenticationService: AuthenticationService,
+    private userService: UserService) {
     let email = this.authenticationService.currentUserValue.email;
     this.userId = this.authenticationService.currentUserValue.id;
   }
@@ -26,11 +26,8 @@ export class PhonesComponent implements OnInit {
   }
 
   loadProducts() {
-    console.log("userId in load products is:" + this.userId);
     this.productService.getProductsByCategory("Phones").subscribe((products) => {
       this.productList = products;
-      console.log(this.productList);
-      })
+    })
   }
-
 }

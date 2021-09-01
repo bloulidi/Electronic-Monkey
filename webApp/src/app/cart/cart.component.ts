@@ -23,15 +23,14 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.order = new Order();
     this.orderProducts = JSON.parse(localStorage.getItem("productOrders"));
-    console.log(this.orderProducts);
     this.calculateSubTotal();
-    }
+  }
 
   handleMinus(orderProduct) {
-    if(orderProduct.quantity == 1){
+    if (orderProduct.quantity == 1) {
       orderProduct.quantity = 1;
     }
-    else{
+    else {
       orderProduct.quantity--;
       orderProduct.total = Math.round((orderProduct.quantity * orderProduct.product.price) * 100) / 100;
       this.order.totalPrice = orderProduct.total;
@@ -43,26 +42,24 @@ export class CartComponent implements OnInit {
     orderProduct.total = Math.round((orderProduct.quantity * orderProduct.product.price) * 100) / 100;
   }
 
-  remove(product){
+  remove(product) {
     let index = this.orderProducts.indexOf(product);
     this.orderProducts.splice(index, 1);
     localStorage.setItem("productOrders", JSON.stringify(this.orderProducts));
   }
-  
-  onCheckout(){
-    console.log("Here");
+
+  onCheckout() {
     this.order.orderProducts = this.orderProducts;
     this.order.userId = this.authenticationService.currentUserValue.id;
-    console.log(this.order)
     this.orderService.saveOrder(this.order).subscribe({
       next: data => {
         this.message = "Checked out Successfully!";
         this.total = 0;
         this.orderProducts = [];
         localStorage.removeItem('productOrders');
-    },
+      },
       error: error => {
-        if(error.status == '409') {
+        if (error.status == '409') {
           this.message = "Order already exists!";
           console.error("Order already exists!", error);
         } else {
@@ -73,7 +70,7 @@ export class CartComponent implements OnInit {
     });
   }
 
-  calculateSubTotal(){
+  calculateSubTotal() {
     this.subTotal = 0;
     this.orderProducts.forEach(orderProduct => {
       this.subTotal += orderProduct.total;

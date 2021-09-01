@@ -16,6 +16,6 @@ public class Photo {
     private String title;
     @ApiModelProperty(notes = "Type of the photo")
     private String type;
-    @ApiModelProperty(notes = "Image binary of the photo")
-    private Binary image;
+    @ApiModelProperty(notes = "Image data of the photo")
+    private String data;
 }

@@ -54,6 +54,7 @@ public class ProductServiceImpl implements ProductService {
         Photo photo = new Photo();
         photo.setTitle(image.getOriginalFilename());
         photo.setType(image.getContentType());
+        System.out.println("Image bytes: " + image.getBytes());
         photo.setImage(new Binary(BsonBinarySubType.BINARY, image.getBytes()));
         productJson.setPhoto(photo);
 

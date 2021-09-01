@@ -42,15 +42,15 @@ export class SignupComponent implements OnInit {
   }
 
   submit() {
-    if(this.form.value.fullName === '' && this.form.value.email === '' && this.form.value.password === '' && this.form.value.confirmPassword == ''){
+    if (this.form.value.fullName === '' && this.form.value.email === '' && this.form.value.password === '' && this.form.value.confirmPassword == '') {
       this.message = 'All fields are required';
-    } else if (this.form.value.fullName === ''){
+    } else if (this.form.value.fullName === '') {
       this.message = 'Full Name is required';
-    } else if(this.form.value.email === ''){
+    } else if (this.form.value.email === '') {
       this.message = 'Email is required';
-    } else if(this.form.value.password === ''){
+    } else if (this.form.value.password === '') {
       this.message = 'Password is required';
-    } else if(this.form.value.confirmPassword === ''){
+    } else if (this.form.value.confirmPassword === '') {
       this.message = 'Confirm Password is required';
     } else if (this.form.invalid) {
       this.message = "Invalid email and/or password!";
@@ -59,9 +59,12 @@ export class SignupComponent implements OnInit {
       this.user.email = this.form.value.email
       this.user.password = this.form.value.password
       this.userService.saveUser(this.user).subscribe({
-        next: res => this.router.navigate(['login']),
+        next: res => {
+          this.message = "Sign Up successful!";
+          setTimeout(() => this.router.navigate(['login']), 1000);
+        },
         error: error => {
-          if(error.status == '409') {
+          if (error.status == '409') {
             this.message = "This email already exists!";
             console.error("This email already exists!", error);
           } else {

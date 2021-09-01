@@ -12,14 +12,10 @@ import { UserService } from '../services/user.service';
 export class AccessoriesComponent implements OnInit {
 
   productList: Product[] = [];
-  userId:number;
+  userId: number;
 
-  constructor(private productService: ProductService, 
-              private authenticationService: AuthenticationService) {
-    //let email = this.authenticationService.currentUserValue.email;
+  constructor(private productService: ProductService, private authenticationService: AuthenticationService) {
     this.userId = this.authenticationService.currentUserValue.id;
-    //console.log("this is the email:" + email);
-    console.log("this is the ID:" + this.userId);
   }
 
   ngOnInit(): void {
@@ -27,11 +23,8 @@ export class AccessoriesComponent implements OnInit {
   }
 
   loadProducts() {
-    console.log("userId in load products is:" + this.userId);
     this.productService.getProductsByCategory("Accessories").subscribe((products) => {
       this.productList = products;
-      console.log(this.productList);
-      })
+    })
   }
-
 }
