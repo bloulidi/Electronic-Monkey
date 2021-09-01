@@ -13,6 +13,7 @@ export class ProductItemComputersComponent implements OnInit {
 
   retrievedImage = '';
   productOrdersArray: OrderProduct[] = [];
+  orderProduct: OrderProduct = new OrderProduct();
 
   constructor(   ) { 
   }
@@ -22,14 +23,17 @@ export class ProductItemComputersComponent implements OnInit {
     this.retrievedImage ='data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image.data; 
   }
   
-  handleAddToCart() {
+  handleAddToCart() { 
     let productOrders = localStorage.getItem("productOrders");
     if (productOrders) {
-      JSON.parse(productOrders).push(this.productItem);
+      this.productOrdersArray = JSON.parse(productOrders);
     }
-    else {
-      localStorage.setItem("productOrders", JSON.stringify(this.productOrdersArray));
-    }
+    this.orderProduct.product = this.productItem;
+    this.orderProduct.quantity = 1;
+    this.orderProduct.total = this.productItem.price;
+    this.productOrdersArray.push(this.orderProduct);
+    localStorage.setItem("productOrders", JSON.stringify(this.productOrdersArray));
+    console.log("Item was added to local storage.");
+    console.log(localStorage);
   }
-
 }

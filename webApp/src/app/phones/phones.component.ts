@@ -19,8 +19,6 @@ export class PhonesComponent implements OnInit {
               private userService: UserService) {
     let email = this.authenticationService.currentUserValue.email;
     this.userId = this.authenticationService.currentUserValue.id;
-    console.log("this is the email:" + email);
-    console.log("this is the ID:" + this.userId);
   }
 
   ngOnInit(): void {
