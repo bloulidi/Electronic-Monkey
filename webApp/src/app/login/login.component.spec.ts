@@ -55,7 +55,7 @@ describe('LoginComponent', () => {
     component.form.value.email = '';
     component.form.value.password = '';
     component.onSubmit();
-    expect(component.message).toEqual('Email is required');
+    expect(component.message).toEqual('All fields are required');
   });
 
   it('testing email field invalidity', () => {

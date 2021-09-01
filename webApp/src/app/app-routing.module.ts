@@ -10,6 +10,7 @@ import { PhonesComponent } from './phones/phones.component';
 import { ComputersComponent } from './computers/computers.component';
 import { AccessoriesComponent } from './accessories/accessories.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
+import { PostComponent } from './post/post.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,9 @@ const routes: Routes = [
   {path: 'phones', component: PhonesComponent, canActivate:[AuthGuard]},
   {path: 'computers', component: ComputersComponent, canActivate:[AuthGuard]},
   {path: 'accessories', component: AccessoriesComponent, canActivate:[AuthGuard]},
+
+  {path: 'post', component: PostComponent, canActivate:[AuthGuard]},
+
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];
