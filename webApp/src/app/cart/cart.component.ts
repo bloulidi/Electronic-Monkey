@@ -2,6 +2,7 @@ import { OrderProduct } from './../models/OrderProduct';
 import { OrderService } from './../services/order.service';
 import { Component, OnInit } from '@angular/core';
 import { Order } from '../models/Order';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-cart',
@@ -14,10 +15,10 @@ export class CartComponent implements OnInit {
   total: number;
   orderProducts: OrderProduct[];
   displayedColumns: string[] = ['imageURL', 'title', 'price', 'quantity', 'total'];
-  retrievedImage = '';
   subTotal = 0;
+  message = '';
 
-  constructor(private orderService: OrderService) { }
+  constructor(private orderService: OrderService, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.order = new Order();
@@ -33,6 +34,7 @@ export class CartComponent implements OnInit {
     else{
       orderProduct.quantity--;
       orderProduct.total = Math.round((orderProduct.quantity * orderProduct.product.price) * 100) / 100;
+      this.order.totalPrice = orderProduct.total;
     }
   }
 
@@ -42,15 +44,33 @@ export class CartComponent implements OnInit {
   }
 
   remove(product){
-    console.log("FIRST" + this.orderProducts);
     let index = this.orderProducts.indexOf(product);
     this.orderProducts.splice(index, 1);
     localStorage.setItem("productOrders", JSON.stringify(this.orderProducts));
-    console.log("LAST" + this.orderProducts);
   }
   
   onCheckout(){
-    console.log("Checkout page")
+    console.log("Here");
+    this.order.orderProducts = this.orderProducts;
+    this.order.userId = this.authenticationService.currentUserValue.id;
+    console.log(this.order)
+    this.orderService.saveOrder(this.order).subscribe({
+      next: data => {
+        this.message = "Checked out Successfully!";
+        this.total = 0;
+        this.orderProducts = [];
+        localStorage.removeItem('productOrders');
+    },
+      error: error => {
+        if(error.status == '409') {
+          this.message = "Order already exists!";
+          console.error("Order already exists!", error);
+        } else {
+          this.message = "Failed to checkout!";
+          console.error("Failed to checkout!", error);
+        }
+      }
+    });
   }
 
   calculateSubTotal(){
@@ -59,5 +79,6 @@ export class CartComponent implements OnInit {
       this.subTotal += orderProduct.total;
     });
     this.subTotal = Math.round(this.subTotal * 100) / 100;
+    // this.order.totalPrice = this.subTotal;
   }
 }

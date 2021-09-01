@@ -113,3 +113,9 @@ input {
 .cart{
   padding-top: 100px;
 }
+.alert {
+  color: green;
+  text-align: center;
+  padding-top: 100px;
+  font-size: 20px;
+}

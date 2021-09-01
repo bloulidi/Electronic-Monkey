@@ -35,7 +35,7 @@ public class ProductController {
 
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
     @ApiOperation("Creates a new product with an image.")
-    public ResponseEntity<Product> saveProduct(@ApiParam("Product information for a new product to be created. 409 if already exists.") @RequestPart("product") String product, @ApiParam("Image information for a new product to be created.") @RequestPart("image") MultipartFile image) throws ProductAlreadyExistsException, IOException{
+    public ResponseEntity<Product> saveProduct(@ApiParam("Product information for a new product to be created. 409 if already exists.") @RequestPart String product, @ApiParam("Image information for a new product to be created.") @RequestPart MultipartFile image) throws ProductAlreadyExistsException, IOException{
         log.info("Create a new product with image=" + image.getOriginalFilename() + ": " + product);
         return new ResponseEntity<Product>(productService.saveProduct(product, image), HttpStatus.CREATED);
     }
