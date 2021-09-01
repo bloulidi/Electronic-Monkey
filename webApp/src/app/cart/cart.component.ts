@@ -1,4 +1,7 @@
+import { OrderProduct } from './../models/OrderProduct';
+import { OrderService } from './../services/order.service';
 import { Component, OnInit } from '@angular/core';
+import { Order } from '../models/Order';
 
 export interface productInCart {
   imageURL: string;
@@ -21,9 +24,16 @@ let order: productInCart[] = [
 })
 export class CartComponent implements OnInit {
 
-  constructor() { }
+  order: Order;
+  total: number;
+  orderProducts: OrderProduct[];
+
+  constructor(private orderService: OrderService) { }
 
   ngOnInit() {
+    this.order = new Order();
+    this.orderProducts = JSON.parse(localStorage.getItem("orderProducts"));
+    console.log(this.orderProducts)
   }
 
   displayedColumns: string[] = ['imageURL', 'title', 'price', 'quantity', 'total'];

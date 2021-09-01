@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { OrderProduct } from 'src/app/models/OrderProduct';
 import { Product } from 'src/app/models/Product';
 
 @Component({
@@ -11,6 +12,7 @@ export class ProductItemComputersComponent implements OnInit {
   @Input() productItem: Product;
 
   retrievedImage = '';
+  productOrdersArray: OrderProduct[] = [];
 
   constructor(   ) { 
   }
@@ -21,7 +23,13 @@ export class ProductItemComputersComponent implements OnInit {
   }
   
   handleAddToCart() {
-
+    let productOrders = localStorage.getItem("productOrders");
+    if (productOrders) {
+      JSON.parse(productOrders).push(this.productItem);
+    }
+    else {
+      localStorage.setItem("productOrders", JSON.stringify(this.productOrdersArray));
+    }
   }
 
 }

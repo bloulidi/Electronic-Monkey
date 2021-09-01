@@ -1,3 +1,4 @@
+import { OrderProduct } from './../../models/OrderProduct';
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/Product';
 
@@ -11,16 +12,23 @@ export class ProductItemPhonesComponent implements OnInit {
   @Input() productItem: Product;
 
   retrievedImage = '';
+  productOrdersArray: OrderProduct[] = [];
 
-  constructor(   ) { 
+  constructor() {
   }
 
   ngOnInit(): void {
-    console.log("Product received by parent"+ this.productItem);
-    this.retrievedImage ='data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image.data; 
+    console.log("Product received by parent" + this.productItem);
+    this.retrievedImage = 'data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image.data;
   }
-  
-  handleAddToCart() {
 
+  handleAddToCart() {
+    let productOrders = localStorage.getItem("productOrders");
+    if (productOrders) {
+      JSON.parse(productOrders).push(this.productItem);
+    }
+    else {
+      localStorage.setItem("productOrders", JSON.stringify(this.productOrdersArray));
+    }
   }
 }
