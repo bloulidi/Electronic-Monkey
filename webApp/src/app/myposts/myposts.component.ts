@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Product } from '../models/Product';
 import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
@@ -16,7 +17,7 @@ export class MypostsComponent implements OnInit {
   productList: Product[] = [];
   userId:number;
 
-  constructor(private productService: ProductService, private authenticationService: AuthenticationService, private userService: UserService) {
+  constructor(private productService: ProductService, private authenticationService: AuthenticationService, private userService: UserService, private router:Router) {
     let email = this.authenticationService.currentUserValue.email;
     this.userId = this.authenticationService.currentUserValue.id;
     console.log("this is the email:" + email);
@@ -34,5 +35,9 @@ export class MypostsComponent implements OnInit {
       console.log(this.productList);
       })
   }
+  deleteItem(value:any){
+    console.log(value);
+    window.location.reload();
+}
 
 }
