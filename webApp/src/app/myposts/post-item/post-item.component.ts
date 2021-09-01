@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from 'src/app/models/Product';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-post-item',
@@ -10,13 +11,23 @@ export class PostItemComponent implements OnInit {
 
   @Input() productItem: Product;
 
-  constructor(   ) { }
+  retrievedImage = '';
+  @Output() newItemEvent = new EventEmitter<string>();
+
+  constructor(private productService:ProductService) { 
+    }
 
   ngOnInit(): void {
+    console.log("Product received by parent"+ this.productItem);
+    this.retrievedImage ='data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image.data; 
   }
 
-  handleAddToCart() {
+  async deletePost(id:any){
 
+    this.productService.deleteProduct(id).subscribe( data => {
+      console.log(data);
+      this.newItemEvent.emit("product deleted");
+    });
   }
 
 }

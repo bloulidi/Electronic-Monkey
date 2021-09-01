@@ -19,7 +19,7 @@
   </style>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     <div class="col" *ngFor="let product of productList">
-      <app-post-item>[productItem]="product"</app-post-item>
+      <app-post-item [productItem]="product"  (newItemEvent)='deleteItem($event)'></app-post-item>
     </div>
 </div>
 

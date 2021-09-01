@@ -4,6 +4,7 @@ import com.stackroute.userservice.exception.UserAlreadyExistsException;
 import com.stackroute.userservice.exception.UserNotFoundException;
 import com.stackroute.userservice.model.User;
 import com.stackroute.userservice.repository.UserRepository;
+import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.test.web.reactive.server.StatusAssertions;
 
 import javax.validation.ConstraintViolationException;
@@ -19,6 +21,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -210,21 +213,26 @@ public class UserControllerIntegrationTest {
         assertTrue(logger.isErrorEnabled());
     }
 
-/*    @Test
-    public void givenValidUserToLoginThenShouldReturnOkStatus() throws UserAlreadyExistsException, UserNotFoundException {
+    @Test
+    public void givenValidUserToLoginThenShouldReturnOkStatus() throws UserAlreadyExistsException {
         User savedUser = userController.saveUser(user1).getBody();
-        assertEquals(200, userController.loginUser(user1).getStatusCode().value());
+        JSONObject jo = new JSONObject(userController.login(user1).getBody());
+        assertEquals(200, userController.login(user1).getStatusCode().value());
+        assertEquals(savedUser.getId(), jo.getLong("userId"));
+        assertEquals(savedUser.getEmail(), jo.getString("email"));
+        assertEquals(savedUser.isAdmin(), jo.getBoolean("admin"));
+        assertThat(jo.getString("token").length()).isGreaterThan(20);
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
 
     @Test
-    public void givenInValidUserToLoginThenThrowsError() throws UserNotFoundException {
-        assertEquals(409, userController.loginUser(user1).getStatusCode().value());
+    public void givenInValidUserToLoginThenThrowsError() throws BadCredentialsException {
+        assertThrows(BadCredentialsException.class, () -> userController.login(user1));
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
-*/
+
     /******* VALIDATION *****/
     @Test
     void givenValidUserThenReturnRespectiveUser() throws UserAlreadyExistsException {

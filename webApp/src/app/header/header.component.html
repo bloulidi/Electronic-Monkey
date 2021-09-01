@@ -9,27 +9,27 @@
     </div>
 
     <div class="phones" >
-        <a href=''> Phones </a>
+        <a routerLink="phones" (click)="onClickPhones()" id="btn-phones"> Phones </a>
     </div>
 
     <div class="computers">
-        <a href=''> Computers </a>
+        <a routerLink="computers" (click)="onClickComputers()" id="btn-computers"> Computers </a>
     </div>
 
     <div class="accessories">
-        <a href=''> Accessories </a>
+        <a routerLink="accessories" (click)="onClickAccessories()" id="btn-accessories"> Accessories </a>
     </div>
 
     <div class="profilImg">
 
-        <button  mat-button [matMenuTriggerFor]="menu">
+        <button  mat-button [matMenuTriggerFor]="menu" id ="btn-menu">
             <mat-icon svgIcon="profil_icon" ></mat-icon>
         </button>
         <mat-menu  #menu="matMenu">
-            <button mat-menu-item (click)="onClickMyProfile()">My Profile</button>
-            <button mat-menu-item (click)="onClickMyPosts()">My Posts</button>
+            <button mat-menu-item (click)="onClickMyProfile()" id ="btn-myprofile">My Profile</button>
+            <button mat-menu-item (click)="onClickMyPosts()" id ="btn-myposts">My Posts</button>
             <button mat-menu-item>My Orders</button>
-            <button mat-menu-item (click)="onClickLogOut()">Log out</button>
+            <button mat-menu-item (click)="onClickLogOut()" id ="btn-logout">Log out</button>
         </mat-menu>
  
     </div>

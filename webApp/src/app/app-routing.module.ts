@@ -4,9 +4,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { MypostsComponent } from './myposts/myposts.component';
-import { MyprofileComponent } from './myprofile/myprofile.component';
 import { AuthGuard } from './helpers/auth.guard'
 import { SignupComponent } from './signup/signup.component';
+import { PhonesComponent } from './phones/phones.component';
+import { ComputersComponent } from './computers/computers.component';
+import { AccessoriesComponent } from './accessories/accessories.component';
+import { MyprofileComponent } from './myprofile/myprofile.component';
+import { PostComponent } from './post/post.component';
 
 
 const routes: Routes = [
@@ -16,6 +20,13 @@ const routes: Routes = [
   {path: 'myposts', component: MypostsComponent, canActivate:[AuthGuard]},
   { path: 'logout', component: LogoutComponent, canActivate:[AuthGuard] },
   { path: 'signup', component: SignupComponent },
+
+  {path: 'phones', component: PhonesComponent, canActivate:[AuthGuard]},
+  {path: 'computers', component: ComputersComponent, canActivate:[AuthGuard]},
+  {path: 'accessories', component: AccessoriesComponent, canActivate:[AuthGuard]},
+
+  {path: 'post', component: PostComponent, canActivate:[AuthGuard]},
+
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../models/Product';
 import { Router } from '@angular/router';
 import { Photo } from '../models/Photo';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-Post',
@@ -20,8 +21,9 @@ export class PostComponent implements OnInit {
   product: Product;
   photo: Photo;
   retrievedImage = '';
+  isProductAdded:boolean = false;
 
-  constructor(private fb: FormBuilder, private router: Router, public productService: ProductService, public dialogRef: MatDialogRef<DashboardComponent>) {
+  constructor(private fb: FormBuilder, private router: Router, public productService: ProductService, public dialogRef: MatDialogRef<DashboardComponent>, private authenticationService: AuthenticationService) {
     this.product = new Product;
     this.photo = new Photo;
     this.product.photo = this.photo;
@@ -59,10 +61,11 @@ export class PostComponent implements OnInit {
       this.product.description = this.form.value.description
       this.product.price = this.form.value.price
       this.product.photo.title = this.fileToUpload.name
-      this.product.userId = Number(localStorage.getItem("userId"))
+      this.product.userId = this.authenticationService.currentUserValue.id;
       this.productService.saveProduct(this.product, this.fileToUpload).subscribe({
         next: (res: any) => {
           this.message = "Post added successfully!"
+          this.isProductAdded = true;
           setTimeout(() => this.cancel(), 1000);
 
           // Show picture
