@@ -57,3 +57,10 @@
 .image{
     object-fit: contain;   
 }
+.yourOrders{
+    text-align: center;
+    padding-top: 150px;
+    font-size: 40px;
+    color: #56B280;
+    font-family: sans-serif;
+}

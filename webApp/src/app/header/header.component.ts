@@ -29,9 +29,12 @@ export class HeaderComponent implements OnInit {
   }
 
   onClickMyProfile() {
-    this.router.navigate(['myprofile']);
+    this.router.navigate(['myprofile'])
+      .then(() => {
+        window.location.reload();
+      });
   }
-  
+
   onClickMyPosts() {
     this.router.navigate(['myposts'])
       .then(() => {
@@ -40,7 +43,10 @@ export class HeaderComponent implements OnInit {
   }
 
   onClickCart() {
-    this.router.navigate(['cart']);
+    this.router.navigate(['cart'])
+      .then(() => {
+        window.location.reload();
+      });
   }
 
   onClickPhones() {
@@ -50,10 +56,13 @@ export class HeaderComponent implements OnInit {
       });
   }
 
-  onClickOrderHistory(){
-    this.router.navigate(['orderHistory']);
+  onClickOrderHistory() {
+    this.router.navigate(['orderHistory'])
+      .then(() => {
+        window.location.reload();
+      });
   }
-  
+
   onClickComputers() {
     this.router.navigate(['computers'])
       .then(() => {
