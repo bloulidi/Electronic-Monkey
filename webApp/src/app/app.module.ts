@@ -42,6 +42,7 @@ import { AccessoriesComponent } from './accessories/accessories.component';
 import { ProductItemPhonesComponent } from './phones/product-item-phones/product-item-phones.component';
 import { ProductItemComputersComponent } from './computers/product-item-computers/product-item-computers.component';
 import { ProductItemAccessoriesComponent } from './accessories/product-item-accessories/product-item-accessories.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { ProductItemAccessoriesComponent } from './accessories/product-item-acce
     MatIconModule,
     MatSelectModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    NgbModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

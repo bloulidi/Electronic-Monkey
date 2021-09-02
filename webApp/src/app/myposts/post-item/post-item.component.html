@@ -1,3 +1,5 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
 <div class="card shadow">
     <img class="bd-placeholder-img card-img-top img-fluid image-responsive" width="100%" height="200" [src]="retrievedImage" />
 
@@ -10,10 +12,28 @@
         <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
                 <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                <button type="button" class="btn btn-sm btn-outline-danger" (click)="deletePost(productItem.id)">Remove</button>
+                <button type="button" class="btn btn-sm btn-outline-danger" (click)="open(content, productItem.id)">Remove</button>
             </div>
         </div>
     </div>
 </div>
 
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" >Post Deletion</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class = "text1-popup">Are you sure you want to delete this post?</p>
+    <p class ="text2-popup">All information associated to this post will be permanently deleted.
+    <span class="text-danger">This operation can not be undone.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Remove</button>
+  </div>
+</ng-template>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+
