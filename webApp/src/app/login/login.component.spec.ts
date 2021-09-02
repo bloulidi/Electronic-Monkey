@@ -3,27 +3,26 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs/internal/observable/of';
-//import { Router } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
 import { User } from '../models/User';
-import { UserService } from '../services/user.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let userService: UserService;
+  let authenticationService: AuthenticationService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ HttpClientModule, ReactiveFormsModule, RouterTestingModule],
-      declarations: [ LoginComponent ],
+      imports: [HttpClientModule, ReactiveFormsModule, RouterTestingModule],
+      declarations: [LoginComponent],
       providers: []
     })
-    .compileComponents();
-    userService = TestBed.get(UserService);
-    spyOn(userService, 'loginUser').and.returnValue(of(''));
+      .compileComponents();
+    authenticationService = TestBed.get(AuthenticationService);
+    spyOn(authenticationService, 'login').and.returnValue(of(''));
   });
 
   beforeEach(() => {
@@ -56,7 +55,7 @@ describe('LoginComponent', () => {
     component.form.value.email = '';
     component.form.value.password = '';
     component.onSubmit();
-    expect(component.message).toEqual('Email is required');
+    expect(component.message).toEqual('All fields are required');
   });
 
   it('testing email field invalidity', () => {
@@ -95,6 +94,6 @@ describe('LoginComponent', () => {
     const password = component.form.controls.password;
     password.setValue(user.password);
     component.onSubmit();
-    expect(userService.loginUser).toHaveBeenCalled();
+    expect(authenticationService.login).toHaveBeenCalled();
   });
 });

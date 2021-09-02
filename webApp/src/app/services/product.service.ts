@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';;
 
 import { Product } from '../models/Product';
 import { environment } from '../../environments/environment'
+import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -11,32 +12,35 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class PostProductService {
+export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
   localhost = environment.apiUrl + 'catalog/api/v1/products';
 
-  saveProduct(product: Product, fileToUpload: File)  {
+  saveProduct(product: Product, fileToUpload: File) {
     const formData: FormData = new FormData();
-    const productBlob = new Blob([JSON.stringify(product)],{ type: "application/json"})
+    const productBlob = new Blob([JSON.stringify(product)], { type: "application/json" })
     formData.append('product', productBlob);
     formData.append('image', fileToUpload, fileToUpload.name);
     return this.httpClient.post(this.localhost, formData);
   }
-  getProductById(id: string)  {
+  getProductById(id: string) {
     return this.httpClient.get(this.localhost + '/' + id);
   }
-  getProductsByUserId(userId: number)  {
-    return this.httpClient.get(this.localhost + '/user/' + userId);
+  getProductsByUserId(userId: number): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(this.localhost + '/user/' + userId);
   }
-  deleteProduct(id: string)  {
+  getProductsByCategory(category: string): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(this.localhost + '/category/' + category);
+  }
+  deleteProduct(id: any): Observable<any> {
     return this.httpClient.delete(this.localhost + '/' + id);
   }
-  getAllProducts()  {
+  getAllProducts() {
     return this.httpClient.get(this.localhost);
   }
-  updateProduct(product: Product)  {
+  updateProduct(product: Product) {
     return this.httpClient.patch(this.localhost, product, httpOptions);
   }
 }

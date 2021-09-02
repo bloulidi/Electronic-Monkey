@@ -48,11 +48,11 @@ public class ProductControllerTest {
     void setUp() {
         initMocks(this);
         mockMvc = standaloneSetup(productController).setControllerAdvice(new GlobalExceptionHandler()).build();
-        product = new Product("Dell Laptop", "Good computer", Category.COMPUTERS.getCategory(), 800.5F);
+        product = new Product("Dell Laptop", "Good computer", Category.COMPUTERS.getCategory(), 800.5F, 1);
         product.setId("1");
-        product1 = new Product("Apple iPhone 12", "Good phone", Category.PHONES.getCategory(), 1000.99F);
+        product1 = new Product("Apple iPhone 12", "Good phone", Category.PHONES.getCategory(), 1000.99F, 1);
         product1.setId("2");
-        product2 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20);
+        product2 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20, 2);
         product2.setId("3");
         productList = new ArrayList<Product>();
     }
@@ -137,6 +137,28 @@ public class ProductControllerTest {
         verify(productService).updateProduct(any());
         verify(productService, times(1)).updateProduct(any());
     }
+    
+    @Test
+    public void givenGetAllProductsByCategoryThenShouldReturnListOfAllRespectiveProducts() throws Exception {
+        productList.add(product);
+        when(productService.getProductsByCategory(product.getCategory())).thenReturn(productList);
+        mockMvc.perform(get("/api/v1/products/category/" + product.getCategory()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(product)))
+                .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
+        verify(productService).getProductsByCategory(anyString());
+        verify(productService, times(1)).getProductsByCategory(anyString());
+    }
+
+    @Test
+    public void givenGetAllProductsByUserIdThenShouldReturnListOfAllRespectiveProducts() throws Exception {
+        productList.add(product);
+        productList.add(product1);
+        when(productService.getProductsByUserId(product.getUserId())).thenReturn(productList);
+        mockMvc.perform(get("/api/v1/products/user/" + product.getUserId()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(product)))
+                .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
+        verify(productService).getProductsByUserId(anyLong());
+        verify(productService, times(1)).getProductsByUserId(anyLong());
+    }
+    
 
     public static String asJsonString(final Object obj) {
         try {

@@ -1,40 +1,39 @@
-
 <div class="example-container">
-  <h1 class="form-title" mat-dialog-title>Post a Product</h1>
-  <div class="form-container">
-    <form [formGroup]="form" (submit)="submit()" enctype="multipart/form-data">
-      <mat-form-field class="form-field">
-        <input matInput type="text" placeholder="Title" formControlName="title" required>
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <mat-label>Category</mat-label>
-        <select matNativeControl formControlName="category" required>
-          <option value="Phones">Phones</option>
-          <option value="Computers">Computers</option>
-          <option value="Accessories">Accessories</option>
-        </select>
-      </mat-form-field>
-      <mat-form-field class="form-field">
-        <input matInput type="text" placeholder="Description" formControlName="description">
-      </mat-form-field>
+    <h1 class="form-title" mat-dialog-title>Post a Product</h1>
+    <div class="form-container">
+        <form [formGroup]="form" (submit)="submit()" enctype="multipart/form-data">
+            <mat-form-field class="form-field">
+                <input matInput type="text" placeholder="Title" formControlName="title" required>
+            </mat-form-field>
+            <mat-form-field class="form-field">
+                <mat-label>Category</mat-label>
+                <select matNativeControl formControlName="category" required>
+                    <option value="Phones">Phones</option>
+                    <option value="Computers">Computers</option>
+                    <option value="Accessories">Accessories</option>
+                </select>
+            </mat-form-field>
+            <mat-form-field class="form-field">
+                <input matInput type="text" placeholder="Description" formControlName="description">
+            </mat-form-field>
 
-      <mat-form-field floatLabel="always" class="form-field">
-        <mat-label>Amount</mat-label>
-        <span matSuffix>$&nbsp;</span>
-        <input formControlName="price" matInput type="number" class="example-left-align" placeholder="0" min=0 required>
-      </mat-form-field>
+            <mat-form-field floatLabel="always" class="form-field">
+                <mat-label>Amount</mat-label>
+                <span matSuffix>$&nbsp;</span>
+                <input formControlName="price" matInput type="number" class="example-left-align" placeholder="0" min=0 required>
+            </mat-form-field>
 
-      <div>
-        <label class="add-photos">Add Photos</label>
-        <input type="file" accept="image/*" (change)="handleFileInput($event)" required>
-      </div>
-      <div mat-dialog-actions class="buttons">
-        <button class="cancel-button" mat-raised-button class="cancel-button" (click)="cancel()" value="cancel">Cancel</button>
-        <button class="post-button" mat-raised-button type="submit" class="post-button" value="upload">Post</button>
-      </div>    
-    </form>
-    <div class="alert" *ngIf="message" role="alert">
-      {{ message }}
+            <div>
+                <label class="add-photos">Add Photos</label>
+                <input type="file" accept="image/*" (change)="handleFileInput($event)" required>
+            </div>
+            <div mat-dialog-actions class="buttons">
+                <button class="cancel-button" mat-raised-button class="cancel-button" (click)="cancel()" value="cancel">Cancel</button>
+                <button class="post-button" mat-raised-button type="submit" class="post-button" value="upload">Post</button>
+            </div>
+        </form>
+        <div class="alert" *ngIf="message" role="alert">
+            {{ message }}
+        </div>
     </div>
-  </div>
 </div>

@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -49,13 +50,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // Once we get the token validate it.
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
             // if token is valid configure Spring Security to manually set authentication
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
-                UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthentication(authToken, SecurityContextHolder.getContext().getAuthentication(), userDetails);
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails == null ? List.of() : userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
                 logger.info("Authenticated user " + username + ", setting security context");
-                logger.info("UsernamePasswordAuthenticationToken: " + authentication.toString());
                 // After setting the Authentication in the context, we specify
                 // that the current user is authenticated. So it passes the Spring Security Configurations successfully.
                 SecurityContextHolder.getContext().setAuthentication(authentication);

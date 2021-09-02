@@ -1,0 +1,56 @@
+<app-header></app-header>
+
+<table class="cart" mat-table [dataSource]="orderProducts">
+    <ng-container matColumnDef="imageURL">
+        <th class="text-cart" mat-header-cell *matHeaderCellDef> Product </th>
+        <td mat-cell *matCellDef="let orderProduct"> <img [src]="'data:' + this.orderProduct.product.photo.type + ';base64,' + this.orderProduct.product.photo.image.data" />
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+        <th class="text-cart" mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let orderProduct;">
+            <div class="title">{{orderProduct.product.title}}</div>
+            <a class="remove-button" (click)="remove(orderProduct)" href="/cart"> Remove </a>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+        <th class="text-cart" mat-header-cell *matHeaderCellDef> Price </th>
+        <td class="text-cart" mat-cell *matCellDef="let orderProduct">{{orderProduct.product.price | currency:'CAD'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+        <th class="text-cart" mat-header-cell *matHeaderCellDef> Quantity </th>
+        <td class="text-cart" mat-cell *matCellDef="let orderProduct; let i = index;">
+            <div class="wrapper">
+                <button class="plusminus" (click)="handleMinus(orderProduct); calculateSubTotal()">-</button>
+                <input type="number" class="num" value="0" [(ngModel)]="orderProduct.quantity" />
+                <button class="plusminus" (click)="handlePlus(orderProduct); calculateSubTotal()">+</button>
+            </div>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="total">
+        <th class="text-cart" mat-header-cell *matHeaderCellDef> Total </th>
+        <td class="text-cart" mat-cell *matCellDef="let orderProduct">{{orderProduct.totalPrice | currency:'CAD'}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<div class="sub-total">
+    <div class="checkoutBtn">
+        <button type="button" class="checkoutBtnText" (click)="onCheckout()">
+            Checkout
+        </button>
+    </div>
+    <div class="sub-total-text">{{subTotal | currency:'CAD'}}</div>
+    <div class="sub-total-price">Sub-total</div>
+</div>
+
+<div class="alert">
+    {{ message }}
+</div>
+<app-footer></app-footer>

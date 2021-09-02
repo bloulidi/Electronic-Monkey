@@ -117,6 +117,8 @@ public class UserServiceImpl implements UserService, UserDetailsService{
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         if (user.isAdmin()) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        } else {
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
         return authorities;
     }

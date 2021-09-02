@@ -33,11 +33,11 @@ public class ProductServiceIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        product1 = new Product("Dell Laptop", "Good computer", Category.COMPUTERS.getCategory(), 800.5F);
+        product1 = new Product("Dell Laptop", "Good computer", Category.COMPUTERS.getCategory(), 800.5F, 1);
         product1.setId("1");
-        product2 = new Product("Apple iPhone 12", "Good phone", Category.PHONES.getCategory(), 1000.99F);
+        product2 = new Product("Apple iPhone 12", "Good phone", Category.PHONES.getCategory(), 1000.99F, 1);
         product2.setId("2");
-        product3 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20);
+        product3 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20, 2);
         product3.setId("3");
         productList = new ArrayList<Product>();
     }
@@ -127,6 +127,29 @@ public class ProductServiceIntegrationTest {
     @Test
     public void givenProductToUpdateThenShouldNotReturnUpdatedProduct() throws ProductNotFoundException {
         Assertions.assertThrows(ProductNotFoundException.class, () -> productService.updateProduct(product1));
+    }
+
+    @Test
+    public void givenGetAllProductsByCategoryThenShouldReturnListOfAllRespectiveProducts() {
+        productList.add(product2);
+        productService.saveProduct(product1);
+        productService.saveProduct(product2);
+        productService.saveProduct(product3);
+        List<Product> products = productService.getProductsByCategory(product2.getCategory());
+        assertNotNull(products);
+        assertEquals(productList, products);
+    }
+
+    @Test
+    public void givenGetAllProductsByUserIdThenShouldReturnListOfAllRespectiveProducts() {
+        productList.add(product1);
+        productList.add(product2);
+        productService.saveProduct(product1);
+        productService.saveProduct(product2);
+        productService.saveProduct(product3);
+        List<Product> products = productService.getProductsByUserId(product1.getUserId());
+        assertNotNull(products);
+        assertEquals(productList, products);
     }
 
     /******* VALIDATION *****/

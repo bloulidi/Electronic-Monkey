@@ -127,4 +127,21 @@ public class ProductServiceTest {
         Assertions.assertThrows(ProductNotFoundException.class, () -> productService.updateProduct(product));
         verify(productRepository, times(1)).existsById(anyString());
     }
+
+    @Test
+    public void givenGetAllProductsByCategoryThenShouldReturnListOfAllRespectiveProducts() {
+        productList.add(product1);
+        when(productRepository.findByCategory(anyString())).thenReturn(productList);
+        assertEquals(productList, productService.getProductsByCategory(product1.getCategory()));
+        verify(productRepository, times(1)).findByCategory(anyString());
+    }
+
+    @Test
+    public void givenGetAllProductsByUserIdThenShouldReturnListOfAllRespectiveProducts() {
+        productList.add(product1);
+        productList.add(product2);
+        when(productRepository.findByUserId(anyLong())).thenReturn(productList);
+        assertEquals(productList, productService.getProductsByUserId(product1.getUserId()));
+        verify(productRepository, times(1)).findByUserId(anyLong());
+    }
 }
