@@ -88,6 +88,7 @@ input[type=number]::-webkit-outer-spin-button {
     color: #FFFFFF;
     background: #56B280;
     border: none;
+    border-radius: 0px;
 }
 
 .checkoutBtn {
@@ -98,7 +99,7 @@ input[type=number]::-webkit-outer-spin-button {
     margin-top: 50px;
     margin-right: 100px;
     background: #56B280;
-    border-radius: 4px;
+    border-radius: 0px;
     text-align: center;
     padding: 0.5em 0.5em;
 }

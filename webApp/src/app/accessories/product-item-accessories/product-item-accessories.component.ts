@@ -32,5 +32,6 @@ export class ProductItemAccessoriesComponent implements OnInit {
     this.orderProduct.totalPrice = this.productItem.price;
     this.productOrdersArray.push(this.orderProduct);
     localStorage.setItem("productOrders", JSON.stringify(this.productOrdersArray));
+    window.location.reload();
   }
 }

@@ -149,3 +149,6 @@ header {
     border-radius: 0px;
     text-align: center;
 }
+header{
+    z-index: 99;
+}

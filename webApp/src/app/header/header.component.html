@@ -24,11 +24,11 @@
         <button mat-button [matMenuTriggerFor]="menu" id="btn-menu">
             <mat-icon svgIcon="profil_icon"></mat-icon>
         </button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="onClickMyProfile()" id="btn-myprofile">My Profile</button>
-            <button mat-menu-item (click)="onClickMyPosts()" id="btn-myposts">My Posts</button>
-            <button mat-menu-item>My Orders</button>
-            <button mat-menu-item (click)="onClickLogOut()" id="btn-logout">Log out</button>
+        <mat-menu  #menu="matMenu">
+            <button mat-menu-item (click)="onClickMyProfile()">My Profile</button>
+            <button mat-menu-item (click)="onClickMyPosts()">My Posts</button>
+            <button mat-menu-item (click)="onClickOrderHistory()">Order History</button>
+            <button mat-menu-item (click)="onClickLogOut()">Log out</button>
         </mat-menu>
 
     </div>
