@@ -1,51 +1,50 @@
-
 <header>
-    <div class ="appName">
-         <a routerLink="">Electronic Monkey</a>
+    <div class="appName">
+        <a routerLink="">Electronic Monkey</a>
     </div>
 
-    <div class ="appImg">
+    <div class="appImg">
         <img src="../../assets/monkey.png">
     </div>
 
-    <div class="phones" >
-        <a routerLink="phones" (click)="onClickPhones()"> Phones </a>
+    <div class="phones">
+        <a routerLink="phones" (click)="onClickPhones()" id="btn-phones"> Phones </a>
     </div>
 
     <div class="computers">
-        <a routerLink="computers" (click)="onClickComputers()"> Computers </a>
+        <a routerLink="computers" (click)="onClickComputers()" id="btn-computers"> Computers </a>
     </div>
 
     <div class="accessories">
-        <a routerLink="accessories" (click)="onClickAccessories()"> Accessories </a>
+        <a routerLink="accessories" (click)="onClickAccessories()" id="btn-accessories"> Accessories </a>
     </div>
 
     <div class="profilImg">
 
-        <button  mat-button [matMenuTriggerFor]="menu">
-            <mat-icon svgIcon="profil_icon" ></mat-icon>
+        <button mat-button [matMenuTriggerFor]="menu" id="btn-menu">
+            <mat-icon svgIcon="profil_icon"></mat-icon>
         </button>
-        <mat-menu  #menu="matMenu">
-            <button mat-menu-item (click)="onClickMyProfile()">My Profile</button>
-            <button mat-menu-item (click)="onClickMyPosts()">My Posts</button>
-            <button mat-menu-item>Order History</button>
-            <button mat-menu-item (click)="onClickLogOut()">Log out</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="onClickMyProfile()" id="btn-myprofile">My Profile</button>
+            <button mat-menu-item (click)="onClickMyPosts()" id="btn-myposts">My Posts</button>
+            <button mat-menu-item>My Orders</button>
+            <button mat-menu-item (click)="onClickLogOut()" id="btn-logout">Log out</button>
         </mat-menu>
- 
+
     </div>
 
     <div class="cartImg">
-        <button mat-button >
+        <button mat-button>
             <mat-icon (click)="onClickCart()" svgIcon="cart_icon" matBadge={{numProductCart}} mat-raised-button matBadgeSize="medium" matBadgeColor="accent">
             </mat-icon>
         </button>
     </div>
     <div>
-    <button class="postBtn" mat-raised-button color="primary" (click)="onClickPost()">
-             Post 
-    </button>
+        <button class="postBtn" mat-raised-button color="primary" (click)="onClickPost()">
+            Post
+        </button>
     </div>
-    
+
 </header>
 
 <router-outlet></router-outlet>

@@ -12,7 +12,7 @@ import java.util.Date;
 public abstract class BaseModel {
 
     @Id
-    @ApiModelProperty(notes = "Id. Auto-generated if not manually set", example = "1A")
+    @ApiModelProperty(notes = "Id. Auto-generated if not manually set")
     private String id;
 
     @ApiModelProperty(notes = "Date created. Leave empty as it's set automatically.")

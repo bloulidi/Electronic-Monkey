@@ -1,23 +1,26 @@
-#Login{
+#Login {
     padding-top: 0rem;
     padding-bottom: 4rem;
-  }
-img { 
-    position: absolute; 
-    display: block; 
-    margin: 0px; 
-    border: none; 
-    padding: 0px; }
+}
 
-div { 
-    position: absolute; 
- }
+img {
+    position: absolute;
+    display: block;
+    margin: 0px;
+    border: none;
+    padding: 0px;
+}
+
+div {
+    position: absolute;
+}
+
 * {
-	box-sizing: border-box;
- }
+    box-sizing: border-box;
+}
 
 .container {
-    margin: auto;  
+    margin: auto;
     border-radius: 5px;
     background-color: #FFFFFF;
     left: 1rem;
@@ -25,7 +28,7 @@ div {
     border-radius: 5px;
     padding-top: 4rem;
     padding-bottom: 4rem;
-  }
+}
 
 .website {
     position: absolute;
@@ -33,20 +36,20 @@ div {
     height: 35px;
     left: 86px;
     top: 30px;
-    
+
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 30px;
     line-height: 35px;
-    
+
     color: #6B9090;
 }
 
 .appImg {
     position: absolute;
     margin-left: 340px;
-    top:7px;
+    top: 7px;
 }
 
 .__1_platform_to_buy_and_sell_products {
@@ -55,39 +58,39 @@ div {
     height: 108px;
     left: 89px;
     top: 170px;
-    
+
     font-family: Open Sans;
     font-style: normal;
     font-weight: bold;
     font-size: 30px;
     line-height: 49px;
-    
+
     color: #6B9080;
 }
 
 .password_section {
-	top: 310px;
-	left: 89px;
-	width: 554px;
-	height: 74px;
+    top: 310px;
+    left: 89px;
+    width: 554px;
+    height: 74px;
 }
 
 .login_button {
-	top: 600px;
-	left: 221px;
-	width: 129px;
-	height: 54px;
+    top: 600px;
+    left: 221px;
+    width: 129px;
+    height: 54px;
 }
 
 .login_text {
-	width: 131px;
-	height: 56px;
-	left: 46px;
-	overflow: hidden;
-	font-family: Roboto;
-	font-size: 20px;
-	color:#FFFFFF;
-	background-color: #a4c3b2;
+    width: 131px;
+    height: 56px;
+    left: 46px;
+    overflow: hidden;
+    font-family: Roboto;
+    font-size: 20px;
+    color: #FFFFFF;
+    background-color: #a4c3b2;
     padding: 12px 20px;
     border: none;
     cursor: pointer;
@@ -98,20 +101,21 @@ div {
 }
 
 .sign_up_button {
-	top: 600px;
-	left: 383px;
-	width: 129px;
-	height: 54px;
+    top: 600px;
+    left: 383px;
+    width: 129px;
+    height: 54px;
 }
+
 .sign_up_text {
-	width: 131px;
-	height: 56px;
-	left: 46px;
-	overflow: hidden;
-	font-family: Roboto;
-	font-size: 20px;
-	color:#a4c3b2;
-	background-color: #FFFFFF;
+    width: 131px;
+    height: 56px;
+    left: 46px;
+    overflow: hidden;
+    font-family: Roboto;
+    font-size: 20px;
+    color: #a4c3b2;
+    background-color: #FFFFFF;
     padding: 12px 20px;
     border: none;
     cursor: pointer;
@@ -122,8 +126,8 @@ div {
 }
 
 .right_side {
-	position: fixed;
-	margin-top: 0;
+    position: fixed;
+    margin-top: 0;
     width: 60vw;
     height: 100vh;
     left: 50%;
@@ -135,51 +139,52 @@ div {
     position: fixed;
     width: 100vw;
     height: 100vh;
-    left : 50%;
+    left: 50%;
     top: 235px;
 }
 
 .email_section {
-	position: absolute;
-	width: 554px;
-	height: 148px;
-	left: 89px;
-	top: 300px;
+    position: absolute;
+    width: 554px;
+    height: 148px;
+    left: 89px;
+    top: 300px;
 }
 
 .forgot_password {
-	top: 450px;
-	left: 498px;
-	width: 159px;
-	height: 34px;
-	overflow: hidden;
-	font-family: Roboto;
-	font-size: 18px;
-	text-align: left;
+    top: 450px;
+    left: 498px;
+    width: 159px;
+    height: 34px;
+    overflow: hidden;
+    font-family: Roboto;
+    font-size: 18px;
+    text-align: left;
 }
+
 .forgot_password a {
-    color:#6B9090;
+    color: #6B9090;
     text-decoration: none;
 }
 
 .remember_me {
-	left: 89px;
-	overflow: hidden;
-	font-family: Roboto;
-	font-size: 18px;
-	text-align: left;
-	color:#000000;
-	top: 450px;
-	width: 159px;
-	height: 34px;
-	overflow: hidden;
+    left: 89px;
+    overflow: hidden;
+    font-family: Roboto;
+    font-size: 18px;
+    text-align: left;
+    color: #000000;
+    top: 450px;
+    width: 159px;
+    height: 34px;
+    overflow: hidden;
 }
 
 .alert {
-	top: 510px;
-	left: 89px;
-	width: 300px;
-	height: 56px;
-	text-align: left;
-	color: red;
+    top: 510px;
+    left: 89px;
+    width: 300px;
+    height: 56px;
+    text-align: left;
+    color: red;
 }

@@ -16,11 +16,11 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ HttpClientModule, ReactiveFormsModule, RouterTestingModule],
-      declarations: [ LoginComponent ],
+      imports: [HttpClientModule, ReactiveFormsModule, RouterTestingModule],
+      declarations: [LoginComponent],
       providers: []
     })
-    .compileComponents();
+      .compileComponents();
     authenticationService = TestBed.get(AuthenticationService);
     spyOn(authenticationService, 'login').and.returnValue(of(''));
   });
@@ -55,7 +55,7 @@ describe('LoginComponent', () => {
     component.form.value.email = '';
     component.form.value.password = '';
     component.onSubmit();
-    expect(component.message).toEqual('Email is required');
+    expect(component.message).toEqual('All fields are required');
   });
 
   it('testing email field invalidity', () => {

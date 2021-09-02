@@ -4,9 +4,10 @@ footer {
     height: 110px;
     left: 0;
     bottom: 0;
-    background-color:#525151;
+    background-color: #525151;
     text-align: left;
 }
+
 .discovery {
     position: absolute;
     left: 51.04%;
@@ -32,12 +33,12 @@ footer {
 }
 
 ul {
-    margin:  0;
+    margin: 0;
     padding: 0;
-    display: inline-block; 
+    display: inline-block;
     color: #56B280;
     list-style-type: none;
-    padding-left : 0;
+    padding-left: 0;
 
 }
 
@@ -46,6 +47,7 @@ li {
     padding-bottom: 5px;
     padding-top: 5px;
 }
+
 .separator {
     position: absolute;
     border: 0.5px solid #FFFFFF;
@@ -60,13 +62,13 @@ li {
     width: 250px;
     padding-left: 90px;
     padding-top: 37px;
-    
+
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 30px;
     line-height: 35px;
-    
+
     color: #6B9090;
 }
 
@@ -76,5 +78,4 @@ li {
     right: 71.46%;
     top: 20.49%;
     bottom: 92.56%;
-    
 }

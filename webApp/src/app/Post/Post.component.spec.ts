@@ -15,11 +15,11 @@ describe('PostComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ ReactiveFormsModule, MatDialogModule, HttpClientTestingModule, RouterTestingModule], 
-      providers: [{provide: MatDialogRef, useValue: {}}],
-      declarations: [ PostComponent ]
+      imports: [ReactiveFormsModule, MatDialogModule, HttpClientTestingModule, RouterTestingModule],
+      providers: [{ provide: MatDialogRef, useValue: {} }],
+      declarations: [PostComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -39,7 +39,7 @@ describe('PostComponent', () => {
   it('ngOnInit() should exists', () => {
     expect(component.ngOnInit).toBeTruthy();
   });
-  
+
   it('testing title field is required', () => {
     const title = component.form.controls.title;
     title.setValue('testName');

@@ -9,7 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AppComponent {
   title = 'Electronic Monkey';
-  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer){
+  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
     this.matIconRegistry.addSvgIcon(
       "profil_icon",
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/Profile_icon.svg")
@@ -19,6 +19,6 @@ export class AppComponent {
       "cart_icon",
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/Cart_icon.svg")
     );
-    
+
   }
 }

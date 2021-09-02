@@ -1,18 +1,8 @@
+import { OrderProduct } from './../models/OrderProduct';
+import { OrderService } from './../services/order.service';
 import { Component, OnInit } from '@angular/core';
-
-export interface productInCart {
-  imageURL: string;
-  title: string;
-  price: number;
-  quantity: number;
-  total: number;
-}
-
-let order: productInCart[] = [
-  {price: 999.99, title: 'Dell laptop', imageURL: 'https://i.dell.com/is/image/DellContent//content/dam/global-site-design/product_images/dell_client_products/cloud_client_computing/wyse_5470/media_gallery/mobile_thin_client/laptop_wyse_14_5470_gallery_4.psd?fmt=pjpg&amp;pscan=auto&amp;scl=1&amp;hei=402&amp;wid=547&amp;qlt=85,0&amp;resMode=sharp2&amp;op_usm=1.75,0.3,2,0&amp;size=547,402', quantity: 1, total: 999.99},
-  {price: 699.99, title: 'Iphone X', imageURL: 'https://images.ctfassets.net/t00ajdlq0g9p/6wlNEtbeT1azgd03aCn1BF/81d3c8753b1adaca76eed932815b5089/iPhone12-Pro-Max-blue-01.png', quantity: 2, total: 1399.98},
-  {price: 19.99, title: 'Lightning cable', imageURL: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MX0K2?wid=1144&hei=1144&fmt=jpeg&qlt=80&.v=1618617117000', quantity: 2, total: 39.98},
-];
+import { Order } from '../models/Order';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-cart',
@@ -21,35 +11,71 @@ let order: productInCart[] = [
 })
 export class CartComponent implements OnInit {
 
-  constructor() { }
+  order: Order;
+  total: number;
+  orderProducts: OrderProduct[];
+  displayedColumns: string[] = ['imageURL', 'title', 'price', 'quantity', 'total'];
+  subTotal = 0;
+  message = '';
+
+  constructor(private orderService: OrderService, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    this.order = new Order();
+    this.orderProducts = JSON.parse(localStorage.getItem("productOrders"));
+    this.calculateSubTotal();
   }
 
-  displayedColumns: string[] = ['imageURL', 'title', 'price', 'quantity', 'total'];
-  dataSource = order;
-
-  handleMinus(product) {
-    if(product.quantity == 0){
-      product.quantity = 0;
+  handleMinus(orderProduct: OrderProduct) {
+    if (orderProduct.quantity == 1) {
+      orderProduct.quantity = 1;
     }
-    else{
-      product.quantity--;
-      product.total = Math.round((product.total - product.price) * 100) / 100;
+    else {
+      orderProduct.quantity--;
+      orderProduct.totalPrice = Math.round((orderProduct.quantity * orderProduct.product.price) * 100) / 100;
     }
   }
 
-  handlePlus(product) {
-    product.quantity++;
-    product.total = Math.round((product.total + product.price) * 100) / 100;
+  handlePlus(orderProduct: OrderProduct) {
+    orderProduct.quantity++;
+    orderProduct.totalPrice = Math.round((orderProduct.quantity * orderProduct.product.price) * 100) / 100;
   }
 
-  remove(product){
-    let index = this.dataSource.indexOf(product);
-    this.dataSource.splice(index, 1);
+  remove(orderProduct: OrderProduct) {
+    let index = this.orderProducts.indexOf(orderProduct);
+    this.orderProducts.splice(index, 1);
+    localStorage.setItem("productOrders", JSON.stringify(this.orderProducts));
   }
-  
-  onCheckout(){
-    console.log("Checkout page")
+
+  onCheckout() {
+    this.order.orderProducts = this.orderProducts;
+    this.order.userId = this.authenticationService.currentUserValue.id;
+    console.log(this.order)
+    this.orderService.saveOrder(this.order).subscribe({
+      next: data => {
+        this.message = "Checked out successfully!";
+        this.total = 0;
+        this.orderProducts = [];
+        localStorage.setItem('productOrders', JSON.stringify(this.orderProducts));
+      },
+      error: error => {
+        if (error.status == '409') {
+          this.message = "Order already exists!";
+          console.error("Order already exists!", error);
+        } else {
+          this.message = "Failed to checkout!";
+          console.error("Failed to checkout!", error);
+        }
+      }
+    });
+  }
+
+  calculateSubTotal() {
+    this.subTotal = 0;
+    this.orderProducts.forEach(orderProduct => {
+      this.subTotal += orderProduct.totalPrice;
+    });
+    this.subTotal = Math.round(this.subTotal * 100) / 100;
+    this.order.totalPrice = this.subTotal;
   }
 }

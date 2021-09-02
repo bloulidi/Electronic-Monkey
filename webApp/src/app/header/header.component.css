@@ -3,19 +3,20 @@ header {
     width: 100vw;
     background: white;
     padding-bottom: 75px;
-    margin:0 auto;
+    margin: 0 auto;
 }
+
 .appName {
     position: absolute;
     margin-left: 73px;
     top: 19px;
-    
+
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 30px;
     line-height: 35px;
-    
+
     color: #6B9090;
 }
 
@@ -26,9 +27,10 @@ header {
 
 .appImg {
     position: absolute;
-    margin-left:330px;
-    top:5px;
+    margin-left: 330px;
+    top: 5px;
 }
+
 .phones {
     position: absolute;
     margin-left: 600px;
@@ -46,66 +48,72 @@ header {
 
     color: #000000;
 }
-.phones a{
-    text-decoration: none;
-    color: #000000;
-}
-.computers {
-    position: absolute;
-    margin-left: 720px;
-    top: 29px;
-    
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 26px;
-    /* identical to box height, or 142% */
-    
-    text-align: center;
-    letter-spacing: -0.9px;
-    
-    color: #000000;
-}
-.computers a{
-    text-decoration: none;
-    color: #000000;
-}
-.accessories{
-    position: absolute;
-    margin-left: 840px;
-    top: 29px;
-    
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 26px;
-    /* identical to box height, or 142% */
-    
-    text-align: center;
-    letter-spacing: -0.9px;
-    
-    color: #000000;
-}
-.accessories a{
+
+.phones a {
     text-decoration: none;
     color: #000000;
 }
 
-.profilImg{
+.computers {
+    position: absolute;
+    margin-left: 720px;
+    top: 29px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    /* identical to box height, or 142% */
+
+    text-align: center;
+    letter-spacing: -0.9px;
+
+    color: #000000;
+}
+
+.computers a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.accessories {
+    position: absolute;
+    margin-left: 840px;
+    top: 29px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    /* identical to box height, or 142% */
+
+    text-align: center;
+    letter-spacing: -0.9px;
+
+    color: #000000;
+}
+
+.accessories a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.profilImg {
     position: absolute;
     margin-left: 1250px;
     top: 22px;
 }
 
-.cartImg{
+.cartImg {
     position: absolute;
     margin-left: 1300px;
     top: 22px;
 }
-.postBtnText{
-    
+
+.postBtnText {
+
     width: 64px;
     height: 40px;
     left: 1310px;
@@ -121,7 +129,8 @@ header {
     background: #56B280;
     border: none;
 }
-.postBtn{
+
+.postBtn {
     position: absolute;
 
     font-family: Roboto;
@@ -129,8 +138,8 @@ header {
     font-size: 18px;
     color: #FFFFFF;
 
-    
-    margin-left:1400px;
+
+    margin-left: 1400px;
     width: 70px;
     top: 20px;
     padding-bottom: 2px;
