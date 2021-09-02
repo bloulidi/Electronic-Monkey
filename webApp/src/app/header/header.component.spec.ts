@@ -13,10 +13,10 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule, MatDialogModule, MatMenuModule],
-      declarations: [ HeaderComponent ]
+      imports: [ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule, MatDialogModule, MatMenuModule],
+      declarations: [HeaderComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { OrderProduct } from 'src/app/models/OrderProduct';
 import { Product } from 'src/app/models/Product';
 
 @Component({
@@ -11,17 +12,25 @@ export class ProductItemAccessoriesComponent implements OnInit {
   @Input() productItem: Product;
 
   retrievedImage = '';
+  productOrdersArray: OrderProduct[] = [];
+  orderProduct: OrderProduct = new OrderProduct();
 
-  constructor(   ) { 
+  constructor() {
   }
 
   ngOnInit(): void {
-    console.log("Product received by parent"+ this.productItem);
-    this.retrievedImage ='data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image.data; 
+    this.retrievedImage = 'data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image.data;
   }
-  
+
   handleAddToCart() {
-
+    let productOrders = localStorage.getItem("productOrders");
+    if (productOrders) {
+      this.productOrdersArray = JSON.parse(productOrders);
+    }
+    this.orderProduct.product = this.productItem;
+    this.orderProduct.quantity = 1;
+    this.orderProduct.totalPrice = this.productItem.price;
+    this.productOrdersArray.push(this.orderProduct);
+    localStorage.setItem("productOrders", JSON.stringify(this.productOrdersArray));
   }
-
 }

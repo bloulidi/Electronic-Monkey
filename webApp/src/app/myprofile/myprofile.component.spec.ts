@@ -16,11 +16,11 @@ describe('MyprofileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ HttpClientModule, ReactiveFormsModule, RouterTestingModule],
-      declarations: [ MyprofileComponent ],
+      imports: [HttpClientModule, ReactiveFormsModule, RouterTestingModule],
+      declarations: [MyprofileComponent],
       providers: []
     })
-    .compileComponents();
+      .compileComponents();
     userService = TestBed.get(UserService);
     authenticationService = TestBed.get(AuthenticationService);
     spyOn(userService, 'getUserByEmail').and.returnValue(of(''));

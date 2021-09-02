@@ -18,7 +18,7 @@ import javax.validation.constraints.*;
 @ApiModel(description = "Class representing a product tracked by the application.")
 public class Product extends BaseModel{
 
-    @NotBlank(message = "Title cannot be empty.")
+    @NotBlank(message = "Title cannot be empty")
     @ApiModelProperty(notes = "Title of the product", example = "DELL Laptop", required = true, position = 1)
     private String title;
 
@@ -38,6 +38,7 @@ public class Product extends BaseModel{
     @ApiModelProperty(notes = "Image of the product", position = 5)
     private Photo photo;
 
+    @Min(1)
     @ApiModelProperty(notes = "User associated to the product", required = true, position = 6)
     private long userId;
 
@@ -46,12 +47,14 @@ public class Product extends BaseModel{
         this.description = description;
         this.category = category;
         this.price = price;
+        this.userId = 1;
     }
 
     public Product(String title, String category, float price) {
         this.title = title;
         this.category = category;
         this.price = price;
+        this.userId = 1;
     }
 
     public Product(String title, String description, String category, float price, long userId) {

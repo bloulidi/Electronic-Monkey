@@ -11,14 +11,18 @@ import { LoginComponent } from './login/login.component';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SignupComponent } from './signup/signup.component';
-import {MatButtonModule} from '@angular/material/button';
-import {FormsModule} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
 import { LogoutComponent } from './logout/logout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
-import {MatIconModule} from '@angular/material/icon';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
+import { CartComponent } from './cart/cart.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table'
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { MypostsComponent } from './myposts/myposts.component';
 import { PostItemComponent } from './myposts/post-item/post-item.component';
@@ -28,7 +32,7 @@ import { PostComponent } from './post/post.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { PhonesComponent } from './phones/phones.component';
 import { ComputersComponent } from './computers/computers.component';
 import { AccessoriesComponent } from './accessories/accessories.component';
@@ -37,12 +41,13 @@ import { ProductItemComputersComponent } from './computers/product-item-computer
 import { ProductItemAccessoriesComponent } from './accessories/product-item-accessories/product-item-accessories.component';
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
     LogoutComponent,
     DashboardComponent,
+    CartComponent,
     MyprofileComponent,
     MypostsComponent,
     PostItemComponent,
@@ -56,7 +61,7 @@ import { ProductItemAccessoriesComponent } from './accessories/product-item-acce
     ProductItemComputersComponent,
     ProductItemAccessoriesComponent
   ],
-  
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -75,6 +80,9 @@ import { ProductItemAccessoriesComponent } from './accessories/product-item-acce
     MatIconModule,
     MatMenuModule,
     MatBadgeModule,
+    MatDividerModule,
+    MatListModule,
+    MatTableModule,
     MatDialogModule,
     MatIconModule,
     MatSelectModule

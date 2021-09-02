@@ -12,7 +12,7 @@ import org.springframework.data.annotation.Id;
 public abstract class BaseModel {
 
     @Id
-    @ApiModelProperty(notes = "Id of the product. Auto-generated if not manually set", example = "1A")
+    @ApiModelProperty(notes = "Id of the product. Auto-generated if not manually set")
     private String id;
 
     @ApiModelProperty(notes = "Date of product creation. Leave empty as it's set automatically.")

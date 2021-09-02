@@ -17,10 +17,10 @@ describe('PhonesComponent', () => {
   let productList: Product[];
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule],
-      declarations: [ PhonesComponent ]
+      imports: [ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule],
+      declarations: [PhonesComponent]
     })
-    .compileComponents();
+      .compileComponents();
     productService = TestBed.get(ProductService);
     authenticationService = TestBed.get(AuthenticationService);
     spyOn(productService, 'getProductsByCategory').and.returnValue(of(productList));

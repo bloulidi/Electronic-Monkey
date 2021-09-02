@@ -14,45 +14,45 @@ export class LoginComponent implements OnInit {
 
   form: FormGroup;
   user: User;
-  
+
   // message to be display if user logged in or not
   message = '';
   isRememberMe = false;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService) { 
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService) {
     this.user = new User;
     // redirect to home if already logged in
-    if (this.authenticationService.currentUserValue) { 
-        this.router.navigate(['/']);
+    if (this.authenticationService.currentUserValue) {
+      this.router.navigate(['/']);
     }
-}
+  }
 
   ngOnInit() {
     this.form = this.fb.group({
-      email : ['', [Validators.required, Validators.email]],
-      password : ['', [Validators.required, Validators.minLength(6)]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     })
   }
 
   onSubmit() {
-    if(this.form.value.email === '' && this.form.value.password === ''){
+    if (this.form.value.email === '' && this.form.value.password === '') {
       this.message = 'All fields are required';
-    } else if(this.form.value.email === ''){
+    } else if (this.form.value.email === '') {
       this.message = 'Email is required';
-    } else if(this.form.value.password === ''){
+    } else if (this.form.value.password === '') {
       this.message = 'Password is required';
-    } else if(this.form.invalid){
-     this.message = "Invalid email and/or password!";
+    } else if (this.form.invalid) {
+      this.message = "Invalid email and/or password!";
     } else {
       this.user.email = this.form.value.email;
       this.user.password = this.form.value.password;
       this.authenticationService.login(this.user).subscribe({
         next: data => {
           this.message = "Login Succesful!";
-          this.router.navigate(['']);
-      },
+          setTimeout(() => this.router.navigate(['']), 1000);
+        },
         error: error => {
-          if(error.status == '404') {
+          if (error.status == '404') {
             this.message = "User not found!";
             console.error("User not found!", error);
           } else {
@@ -63,14 +63,16 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+
   clearForm() {
     this.form.reset();
   }
-  onRememberMeChanged(value:boolean){
+
+  onRememberMeChanged(value: boolean) {
     this.isRememberMe = value;
-    //console.log(value);
   }
-  onClickSignUp(){
+
+  onClickSignUp() {
     this.router.navigate(['signup']);
   }
 }

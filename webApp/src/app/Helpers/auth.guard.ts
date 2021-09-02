@@ -13,10 +13,9 @@ export class AuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const currentUser = this.authenticationService.currentUserValue;
-        console.log("currentUser: " + JSON.stringify(currentUser))
         if (currentUser) {  // logged in so return true
-          console.log("Logged in: " + currentUser.email)  
-          return true;
+            console.log("Logged in: " + currentUser.email)
+            return true;
         }
         console.log("Not logged in")
         // not logged in so redirect to login page with the return url

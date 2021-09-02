@@ -1,14 +1,13 @@
-
 <header>
-    <div class ="appName">
-         <a routerLink="">Electronic Monkey</a>
+    <div class="appName">
+        <a routerLink="">Electronic Monkey</a>
     </div>
 
-    <div class ="appImg">
+    <div class="appImg">
         <img src="../../assets/monkey.png">
     </div>
 
-    <div class="phones" >
+    <div class="phones">
         <a routerLink="phones" (click)="onClickPhones()" id="btn-phones"> Phones </a>
     </div>
 
@@ -22,30 +21,30 @@
 
     <div class="profilImg">
 
-        <button  mat-button [matMenuTriggerFor]="menu" id ="btn-menu">
-            <mat-icon svgIcon="profil_icon" ></mat-icon>
+        <button mat-button [matMenuTriggerFor]="menu" id="btn-menu">
+            <mat-icon svgIcon="profil_icon"></mat-icon>
         </button>
-        <mat-menu  #menu="matMenu">
-            <button mat-menu-item (click)="onClickMyProfile()" id ="btn-myprofile">My Profile</button>
-            <button mat-menu-item (click)="onClickMyPosts()" id ="btn-myposts">My Posts</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="onClickMyProfile()" id="btn-myprofile">My Profile</button>
+            <button mat-menu-item (click)="onClickMyPosts()" id="btn-myposts">My Posts</button>
             <button mat-menu-item>My Orders</button>
-            <button mat-menu-item (click)="onClickLogOut()" id ="btn-logout">Log out</button>
+            <button mat-menu-item (click)="onClickLogOut()" id="btn-logout">Log out</button>
         </mat-menu>
- 
+
     </div>
 
     <div class="cartImg">
-        <button mat-button >
-            <mat-icon svgIcon="cart_icon" matBadge={{numProductCart}} mat-raised-button matBadgeSize="medium" matBadgeColor="accent">
+        <button mat-button>
+            <mat-icon (click)="onClickCart()" svgIcon="cart_icon" matBadge={{numProductCart}} mat-raised-button matBadgeSize="medium" matBadgeColor="accent">
             </mat-icon>
         </button>
     </div>
     <div>
-    <button class="postBtn" mat-raised-button color="primary" (click)="onClickPost()">
-             Post 
-    </button>
+        <button class="postBtn" mat-raised-button color="primary" (click)="onClickPost()">
+            Post
+        </button>
     </div>
-    
+
 </header>
 
 <router-outlet></router-outlet>

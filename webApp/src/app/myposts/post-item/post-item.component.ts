@@ -14,20 +14,16 @@ export class PostItemComponent implements OnInit {
   retrievedImage = '';
   @Output() newItemEvent = new EventEmitter<string>();
 
-  constructor(private productService:ProductService) { 
-    }
-
-  ngOnInit(): void {
-    console.log("Product received by parent"+ this.productItem);
-    this.retrievedImage ='data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image.data; 
+  constructor(private productService: ProductService) {
   }
 
-  async deletePost(id:any){
+  ngOnInit(): void {
+    this.retrievedImage = 'data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image.data;
+  }
 
-    this.productService.deleteProduct(id).subscribe( data => {
-      console.log(data);
+  async deletePost(id: any) {
+    this.productService.deleteProduct(id).subscribe(data => {
       this.newItemEvent.emit("product deleted");
     });
   }
-
 }

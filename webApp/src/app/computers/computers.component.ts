@@ -12,15 +12,12 @@ import { UserService } from '../services/user.service';
 export class ComputersComponent implements OnInit {
 
   productList: Product[] = [];
-  userId:number;
+  userId: number;
 
-  constructor(private productService: ProductService, 
-              private authenticationService: AuthenticationService, 
-              private userService: UserService) {
-    let email = this.authenticationService.currentUserValue.email;
+  constructor(private productService: ProductService,
+    private authenticationService: AuthenticationService,
+    private userService: UserService) {
     this.userId = this.authenticationService.currentUserValue.id;
-    console.log("this is the email:" + email);
-    console.log("this is the ID:" + this.userId);
   }
 
   ngOnInit(): void {
@@ -28,11 +25,8 @@ export class ComputersComponent implements OnInit {
   }
 
   loadProducts() {
-    console.log("userId in load products is:" + this.userId);
     this.productService.getProductsByCategory("Computers").subscribe((products) => {
       this.productList = products;
-      console.log(this.productList);
-      })
+    })
   }
-
 }

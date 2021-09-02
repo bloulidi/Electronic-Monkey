@@ -9,35 +9,28 @@ import { UserService } from '../services/user.service';
   selector: 'app-myposts',
   templateUrl: './myposts.component.html',
   styleUrls: [
-  './myposts.component.css']
+    './myposts.component.css']
 })
 
 export class MypostsComponent implements OnInit {
 
   productList: Product[] = [];
-  userId:number;
+  userId: number;
 
-  constructor(private productService: ProductService, private authenticationService: AuthenticationService, private userService: UserService, private router:Router) {
-    let email = this.authenticationService.currentUserValue.email;
+  constructor(private productService: ProductService, private authenticationService: AuthenticationService, private userService: UserService, private router: Router) {
     this.userId = this.authenticationService.currentUserValue.id;
-    console.log("this is the email:" + email);
-    console.log("this is the ID:" + this.userId);
-   }
+  }
 
   ngOnInit(): void {
     this.loadProducts();
   }
 
   loadProducts() {
-    console.log("userId in load products is:" + this.userId);
     this.productService.getProductsByUserId(this.userId).subscribe((products) => {
       this.productList = products;
-      console.log(this.productList);
-      })
+    })
   }
-  deleteItem(value:any){
-    console.log(value);
+  deleteItem(value: any) {
     window.location.reload();
-}
-
+  }
 }

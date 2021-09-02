@@ -1,6 +1,7 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
-strong{
-    color:rgb(36, 117, 4)
+
+strong {
+    color: rgb(36, 117, 4)
 }
 
 .card-img-top {

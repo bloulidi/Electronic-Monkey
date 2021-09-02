@@ -13,3 +13,5 @@ zuul:
       url: http://localhost:8090
     catalog:
       url: http://localhost:8800
+    order:
+      url: http://localhost:8880

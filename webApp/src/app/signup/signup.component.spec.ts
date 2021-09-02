@@ -12,10 +12,10 @@ describe('SignupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule],
-      declarations: [ SignupComponent ]
+      imports: [ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule],
+      declarations: [SignupComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -8,9 +8,9 @@ describe('ProductItemAccessoriesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProductItemAccessoriesComponent ]
+      declarations: [ProductItemAccessoriesComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe('ProductItemAccessoriesComponent', () => {
     fixture.detectChanges();
   });
 
- /* it('should create', () => {
-    expect(component).toBeTruthy();
-  });*/
+  /* it('should create', () => {
+     expect(component).toBeTruthy();
+   });*/
 });

@@ -21,7 +21,7 @@ export class PostComponent implements OnInit {
   product: Product;
   photo: Photo;
   retrievedImage = '';
-  isProductAdded:boolean = false;
+  isProductAdded: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router, public productService: ProductService, public dialogRef: MatDialogRef<DashboardComponent>, private authenticationService: AuthenticationService) {
     this.product = new Product;
@@ -43,15 +43,15 @@ export class PostComponent implements OnInit {
   }
 
   submit() {
-    if (this.form.value.title === ''){
+    if (this.form.value.title === '') {
       this.message = 'Title is required';
-    } else if (this.form.value.category === ''){
+    } else if (this.form.value.category === '') {
       this.message = 'Category is required';
     } else if (this.form.value.price === '') {
       this.message = 'Price is required';
-    } else if (this.fileToUpload == null){
+    } else if (this.fileToUpload == null) {
       this.message = "Please select a photo before submitting.";
-    } else if(!this.fileToUpload.type.startsWith("image/")){
+    } else if (!this.fileToUpload.type.startsWith("image/")) {
       this.message = "File selected is not an image!"
     } else if (this.form.invalid) {
       this.message = "Invalid field(s)!";
@@ -67,12 +67,9 @@ export class PostComponent implements OnInit {
           this.message = "Post added successfully!"
           this.isProductAdded = true;
           setTimeout(() => this.cancel(), 1000);
-
-          // Show picture
-          //this.retrievedImage = 'data:' + res.photo.type + ';base64,' + res.photo.image.data;
         },
         error: error => {
-          if(error.status == '409') {
+          if (error.status == '409') {
             this.message = "This product already exists!";
             console.error("This product already exists!", error);
           } else {

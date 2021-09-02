@@ -1,4 +1,4 @@
-package com.stackroute.inventoryservice;
+package com.stackroute.orderservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

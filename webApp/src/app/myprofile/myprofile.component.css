@@ -1,11 +1,10 @@
+.example-container {
 
-.example-container{
- 
     height: 80vh;
     text-align: center;
 }
 
-.form-title{
+.form-title {
     text-align: center;
     padding-top: 150px;
     font-size: 40px;
@@ -13,23 +12,23 @@
     font-family: sans-serif;
 }
 
-.form-container{
-    width: 400px; 
+.form-container {
+    width: 400px;
     margin: auto;
-    margin-top:70px;
-    
+    margin-top: 70px;
+
 }
 
-.form-field{
+.form-field {
     display: block;
 }
 
-.signup-button{
+.signup-button {
     background-color: #56B280;
     border-radius: 0px;
 }
 
-.cancel-button{
+.cancel-button {
     background-color: white;
     margin-left: 10px;
     border-radius: 0px;
@@ -49,8 +48,8 @@ mat-form-field input[matInput] {
     font-size: 17px;
 }
 
-mat-form-field mat-label{
+mat-form-field mat-label {
     font-size: 18px;
     color: #6B9090;
-    font-weight:500;
+    font-weight: 500;
 }
