@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.Binary;
 
 @Data
 @NoArgsConstructor
@@ -16,6 +15,6 @@ public class Photo {
     private String title;
     @ApiModelProperty(notes = "Type of the photo")
     private String type;
-    @ApiModelProperty(notes = "Image binary of the photo")
-    private Binary image;
+    @ApiModelProperty(notes = "Image data of the photo")
+    private String image;
 }

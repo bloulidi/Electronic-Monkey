@@ -2,5 +2,5 @@
 export class Photo {
     title?: string;
     type?: string;
-    image?: any;
+    image?: string;
 }

@@ -3,7 +3,6 @@ package com.stackroute.orderservice.service;
 import com.stackroute.orderservice.exception.OrderAlreadyExistsException;
 import com.stackroute.orderservice.exception.OrderNotFoundException;
 import com.stackroute.orderservice.model.Order;
-import com.stackroute.orderservice.model.Status;
 import com.stackroute.orderservice.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
