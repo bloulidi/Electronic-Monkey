@@ -1,3 +1,4 @@
+import { OrderHistoryComponent } from './orderHistory/orderHistory.component';
 import { CartComponent } from './cart/cart.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -21,6 +22,11 @@ const routes: Routes = [
   { path: 'myposts', component: MypostsComponent, canActivate: [AuthGuard] },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SignupComponent },
+  { path: 'myprofile', component: MyprofileComponent},
+  {path: 'myposts', component: MypostsComponent},
+  { path: 'logout', component: LogoutComponent, canActivate:[AuthGuard] },
+  { path: 'signup', component: SignupComponent },
+  { path: 'orderHistory', component: OrderHistoryComponent },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
   { path: 'phones', component: PhonesComponent, canActivate: [AuthGuard] },
   { path: 'computers', component: ComputersComponent, canActivate: [AuthGuard] },

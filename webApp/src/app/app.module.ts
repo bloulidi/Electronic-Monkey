@@ -32,6 +32,9 @@ import { PostComponent } from './post/post.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
+import { OrderHistoryComponent } from './orderHistory/orderHistory.component';
+import {MatCardModule} from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
 import { PhonesComponent } from './phones/phones.component';
 import { ComputersComponent } from './computers/computers.component';
@@ -54,6 +57,7 @@ import { ProductItemAccessoriesComponent } from './accessories/product-item-acce
     FooterComponent,
     HeaderComponent,
     PostComponent,
+    OrderHistoryComponent,
     PhonesComponent,
     ComputersComponent,
     AccessoriesComponent,
@@ -61,6 +65,7 @@ import { ProductItemAccessoriesComponent } from './accessories/product-item-acce
     ProductItemComputersComponent,
     ProductItemAccessoriesComponent
   ],
+  
 
   imports: [
     BrowserModule,
@@ -85,7 +90,9 @@ import { ProductItemAccessoriesComponent } from './accessories/product-item-acce
     MatTableModule,
     MatDialogModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
