@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @CrossOrigin(origins = "http://localhost:4200")
@@ -67,13 +68,22 @@ public class ProductController {
         log.info("Return products with userId = " + userId);
         return new ResponseEntity<List<Product>>(productService.getProductsByUserId(userId), HttpStatus.OK);
     }
-    @GetMapping("category/{category}")
+
+    @GetMapping("category/admin/{category}")
     @ApiOperation("Returns a list of products by their userId. 404 if does not exist.")
-    public ResponseEntity<List<Product>> getProductsByCategory(@ApiParam("Category associated to the list of product to be obtained. Cannot be empty.") @PathVariable String category) throws ProductNotFoundException {
+    public ResponseEntity<List<Product>> getProductsByCategoryAdmin(@ApiParam("Category associated to the list of product to be obtained. Cannot be empty.") @PathVariable String category) throws ProductNotFoundException {
         log.info("Return products with category = " + category);
         return new ResponseEntity<List<Product>>(productService.getProductsByCategory(category), HttpStatus.OK);
     }
 
+    @GetMapping("category/{category}")
+    @ApiOperation("Returns a list of products by their userId. 404 if does not exist.")
+    public ResponseEntity<List<Product>> getProductsByCategory(@ApiParam("Category associated to the list of product to be obtained. Cannot be empty.") @PathVariable String category) throws ProductNotFoundException {
+        log.info("Return products with category = " + category);
+        List<Product> products = productService.getProductsByCategory(category);
+        products.removeIf(product -> product.isHidden() == true);
+        return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+    }
 
     @DeleteMapping("{id}")
     @ApiOperation("Deletes a product from the system. 404 if the person's identifier is not found.")
