@@ -40,15 +40,20 @@
 }
 .name{
     font-family: 'Poppins', sans-serif;
+    font-size: 18px;
     font-weight: 500;
-    font-size: 26px;
+    line-height: 58px;
 }
 .price{
-    font-family: 'Roboto';
-    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
     font-size: 18px;
+    font-weight: 500;
+    line-height: 58px;
 }
 .yourOrders{
     text-align: center;
     padding-top: 150px;
+}
+.image{
+    object-fit: contain;   
 }
