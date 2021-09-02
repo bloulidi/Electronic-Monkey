@@ -9,8 +9,10 @@
         <p class="card-text"> {{ productItem.description }} </p>
         <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
-
                 <button (click)="handleAddToCart()" type="button" class="btn btn-sm btn-outline-success">Add to Cart</button>
+            </div>
+            <div class="btn-group" *ngIf="isHidden">
+                <button (click)="hidePost()" type="button" class="btn btn-sm btn-outline-info">Hide</button>
             </div>
         </div>
     </div>

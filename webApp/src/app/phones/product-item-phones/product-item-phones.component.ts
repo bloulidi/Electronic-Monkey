@@ -1,6 +1,7 @@
 import { OrderProduct } from './../../models/OrderProduct';
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/Product';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-product-item-phones',
@@ -14,12 +15,14 @@ export class ProductItemPhonesComponent implements OnInit {
   retrievedImage = '';
   productOrdersArray: OrderProduct[] = [];
   orderProduct: OrderProduct = new OrderProduct();
+  isHidden: boolean;
 
-  constructor() {
+  constructor(private authenticationService: AuthenticationService) {
   }
 
   ngOnInit(): void {
     this.retrievedImage = 'data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image.data;
+    this.isHidden = this.authenticationService.currentUserValue.admin;
   }
 
   handleAddToCart() {
@@ -33,5 +36,8 @@ export class ProductItemPhonesComponent implements OnInit {
     this.productOrdersArray.push(this.orderProduct);
     localStorage.setItem("productOrders", JSON.stringify(this.productOrdersArray));
     window.location.reload();
+  }
+  hidePost(){
+    
   }
 }
