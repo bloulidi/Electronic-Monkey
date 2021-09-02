@@ -33,7 +33,7 @@
 
     <ng-container matColumnDef="total">
         <th class="text-cart" mat-header-cell *matHeaderCellDef> Total </th>
-        <td class="text-cart" mat-cell *matCellDef="let orderProduct">{{orderProduct.total | currency:'CAD'}} </td>
+        <td class="text-cart" mat-cell *matCellDef="let orderProduct">{{orderProduct.totalPrice | currency:'CAD'}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

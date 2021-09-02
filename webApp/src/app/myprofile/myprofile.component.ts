@@ -87,11 +87,11 @@ export class MyprofileComponent implements OnInit {
       this.userService.updateUser(this.user).subscribe({
         next: (data: any) => {
           if (this.isEmailOrPasswordChanged) {
-            this.message = "Email or password update Successful. Logging out!"
+            this.message = "Email or password update successful. Logging out!"
             setTimeout(() => this.router.navigate(['logout']), 1000);
           }
           else {
-            this.message = "Name update Successful!"
+            this.message = "Full name update successful!"
             setTimeout(() => this.router.navigate(['']), 1000);
           }
         },

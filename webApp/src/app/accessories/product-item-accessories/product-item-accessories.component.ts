@@ -29,7 +29,7 @@ export class ProductItemAccessoriesComponent implements OnInit {
     }
     this.orderProduct.product = this.productItem;
     this.orderProduct.quantity = 1;
-    this.orderProduct.total = this.productItem.price;
+    this.orderProduct.totalPrice = this.productItem.price;
     this.productOrdersArray.push(this.orderProduct);
     localStorage.setItem("productOrders", JSON.stringify(this.productOrdersArray));
   }

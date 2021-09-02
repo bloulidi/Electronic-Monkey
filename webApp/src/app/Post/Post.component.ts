@@ -67,9 +67,6 @@ export class PostComponent implements OnInit {
           this.message = "Post added successfully!"
           this.isProductAdded = true;
           setTimeout(() => this.cancel(), 1000);
-
-          // Show picture
-          //this.retrievedImage = 'data:' + res.photo.type + ';base64,' + res.photo.image.data;
         },
         error: error => {
           if (error.status == '409') {

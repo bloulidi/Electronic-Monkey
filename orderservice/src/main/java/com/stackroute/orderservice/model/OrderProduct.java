@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Transient;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -23,7 +22,6 @@ public class OrderProduct {
     @ApiModelProperty(notes = "Order product information", required = true, position = 2)
     private Product product;
 
-    @Transient
     public float getTotalPrice() {
         return product.getPrice() * getQuantity();
     }

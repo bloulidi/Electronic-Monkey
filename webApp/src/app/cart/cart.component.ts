@@ -26,24 +26,23 @@ export class CartComponent implements OnInit {
     this.calculateSubTotal();
   }
 
-  handleMinus(orderProduct) {
+  handleMinus(orderProduct: OrderProduct) {
     if (orderProduct.quantity == 1) {
       orderProduct.quantity = 1;
     }
     else {
       orderProduct.quantity--;
-      orderProduct.total = Math.round((orderProduct.quantity * orderProduct.product.price) * 100) / 100;
-      this.order.totalPrice = orderProduct.total;
+      orderProduct.totalPrice = Math.round((orderProduct.quantity * orderProduct.product.price) * 100) / 100;
     }
   }
 
-  handlePlus(orderProduct) {
+  handlePlus(orderProduct: OrderProduct) {
     orderProduct.quantity++;
-    orderProduct.total = Math.round((orderProduct.quantity * orderProduct.product.price) * 100) / 100;
+    orderProduct.totalPrice = Math.round((orderProduct.quantity * orderProduct.product.price) * 100) / 100;
   }
 
-  remove(product) {
-    let index = this.orderProducts.indexOf(product);
+  remove(orderProduct: OrderProduct) {
+    let index = this.orderProducts.indexOf(orderProduct);
     this.orderProducts.splice(index, 1);
     localStorage.setItem("productOrders", JSON.stringify(this.orderProducts));
   }
@@ -51,12 +50,13 @@ export class CartComponent implements OnInit {
   onCheckout() {
     this.order.orderProducts = this.orderProducts;
     this.order.userId = this.authenticationService.currentUserValue.id;
+    console.log(this.order)
     this.orderService.saveOrder(this.order).subscribe({
       next: data => {
-        this.message = "Checked out Successfully!";
+        this.message = "Checked out successfully!";
         this.total = 0;
         this.orderProducts = [];
-        localStorage.removeItem('productOrders');
+        localStorage.setItem('productOrders', JSON.stringify(this.orderProducts));
       },
       error: error => {
         if (error.status == '409') {
@@ -73,9 +73,9 @@ export class CartComponent implements OnInit {
   calculateSubTotal() {
     this.subTotal = 0;
     this.orderProducts.forEach(orderProduct => {
-      this.subTotal += orderProduct.total;
+      this.subTotal += orderProduct.totalPrice;
     });
     this.subTotal = Math.round(this.subTotal * 100) / 100;
-    // this.order.totalPrice = this.subTotal;
+    this.order.totalPrice = this.subTotal;
   }
 }
