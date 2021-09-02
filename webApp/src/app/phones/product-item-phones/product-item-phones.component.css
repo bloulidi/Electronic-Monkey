@@ -9,3 +9,6 @@ strong {
     height: 15vw;
     object-fit: contain;
 }
+.btn-outline-info:hover{
+    color: white;
+}
