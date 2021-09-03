@@ -64,7 +64,7 @@ export class PostItemComponent implements OnInit {
   }
 
   checkSave(){
-    if (this.form.value.title === '') {
+    /*if (this.form.value.title === '') {
       this.message = 'Title is required';
       return true;
     } else if (this.form.value.category === '') {
@@ -80,14 +80,15 @@ export class PostItemComponent implements OnInit {
       this.message = "Invalid field(s)!";
       return true;
     }
-    else{return false;}
+    else{return false;}*/
+    return true;
   }
 
   submit(){
     if(!this.checkSave()){
       if (this.fileToUpload != null){
         this.isImageChanged = true;
-        this.productService.updateProductWithtImage(this.productItem, this.fileToUpload).subscribe({
+       /* this.productService.updateProductWithtImage(this.productItem, this.fileToUpload).subscribe({
           next: (res: any) => {
             this.message = "Post updated successfully!"
             this.isProductAdded = true;
@@ -95,12 +96,12 @@ export class PostItemComponent implements OnInit {
           error: error => {
             console.log(error);
           }
-        });
+        });*/
         
       }
       else if(this.fileToUpload == null){
         this.isImageChanged = false;
-        this.productService.updateProductWithoutImage(this.productItem).subscribe({
+        /*this.productService.updateProductWithoutImage(this.productItem).subscribe({
           next: (res: any) => {
             this.message = "Post updated successfully!"
             this.isProductAdded = true;
@@ -108,7 +109,7 @@ export class PostItemComponent implements OnInit {
           error: error => {
             console.log(error);
           }
-        });
+        });*/
       }
     }
   }

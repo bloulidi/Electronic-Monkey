@@ -71,7 +71,7 @@
 
       <div>
           <label class="add-photos">Add Photo </label><br>
-          <input type="file" accept="image/*" (change)="handleFileInput($event)">
+          <input type="file" accept="image/*" (change)="handleFileInput($event)" required>
       </div>
       <div class="modal-footer">
           <button class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
