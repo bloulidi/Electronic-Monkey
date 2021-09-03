@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
 
   onClickPost() {
     const dialogRef = this.dialog.open(PostComponent, {
-      width: '350px',
+      width: '500px',
     });
   }
 

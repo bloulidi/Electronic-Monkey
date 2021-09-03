@@ -43,6 +43,7 @@ import { ProductItemPhonesComponent } from './phones/product-item-phones/product
 import { ProductItemComputersComponent } from './computers/product-item-computers/product-item-computers.component';
 import { ProductItemAccessoriesComponent } from './accessories/product-item-accessories/product-item-accessories.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EditpostComponent } from './editpost/editpost.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AccessoriesComponent,
     ProductItemPhonesComponent,
     ProductItemComputersComponent,
-    ProductItemAccessoriesComponent
+    ProductItemAccessoriesComponent,
+    EditpostComponent
   ],
   
 
