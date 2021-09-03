@@ -20,15 +20,19 @@ export class PostItemComponent implements OnInit {
   @Output() newItemEvent = new EventEmitter<string>();
   
   closeResult = '';
+  closeResultEdit='';
 
   form: FormGroup;
   fileToUpload: File;
   message = '';
   product: Product;
   photo: Photo;
-  updatedImage = '';
-  isProductAdded: boolean = false;
-  isImageChanged: boolean = false;
+
+  title: string = '';
+  description: string = '';
+  category: string = '';
+  price: number;
+
   constructor(private productService: ProductService, private modalService: NgbModal,
     private fb: FormBuilder, private router: Router,
     private authenticationService: AuthenticationService) {
@@ -51,11 +55,21 @@ export class PostItemComponent implements OnInit {
     this.form.get('category').setValue(this.productItem.category);
     this.form.get('description').setValue(this.productItem.description);
     this.form.get('price').setValue(this.productItem.price);
+    this.message = ""; 
+
+    this.title = this.form.get('title').value;
+    this.category =this.form.get('category').value;
+    this.description=this.form.get('description').value;
+    this.price =this.form.get('price').value;
   }
 
   openEdit(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-edit'}).result.then((result) => {
-      this.closeResult = `Closed with`;
+      this.closeResultEdit = `Closed with: ${result}`;
+      if(this.closeResultEdit === "Closed with: Save click"){
+      }
+    }, (reason) => {
+      this.closeResultEdit = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 
@@ -64,7 +78,7 @@ export class PostItemComponent implements OnInit {
   }
 
   checkSave(){
-    /*if (this.form.value.title === '') {
+    if (this.form.value.title === '') {
       this.message = 'Title is required';
       return true;
     } else if (this.form.value.category === '') {
@@ -73,43 +87,59 @@ export class PostItemComponent implements OnInit {
     } else if (this.form.value.price === '') {
       this.message = 'Price is required';
       return true;
-    } else if (!this.fileToUpload.type.startsWith("image/")) {
-      this.message = "File selected is not an image!";
+    }else if (this.form.value.price <= 0){
+      this.message = "please enter a valid price";
       return true;
-    } else if (this.form.invalid) {
+    }
+    else if (this.fileToUpload != null){
+      if (!this.fileToUpload.type.startsWith("image/")) {
+        this.message = "File selected is not an image!";
+        return true;
+      }
+    }
+    else if (this.form.invalid) {
       this.message = "Invalid field(s)!";
       return true;
     }
-    else{return false;}*/
-    return true;
+    else if(this.price== this.form.value.price && 
+      this.title==this.form.value.title &&
+      this.category == this.form.value.category &&
+      this.description == this.form.value.description){
+        return true;
+    }
+    else{
+      this.message = "";
+      return false;
+    }
   }
 
   submit(){
     if(!this.checkSave()){
+      this.productItem.title = this.form.value.title;
+      this.productItem.category = this.form.value.category;
+      this.productItem.description = this.form.value.description;
+      this.productItem.price = this.form.value.price;
       if (this.fileToUpload != null){
-        this.isImageChanged = true;
-       /* this.productService.updateProductWithtImage(this.productItem, this.fileToUpload).subscribe({
+        this.productService.updateProductWithImage(this.productItem, this.fileToUpload).subscribe({
           next: (res: any) => {
-            this.message = "Post updated successfully!"
-            this.isProductAdded = true;
+            this.message = "Post updated successfully!";
+            this.retrievedImage = 'data:' + res.photo.type + ';base64,' + res.photo.image;
           },
           error: error => {
-            console.log(error);
+            console.error(error);
           }
-        });*/
-        
+        });
       }
       else if(this.fileToUpload == null){
-        this.isImageChanged = false;
-        /*this.productService.updateProductWithoutImage(this.productItem).subscribe({
+        this.productService.updateProductWithoutImage(this.productItem).subscribe({
           next: (res: any) => {
-            this.message = "Post updated successfully!"
-            this.isProductAdded = true;
+            this.message = "Post updated successfully!";
+            console.log("entered in updateProductWithoutImage :" + res.title);
           },
           error: error => {
-            console.log(error);
+            console.error(error);
           }
-        });*/
+        });
       }
     }
   }

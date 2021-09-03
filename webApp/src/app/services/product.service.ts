@@ -43,11 +43,11 @@ export class ProductService {
   updateProductWithoutImage(product: Product) {
     return this.httpClient.patch(this.localhost, product);
   }
-  updateProductWithtImage(product: Product,  fileToUpload: File) {
+  updateProductWithImage(product: Product,  fileToUpload: File) {
     const formData: FormData = new FormData();
     const productBlob = new Blob([JSON.stringify(product)], { type: "application/json" })
     formData.append('product', productBlob);
     formData.append('image', fileToUpload, fileToUpload.name);
-    return this.httpClient.patch(this.localhost, formData);
+    return this.httpClient.patch(this.localhost + '/image', formData);
   }
 }

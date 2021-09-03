@@ -66,6 +66,16 @@ export class MyprofileComponent implements OnInit {
     this.message = '';
   }
 
+  checkSave(){
+    if(this.email === this.form.get('email').value && 
+    this.password === this.form.get('password').value &&
+    this.fullName == this.form.get('fullName').value){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   onSubmit() {
     if (this.form.value.email === '' && this.form.value.password === '' && this.form.value.fullName === '') {
       this.message = 'All fields are required';

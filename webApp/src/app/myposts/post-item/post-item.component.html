@@ -36,8 +36,6 @@
   </div>
 </ng-template>
 
-
-
 <ng-template #contentEdit let-modal>
   <div class="modal-header">
     <h5 class="modal-title" id="modal-edit" class ="edit-post">Edit Post</h5>
@@ -70,11 +68,11 @@
       </mat-form-field>
 
       <div>
-          <label class="add-photos">Add Photo </label><br>
-          <input type="file" accept="image/*" (change)="handleFileInput($event)" required>
+          <label class="add-photos">Replace Photo</label><br>
+          <input type="file" accept="image/*" (change)="handleFileInput($event)">
       </div>
       <div class="modal-footer">
-          <button class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+          <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
           <button type="submit" [disabled]="checkSave()" class="btn btn-outline-success" (click)="modal.close('Save click')">Save Changes</button>
       </div>
     </form>
@@ -87,5 +85,3 @@
 </ng-template>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-
-
