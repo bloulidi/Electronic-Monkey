@@ -204,6 +204,16 @@ public class ProductControllerIntegrationTest {
     }
 
     @Test
+    void givenProductWithInvalidPriceThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException{
+        assertThrows(ConstraintViolationException.class, () -> {
+            product1.setPrice(-1);
+            productController.saveProduct(product1);
+        });
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
+    }
+
+    @Test
     void givenProductWithInvalidTitleThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException {
         assertThrows(ConstraintViolationException.class, () -> {
             product1.setTitle("");
