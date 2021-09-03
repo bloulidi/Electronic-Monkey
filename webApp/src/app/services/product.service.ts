@@ -34,10 +34,10 @@ export class ProductService {
   }
   getProductsByCategory(category: string): Observable<Product[]> {
     if (this.authenticationService.currentUserValue.admin == true) {
-      return this.httpClient.get<Product[]>(this.localhost + '/category/admin' + category);
+      return this.httpClient.get<Product[]>(this.localhost + '/category/admin/' + category);
     }
     else {
-      return this.httpClient.get<Product[]>(this.localhost + '/category' + category);
+      return this.httpClient.get<Product[]>(this.localhost + '/category/' + category);
     }
   }
   deleteProduct(id: any): Observable<any> {
