@@ -39,7 +39,7 @@ public class Product extends BaseModel{
     private Photo photo;
 
     @Min(1)
-    @ApiModelProperty(notes = "User associated to the product", required = true, position = 6)
+    @ApiModelProperty(notes = "User associated to the product", example = "1", required = true, position = 6)
     private long userId;
 
     public Product(String title, String description, String category, float price) {

@@ -187,6 +187,14 @@ public class ProductServiceIntegrationTest {
     }
 
     @Test
+    void givenProductWithInvalidPriceThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException {
+        assertThrows(ConstraintViolationException.class, () -> {
+            product1.setPrice(-1);
+            productService.saveProduct(product1);
+        });
+    }
+
+    @Test
     void givenProductWithInvalidCategoryThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException {
         assertThrows(ConstraintViolationException.class, () -> {
             product1.setCategory("zfddf");
