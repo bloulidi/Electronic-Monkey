@@ -45,7 +45,7 @@ export class PostItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.retrievedImage = 'data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image.data;
+    this.retrievedImage = 'data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image;
    
     this.form.get('title').setValue(this.productItem.title);
     this.form.get('category').setValue(this.productItem.category);
@@ -87,11 +87,30 @@ export class PostItemComponent implements OnInit {
     if(!this.checkSave()){
       if (this.fileToUpload != null){
         this.isImageChanged = true;
+        this.productService.updateProductWithtImage(this.productItem, this.fileToUpload).subscribe({
+          next: (res: any) => {
+            this.message = "Post updated successfully!"
+            this.isProductAdded = true;
+          },
+          error: error => {
+            console.log(error);
+          }
+        });
         
       }
+      else if(this.fileToUpload == null){
+        this.isImageChanged = false;
+        this.productService.updateProductWithoutImage(this.productItem).subscribe({
+          next: (res: any) => {
+            this.message = "Post updated successfully!"
+            this.isProductAdded = true;
+          },
+          error: error => {
+            console.log(error);
+          }
+        });
+      }
     }
-    
-
   }
 
   openRemove(content, id) {
