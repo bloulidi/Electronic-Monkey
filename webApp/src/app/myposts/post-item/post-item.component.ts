@@ -57,10 +57,10 @@ export class PostItemComponent implements OnInit {
     this.form.get('price').setValue(this.productItem.price);
     this.message = ""; 
 
-    this.title = this.form.get('title').value;
-    this.category =this.form.get('category').value;
-    this.description=this.form.get('description').value;
-    this.price =this.form.get('price').value;
+    this.title = this.form.value.title;
+    this.category = this.form.value.category;
+    this.description = this.form.value.description;
+    this.price = this.form.value.price;
   }
 
   openEdit(content) {
@@ -87,27 +87,23 @@ export class PostItemComponent implements OnInit {
     } else if (this.form.value.price === '') {
       this.message = 'Price is required';
       return true;
-    }else if (this.form.value.price <= 0){
-      this.message = "please enter a valid price";
+    } else if (this.form.value.price < 1){
+      this.message = "Please enter a valid price >= $1";
       return true;
-    }
-    else if (this.fileToUpload != null){
+    } else if (this.fileToUpload != null){
       if (!this.fileToUpload.type.startsWith("image/")) {
         this.message = "File selected is not an image!";
         return true;
       }
-    }
-    else if (this.form.invalid) {
+    } else if (this.form.invalid) {
       this.message = "Invalid field(s)!";
       return true;
-    }
-    else if(this.price== this.form.value.price && 
+    } else if(this.price== this.form.value.price && 
       this.title==this.form.value.title &&
       this.category == this.form.value.category &&
       this.description == this.form.value.description){
         return true;
-    }
-    else{
+    } else{
       this.message = "";
       return false;
     }
@@ -122,26 +118,20 @@ export class PostItemComponent implements OnInit {
       if (this.fileToUpload != null){
         this.productService.updateProductWithImage(this.productItem, this.fileToUpload).subscribe({
           next: (res: any) => {
-            this.message = "Post updated successfully!";
             this.retrievedImage = 'data:' + res.photo.type + ';base64,' + res.photo.image;
-            window.location.reload();
           },
           error: error => {
             console.error(error);
           }
         });
-      }
-      else if(this.fileToUpload == null){
+        window.location.reload();
+      } else if(this.fileToUpload == null){
         this.productService.updateProductWithoutImage(this.productItem).subscribe({
-          next: (res: any) => {
-            this.message = "Post updated successfully!";
-            console.log("entered in updateProductWithoutImage :" + res.title);
-            window.location.reload();
-          },
           error: error => {
             console.error(error);
           }
         });
+        window.location.reload()
       }
     }
   }
@@ -172,15 +162,4 @@ export class PostItemComponent implements OnInit {
       this.newItemEvent.emit("product deleted");
     }); 
   }
-
-  updatePostWithoutImage(id:any){
-    this.productService.deleteProduct(id).subscribe(data => {
-      this.newItemEvent.emit("product deleted");
-    }); 
-  }
-
-  updatePostWithImage(id:any){
-
-  }
-  
 }

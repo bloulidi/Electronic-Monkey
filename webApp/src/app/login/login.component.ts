@@ -48,8 +48,7 @@ export class LoginComponent implements OnInit {
       this.user.password = this.form.value.password;
       this.authenticationService.login(this.user).subscribe({
         next: data => {
-          this.message = "Login Succesful!";
-          setTimeout(() => this.router.navigate(['']), 1000);
+          this.router.navigate(['']);
         },
         error: error => {
           if (error.status == '404') {

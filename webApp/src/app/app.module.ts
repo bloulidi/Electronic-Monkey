@@ -15,7 +15,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { LogoutComponent } from './logout/logout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -33,7 +32,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { OrderHistoryComponent } from './orderHistory/orderHistory.component';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
 import { PhonesComponent } from './phones/phones.component';
@@ -43,7 +42,6 @@ import { ProductItemPhonesComponent } from './phones/product-item-phones/product
 import { ProductItemComputersComponent } from './computers/product-item-computers/product-item-computers.component';
 import { ProductItemAccessoriesComponent } from './accessories/product-item-accessories/product-item-accessories.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { EditpostComponent } from './editpost/editpost.component';
 
 @NgModule({
   declarations: [
@@ -65,11 +63,9 @@ import { EditpostComponent } from './editpost/editpost.component';
     AccessoriesComponent,
     ProductItemPhonesComponent,
     ProductItemComputersComponent,
-    ProductItemAccessoriesComponent,
-    EditpostComponent
+    ProductItemAccessoriesComponent
   ],
   
-
   imports: [
     BrowserModule,
     AppRoutingModule,

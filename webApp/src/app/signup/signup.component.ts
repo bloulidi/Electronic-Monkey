@@ -60,8 +60,7 @@ export class SignupComponent implements OnInit {
       this.user.password = this.form.value.password
       this.userService.saveUser(this.user).subscribe({
         next: res => {
-          this.message = "Sign Up successful!";
-          setTimeout(() => this.router.navigate(['login']), 1000);
+          this.router.navigate(['login']);
         },
         error: error => {
           if (error.status == '409') {
