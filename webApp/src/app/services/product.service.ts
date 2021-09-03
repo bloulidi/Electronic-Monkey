@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';;
 import { Product } from '../models/Product';
 import { environment } from '../../environments/environment'
 import { Observable } from 'rxjs';
+import { AuthenticationService } from './authentication.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,7 +15,7 @@ const httpOptions = {
 })
 export class ProductService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) { }
 
   localhost = environment.apiUrl + 'catalog/api/v1/products';
 
@@ -32,7 +33,12 @@ export class ProductService {
     return this.httpClient.get<Product[]>(this.localhost + '/user/' + userId);
   }
   getProductsByCategory(category: string): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(this.localhost + '/category/' + category);
+    if (this.authenticationService.currentUserValue.admin == true) {
+      return this.httpClient.get<Product[]>(this.localhost + '/category/admin/' + category);
+    }
+    else {
+      return this.httpClient.get<Product[]>(this.localhost + '/category/' + category);
+    }
   }
   deleteProduct(id: any): Observable<any> {
     return this.httpClient.delete(this.localhost + '/' + id);

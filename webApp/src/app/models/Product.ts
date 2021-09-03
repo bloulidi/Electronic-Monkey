@@ -8,5 +8,6 @@ export class Product {
     category?: string;
     price?: number;
     photo?: Photo;
-    userId?: number
+    userId?: number;
+    hidden?: boolean;
 }

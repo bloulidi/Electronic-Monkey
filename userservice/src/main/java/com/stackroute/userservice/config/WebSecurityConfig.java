@@ -83,6 +83,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v2/api-docs")//
                 .antMatchers("/swagger-resources/**")//
                 .antMatchers("/swagger-ui/**")//
+                .antMatchers("/v2/api-docs")//
                 //.antMatchers("/**")//
 
                 // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
