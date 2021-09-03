@@ -96,12 +96,9 @@ export class MyprofileComponent implements OnInit {
           }
         },
         error: error => {
-          if (error.status == '409') {
-            this.message = "This email already exists!";
-            console.error("This email already exists!", error);
-          } else if (error.status == '404') {
-            this.message = "User not found!";
-            console.error("User not found!", error);
+          if (error.status == '409' || error.status == '404') {
+            this.message = error.error;
+            console.error(error);
           } else {
             this.message = "Failed to update!";
             console.error("Failed to update!", error);

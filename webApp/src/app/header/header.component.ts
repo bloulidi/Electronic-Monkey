@@ -15,7 +15,9 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.numProductCart = JSON.parse(localStorage.getItem("productOrders")).length;
+    if(localStorage.getItem("productOrders")){
+      this.numProductCart = JSON.parse(localStorage.getItem("productOrders")).length;
+    }
   }
 
   onClickPost() {

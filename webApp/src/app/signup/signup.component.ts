@@ -65,8 +65,8 @@ export class SignupComponent implements OnInit {
         },
         error: error => {
           if (error.status == '409') {
-            this.message = "This email already exists!";
-            console.error("This email already exists!", error);
+            this.message = error.error;
+            console.error(error);
           } else {
             this.message = "Failed to signup!";
             console.error("Failed to signup!", error);

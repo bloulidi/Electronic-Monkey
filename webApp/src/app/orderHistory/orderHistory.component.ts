@@ -19,13 +19,8 @@ export class OrderHistoryComponent implements OnInit {
         console.log(data);
       },
       error: error => {
-        if (error.status == '409') {
-          console.error("Order already exists!", error);
-        } else {
-          console.error("Failed to checkout!", error);
-        }
+          console.error(error);
       }
     });
   }
-
 }
