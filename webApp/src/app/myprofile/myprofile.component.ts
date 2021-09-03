@@ -91,7 +91,7 @@ export class MyprofileComponent implements OnInit {
             setTimeout(() => this.router.navigate(['logout']), 1000);
           }
           else {
-            this.message = "Full name update successful!"
+            this.message = "User updated successfully!"
             setTimeout(() => this.router.navigate(['']), 1000);
           }
         },
