@@ -1,5 +1,5 @@
 <app-header></app-header>
-
+<div class="container">
 <table class="cart" mat-table [dataSource]="orderProducts">
     <ng-container matColumnDef="imageURL">
         <th class="text-cart" mat-header-cell *matHeaderCellDef> Product </th>
@@ -52,5 +52,7 @@
 
 <div class="alert">
     {{ message }}
+</div>
+
 </div>
 <app-footer></app-footer>
