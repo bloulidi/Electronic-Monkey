@@ -64,7 +64,6 @@ export class PostComponent implements OnInit {
       this.product.category = this.form.value.category
       this.product.description = this.form.value.description
       this.product.price = this.form.value.price
-      this.product.photo.title = this.fileToUpload.name
       this.product.userId = this.authenticationService.currentUserValue.id;
       this.productService.saveProduct(this.product, this.fileToUpload).subscribe({
         next: (res: any) => {
