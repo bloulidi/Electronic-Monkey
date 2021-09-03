@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Map;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +16,7 @@ public class Photo {
     @ApiModelProperty(notes = "Type of the photo")
     private String type;
     @ApiModelProperty(notes = "Image data of the photo")
-    private Binary image;
+    private String image;
 }
 
 

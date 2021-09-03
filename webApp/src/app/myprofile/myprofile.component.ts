@@ -66,6 +66,16 @@ export class MyprofileComponent implements OnInit {
     this.message = '';
   }
 
+  checkSave(){
+    if(this.email === this.form.get('email').value && 
+    this.password === this.form.get('password').value &&
+    this.fullName == this.form.get('fullName').value){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   onSubmit() {
     if (this.form.value.email === '' && this.form.value.password === '' && this.form.value.fullName === '') {
       this.message = 'All fields are required';
@@ -91,17 +101,14 @@ export class MyprofileComponent implements OnInit {
             setTimeout(() => this.router.navigate(['logout']), 1000);
           }
           else {
-            this.message = "Full name update successful!"
+            this.message = "User updated successfully!"
             setTimeout(() => this.router.navigate(['']), 1000);
           }
         },
         error: error => {
-          if (error.status == '409') {
-            this.message = "This email already exists!";
-            console.error("This email already exists!", error);
-          } else if (error.status == '404') {
-            this.message = "User not found!";
-            console.error("User not found!", error);
+          if (error.status == '409' || error.status == '404') {
+            this.message = error.error;
+            console.error(error);
           } else {
             this.message = "Failed to update!";
             console.error("Failed to update!", error);

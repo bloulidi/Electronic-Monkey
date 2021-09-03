@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +25,10 @@ public class Order extends BaseModel{
     @ApiModelProperty(notes = "Order Status", example = "Pending", required = true, position = 1)
     String status = Status.PENDING.getStatus();
 
+    @Size(min=1, message = "There must be at least one product in the order")
     @Valid
     @ApiModelProperty(notes = "List of order product Ids", required = true, position = 2)
-    private List<OrderProduct> orderProducts = new ArrayList<>();
+    private List<OrderProduct> orderProducts;
 
     @Min(1)
     @ApiModelProperty(notes = "User Id associated to the order", example = "50", required = true, position = 3)

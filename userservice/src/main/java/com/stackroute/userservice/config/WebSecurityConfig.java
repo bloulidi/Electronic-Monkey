@@ -33,7 +33,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] AUTH_WHITELIST = {
             // -- login
             "/api/v1/users/login",
-            "/api/v1/users/email/*",
             // -- signup
             "/api/v1/users/signup"
     };
@@ -81,8 +80,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         // Allow swagger to be accessed without authentication
         web.ignoring().antMatchers("/v3/api-docs")//
+                .antMatchers("/v2/api-docs")//
                 .antMatchers("/swagger-resources/**")//
                 .antMatchers("/swagger-ui/**")//
+                .antMatchers("/v2/api-docs")//
                 //.antMatchers("/**")//
 
                 // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)

@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @CrossOrigin(origins = "http://localhost:4200")
@@ -67,13 +68,22 @@ public class ProductController {
         log.info("Return products with userId = " + userId);
         return new ResponseEntity<List<Product>>(productService.getProductsByUserId(userId), HttpStatus.OK);
     }
-    @GetMapping("category/{category}")
+
+    @GetMapping("category/admin/{category}")
     @ApiOperation("Returns a list of products by their userId. 404 if does not exist.")
-    public ResponseEntity<List<Product>> getProductsByCategory(@ApiParam("Category associated to the list of product to be obtained. Cannot be empty.") @PathVariable String category) throws ProductNotFoundException {
+    public ResponseEntity<List<Product>> getProductsByCategoryAdmin(@ApiParam("Category associated to the list of product to be obtained. Cannot be empty.") @PathVariable String category) throws ProductNotFoundException {
         log.info("Return products with category = " + category);
         return new ResponseEntity<List<Product>>(productService.getProductsByCategory(category), HttpStatus.OK);
     }
 
+    @GetMapping("category/{category}")
+    @ApiOperation("Returns a list of products by their userId. 404 if does not exist.")
+    public ResponseEntity<List<Product>> getProductsByCategory(@ApiParam("Category associated to the list of product to be obtained. Cannot be empty.") @PathVariable String category) throws ProductNotFoundException {
+        log.info("Return products with category = " + category);
+        List<Product> products = productService.getProductsByCategory(category);
+        products.removeIf(product -> product.isHidden() == true);
+        return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+    }
 
     @DeleteMapping("{id}")
     @ApiOperation("Deletes a product from the system. 404 if the person's identifier is not found.")
@@ -83,9 +93,16 @@ public class ProductController {
     }
 
     @PatchMapping
-    @ApiOperation("Updates a new product.")
+    @ApiOperation("Updates a product.")
     public ResponseEntity<Product> updateProduct(@ApiParam("Product information for a product to be updated. 404 if does not exist.") @RequestBody Product product) throws ProductNotFoundException {
-        log.info("Update product: " + product.toString());
+        log.info("Update product with id: " + product.getId());
         return new ResponseEntity<Product>(productService.updateProduct(product), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "image", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
+    @ApiOperation("Updates a product with an image.")
+    public ResponseEntity<Product> updateProduct(@ApiParam("Product information for a product to be updated. 404 if does not exist.") @RequestPart String product, @ApiParam("Image information for updated product.") @RequestPart MultipartFile image) throws ProductNotFoundException, IOException{
+        log.info("Update product with image: " + image.getOriginalFilename());
+        return new ResponseEntity<Product>(productService.updateProduct(product, image), HttpStatus.OK);
     }
 }

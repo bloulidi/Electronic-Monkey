@@ -83,3 +83,6 @@
 .hvrbox.active .hvrbox-text_mobile {
 	display: block;
 }
+.row{
+	padding-bottom: 100px;
+}
