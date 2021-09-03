@@ -124,6 +124,7 @@ export class PostItemComponent implements OnInit {
           next: (res: any) => {
             this.message = "Post updated successfully!";
             this.retrievedImage = 'data:' + res.photo.type + ';base64,' + res.photo.image;
+            window.location.reload();
           },
           error: error => {
             console.error(error);
@@ -135,6 +136,7 @@ export class PostItemComponent implements OnInit {
           next: (res: any) => {
             this.message = "Post updated successfully!";
             console.log("entered in updateProductWithoutImage :" + res.title);
+            window.location.reload();
           },
           error: error => {
             console.error(error);
