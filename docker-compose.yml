@@ -1,5 +1,5 @@
 # Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
-version: '3.7'
+version: '3.5'
 
 # Define services
 services:
@@ -13,26 +13,70 @@ services:
       - "8090:8090" # Forward the exposed port 8080 on the container to port 8090 on the host machine
     restart: always
     depends_on:
-      - db # This service depends on mysql. Start that first.
+      - sql-db # This service depends on mysql. Start that first.
 
-  # Frontend Service
-  webapp:
+  orderservice:
+    # Configuration for building the docker image for the backend service
     build:
-      context: webApp # Use an image built from the specified dockerfile in the `webApp` directory.
+      context: orderservice # Use an image built from the specified dockerfile in the `userservice` directory.
       dockerfile: Dockerfile
     ports:
-      - "4200:80" # Map the exposed port 80 on the container to port 8081 on the host machine
+      - "8891:8891" # Forward the exposed port 8080 on the container to port 8090 on the host machine
     restart: always
     depends_on:
-      - userservice
+      - order-mongo
+
+  apigatewayservice:
+    # Configuration for building the docker image for the backend service
+    build:
+      context: api-gateway-service # Use an image built from the specified dockerfile in the `userservice` directory.
+      dockerfile: Dockerfile
+    ports:
+      - "8092:8092" # Forward the exposed port 8080 on the container to port 8090 on the host machine
+
+  catalogservice:
+    # Configuration for building the docker image for the backend service
+    build:
+      context: catalogservice # Use an image built from the specified dockerfile in the `userservice` directory.
+      dockerfile: Dockerfile
+    ports:
+      - "8093:8093" # Forward the exposed port 8080 on the container to port 8090 on the host machine
+    restart: always
+    depends_on:
+      - catalog-mongo
 
   # Database Service (Mysql)
   db:
-    container_name: db
+    container_name: sql-db
     image: mysql:8.0
-    ports:
-     - "3308:3306"
     restart: always
     environment:
       MYSQL_DATABASE: userDB
       MYSQL_ROOT_PASSWORD: password
+
+  # Database Service (Mongo)
+  order-mongo:
+    container_name: order-mongo
+    image: mongo
+    command: mongod --port 2717
+    ports:
+      - "27017:27017"
+
+  # Database Service (Mongo)
+  catalog-mongo:
+    container_name: catalog-mongo
+    image: mongo
+    command: mongod --port 2716
+    ports:
+      - "27016:27017"
+
+  # Frontend Service
+  # webapp:
+  #   build:
+  #     context: webApp # Use an image built from the specified dockerfile in the `webApp` directory.
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "4200:80" # Map the exposed port 80 on the container to port 8081 on the host machine
+  #   restart: always
+  #   depends_on:
+  #     - userservice

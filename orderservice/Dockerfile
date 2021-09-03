@@ -1,4 +1,4 @@
 FROM openjdk:11-jre-slim
 WORKDIR usr/src
 ADD ./target/orderservice-1.0.0.jar /usr/src/orderservice-1.0.0.jar
-ENTRYPOINT ["java","-jar","userservice-1.0.0.jar"]
+ENTRYPOINT ["java","-jar","orderservice-1.0.0.jar"]
