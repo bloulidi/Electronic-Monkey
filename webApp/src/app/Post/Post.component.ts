@@ -74,8 +74,8 @@ export class PostComponent implements OnInit {
         },
         error: error => {
           if (error.status == '409') {
-            this.message = "This product already exists!";
-            console.error("This product already exists!", error);
+            this.message = error.error;
+            console.error(error);
           } else {
             this.message = "Failed to add product!";
             console.error("Failed to add product!", error);

@@ -218,7 +218,7 @@ public class UserControllerIntegrationTest {
         User savedUser = userController.saveUser(user1).getBody();
         JSONObject jo = new JSONObject(userController.login(user1).getBody());
         assertEquals(200, userController.login(user1).getStatusCode().value());
-        assertEquals(savedUser.getId(), jo.getLong("userId"));
+        assertEquals(savedUser.getId(), jo.getLong("id"));
         assertEquals(savedUser.getEmail(), jo.getString("email"));
         assertEquals(savedUser.isAdmin(), jo.getBoolean("admin"));
         assertThat(jo.getString("token").length()).isGreaterThan(20);

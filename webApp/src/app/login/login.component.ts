@@ -53,8 +53,8 @@ export class LoginComponent implements OnInit {
         },
         error: error => {
           if (error.status == '404') {
-            this.message = "User not found!";
-            console.error("User not found!", error);
+            this.message = error.error;
+            console.error(error);
           } else {
             this.message = "Failed to login!";
             console.error("Failed to login!", error);

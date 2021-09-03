@@ -21,9 +21,10 @@ export class CartComponent implements OnInit {
   constructor(private orderService: OrderService, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.order = new Order();
-    this.orderProducts = JSON.parse(localStorage.getItem("productOrders"));
-    this.calculateSubTotal();
+    if(localStorage.getItem("productOrders")){
+      this.orderProducts = JSON.parse(localStorage.getItem("productOrders"));
+      this.calculateSubTotal();
+    }
   }
 
   handleMinus(orderProduct: OrderProduct) {
@@ -48,8 +49,15 @@ export class CartComponent implements OnInit {
   }
 
   onCheckout() {
+    if(!this.orderProducts || !this.orderProducts.length){
+      this.message = "Please add an item before checking out!";
+      return;
+    }
+    this.order = new Order;
     this.order.orderProducts = this.orderProducts;
     this.order.userId = this.authenticationService.currentUserValue.id;
+    this.calculateSubTotal();
+    this.order.totalPrice = this.subTotal;
     console.log(this.order)
     this.orderService.saveOrder(this.order).subscribe({
       next: data => {
@@ -60,8 +68,8 @@ export class CartComponent implements OnInit {
       },
       error: error => {
         if (error.status == '409') {
-          this.message = "Order already exists!";
-          console.error("Order already exists!", error);
+          this.message = error.error;
+          console.error(error);
         } else {
           this.message = "Failed to checkout!";
           console.error("Failed to checkout!", error);
@@ -72,10 +80,11 @@ export class CartComponent implements OnInit {
 
   calculateSubTotal() {
     this.subTotal = 0;
-    this.orderProducts.forEach(orderProduct => {
-      this.subTotal += orderProduct.totalPrice;
-    });
-    this.subTotal = Math.round(this.subTotal * 100) / 100;
-    this.order.totalPrice = this.subTotal;
+    if(this.orderProducts){
+      this.orderProducts.forEach(orderProduct => {
+        this.subTotal += orderProduct.totalPrice;
+      });
+      this.subTotal = Math.round(this.subTotal * 100) / 100;
+    }
   }
 }

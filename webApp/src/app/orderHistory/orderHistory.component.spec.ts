@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { OrderHistoryComponent } from './orderHistory.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('OrderHistoryComponent', () => {
   let component: OrderHistoryComponent;
@@ -11,6 +12,7 @@ describe('OrderHistoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [ OrderHistoryComponent ]
     })
     .compileComponents();
