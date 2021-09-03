@@ -18,6 +18,7 @@ export class ProductItemPhonesComponent implements OnInit {
   orderProduct: OrderProduct = new OrderProduct();
   isHidden: boolean;
   hiddenText: string;
+  isAdmin: boolean;
 
   constructor(private authenticationService: AuthenticationService, private productService: ProductService) {
   }
@@ -25,6 +26,7 @@ export class ProductItemPhonesComponent implements OnInit {
   ngOnInit(): void {
     this.retrievedImage = 'data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image;
     this.isHidden = this.productItem.hidden;
+    this.isAdmin = this.authenticationService.currentUserValue.admin;
     this.hiddenText = this.isHidden ? "Unhide": "Hide";
   }
 

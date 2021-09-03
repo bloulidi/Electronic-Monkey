@@ -11,7 +11,7 @@
             <div class="btn-group" *ngIf="!isHidden">
                 <button (click)="handleAddToCart()" type="button" class="btn btn-sm btn-outline-success">Add to Cart</button>
             </div>
-            <div class="btn-group">
+            <div class="btn-group" *ngIf="isAdmin">
                 <button (click)="toggleHidden(productItem)" type="button" class="btn btn-sm btn-outline-info">{{hiddenText}}</button>
             </div>
         </div>
