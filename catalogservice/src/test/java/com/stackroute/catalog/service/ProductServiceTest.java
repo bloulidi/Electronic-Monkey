@@ -116,7 +116,7 @@ public class ProductServiceTest {
         product.setPrice(product1.getPrice());
         Product updatedProduct = productService.updateProduct(product);
         assertEquals(updatedProduct.getPrice(), product1.getPrice());
-        verify(productRepository, times(2)).findById(anyString());
+        verify(productRepository, times(1)).findById(anyString());
         verify(productRepository, times(1)).save(any());
         verify(productRepository, times(1)).existsById(anyString());
     }

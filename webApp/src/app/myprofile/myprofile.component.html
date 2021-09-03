@@ -37,7 +37,7 @@
                     </mat-error>
                 </mat-form-field>
 
-                <button class="signup-button" mat-raised-button color="primary" type="submit" (click)="onSubmit()">Save
+                <button class="signup-button" mat-raised-button color="primary" type="submit" [disabled]="checkSave()" (click)="onSubmit()">Save
                     changes</button>
                 <button class="cancel-button" mat-raised-button color="primary" (click)="onCancel()">Cancel</button>
             </form>

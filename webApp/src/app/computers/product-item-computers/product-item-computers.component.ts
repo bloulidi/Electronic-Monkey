@@ -19,7 +19,7 @@ export class ProductItemComputersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.retrievedImage = 'data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image.data;
+    this.retrievedImage = 'data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image;
   }
 
   handleAddToCart() {
@@ -30,7 +30,12 @@ export class ProductItemComputersComponent implements OnInit {
     this.orderProduct.product = this.productItem;
     this.orderProduct.quantity = 1;
     this.orderProduct.totalPrice = this.productItem.price;
-    this.productOrdersArray.push(this.orderProduct);
+    let index = this.productOrdersArray.findIndex(orderProduct => orderProduct.product.id === this.productItem.id);
+    if(index > -1){
+      this.productOrdersArray[index].quantity++;
+    } else {
+      this.productOrdersArray.push(this.orderProduct);
+    }
     localStorage.setItem("productOrders", JSON.stringify(this.productOrdersArray));
     window.location.reload();
   }

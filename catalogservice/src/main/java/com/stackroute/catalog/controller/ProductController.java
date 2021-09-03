@@ -83,9 +83,16 @@ public class ProductController {
     }
 
     @PatchMapping
-    @ApiOperation("Updates a new product.")
+    @ApiOperation("Updates a product.")
     public ResponseEntity<Product> updateProduct(@ApiParam("Product information for a product to be updated. 404 if does not exist.") @RequestBody Product product) throws ProductNotFoundException {
-        log.info("Update product: " + product.toString());
+        log.info("Update product with id: " + product.getId());
         return new ResponseEntity<Product>(productService.updateProduct(product), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "image", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
+    @ApiOperation("Updates a product with an image.")
+    public ResponseEntity<Product> updateProduct(@ApiParam("Product information for a product to be updated. 404 if does not exist.") @RequestPart String product, @ApiParam("Image information for updated product.") @RequestPart MultipartFile image) throws ProductNotFoundException, IOException{
+        log.info("Update product with image: " + image.getOriginalFilename());
+        return new ResponseEntity<Product>(productService.updateProduct(product, image), HttpStatus.OK);
     }
 }

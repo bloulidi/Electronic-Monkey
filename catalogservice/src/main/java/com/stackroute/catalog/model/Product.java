@@ -31,15 +31,15 @@ public class Product extends BaseModel{
     private String category;
 
     @Digits(integer = 9, fraction = 2, message = "Please provide a number with a maximum of only 2 decimal places and 9 integer digits")
-    @Min(0) @Max(999999999)
+    @Min(value = 1, message = "The minimum price value should be 1") @Max(value = 999999999, message = "The maximum price value is 999999999")
     @ApiModelProperty(notes = "Price of the product", example = "19.99", required = true, position = 4)
     private float price;
 
     @ApiModelProperty(notes = "Image of the product", position = 5)
     private Photo photo;
 
-    @Min(1)
-    @ApiModelProperty(notes = "User associated to the product", required = true, position = 6)
+    @Min(value = 1, message = "The minimum user Id is 1")
+    @ApiModelProperty(notes = "User associated to the product", example = "1", required = true, position = 6)
     private long userId;
 
     public Product(String title, String description, String category, float price) {

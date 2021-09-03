@@ -14,7 +14,7 @@
                 </select>
             </mat-form-field>
             <mat-form-field class="form-field">
-                <input matInput type="text" placeholder="Description" formControlName="description">
+                <textarea matInput  placeholder="Description" formControlName="description"></textarea>
             </mat-form-field>
 
             <mat-form-field floatLabel="always" class="form-field">
@@ -24,7 +24,7 @@
             </mat-form-field>
 
             <div>
-                <label class="add-photos">Add Photos</label>
+                <label class="add-photos">Add Photo</label><br>
                 <input type="file" accept="image/*" (change)="handleFileInput($event)" required>
             </div>
             <div mat-dialog-actions class="buttons">
