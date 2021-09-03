@@ -19,7 +19,7 @@ export class ProductItemComputersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.retrievedImage = 'data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image.data;
+    this.retrievedImage = 'data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image;
   }
 
   handleAddToCart() {

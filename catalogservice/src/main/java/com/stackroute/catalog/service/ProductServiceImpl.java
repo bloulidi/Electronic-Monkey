@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
         Photo photo = new Photo();
         photo.setTitle(image.getOriginalFilename());
         photo.setType(image.getContentType());
-        photo.setImage(new Binary(BsonBinarySubType.BINARY, image.getBytes()));
+        photo.setImage(Base64.getEncoder().encodeToString(image.getBytes()));
         productJson.setPhoto(photo);
 
         return (Product) productRepository.insert(productJson);
@@ -88,9 +89,30 @@ public class ProductServiceImpl implements ProductService {
         if(!productRepository.existsById(product.getId())){
             throw new ProductNotFoundException();
         }
-        Product getProduct = getProductById(product.getId());
-        product.setPhoto(getProduct.getPhoto());
         return (Product) productRepository.save(product);
+    }
+
+    @Override
+    public Product updateProduct(String product, MultipartFile image) throws ProductAlreadyExistsException, IOException {
+        Product productJson = new Product();
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            productJson = objectMapper.readValue(product, Product.class);
+        } catch (IOException e){
+            System.out.println("Error in mapping Product string to POJO");
+            e.printStackTrace();
+        }
+        if(!productRepository.existsById(productJson.getId())){
+            throw new ProductNotFoundException();
+        }
+
+        Photo photo = new Photo();
+        photo.setTitle(image.getOriginalFilename());
+        photo.setType(image.getContentType());
+        photo.setImage(Base64.getEncoder().encodeToString(image.getBytes()));
+        productJson.setPhoto(photo);
+
+        return (Product) productRepository.save(productJson);
     }
 
     @Override
