@@ -42,6 +42,9 @@ public class Product extends BaseModel{
     @ApiModelProperty(notes = "User associated to the product", example = "1", required = true, position = 6)
     private long userId;
 
+    @ApiModelProperty(notes = "Hidden product", position = 7)
+    private boolean hidden;
+
     public Product(String title, String description, String category, float price) {
         this.title = title;
         this.description = description;

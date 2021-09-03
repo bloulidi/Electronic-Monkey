@@ -33,7 +33,7 @@ header {
 
 .phones {
     position: absolute;
-    margin-left: 600px;
+    margin-left: 700px;
     top: 29px;
 
     font-family: Roboto;
@@ -56,7 +56,7 @@ header {
 
 .computers {
     position: absolute;
-    margin-left: 720px;
+    margin-left: 820px;
     top: 29px;
 
     font-family: Roboto;
@@ -79,7 +79,7 @@ header {
 
 .accessories {
     position: absolute;
-    margin-left: 840px;
+    margin-left: 940px;
     top: 29px;
 
     font-family: Roboto;
@@ -102,13 +102,13 @@ header {
 
 .profilImg {
     position: absolute;
-    margin-left: 1250px;
+    margin-left: 82%;
     top: 22px;
 }
 
 .cartImg {
     position: absolute;
-    margin-left: 1300px;
+    margin-left: 85%;
     top: 22px;
 }
 
@@ -139,7 +139,7 @@ header {
     color: #FFFFFF;
 
 
-    margin-left: 1400px;
+    margin-left: 90%;
     width: 70px;
     top: 20px;
     padding-bottom: 2px;
