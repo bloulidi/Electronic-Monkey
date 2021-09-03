@@ -2,6 +2,7 @@ import { OrderProduct } from './../../models/OrderProduct';
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/Product';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-item-phones',
@@ -16,13 +17,15 @@ export class ProductItemPhonesComponent implements OnInit {
   productOrdersArray: OrderProduct[] = [];
   orderProduct: OrderProduct = new OrderProduct();
   isHidden: boolean;
+  hiddenText: string;
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService, private productService: ProductService) {
   }
 
   ngOnInit(): void {
     this.retrievedImage = 'data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image;
-    this.isHidden = this.authenticationService.currentUserValue.admin;
+    this.isHidden = this.productItem.hidden;
+    this.hiddenText = this.isHidden ? "Unhide": "Hide";
   }
 
   handleAddToCart() {
@@ -42,7 +45,20 @@ export class ProductItemPhonesComponent implements OnInit {
     localStorage.setItem("productOrders", JSON.stringify(this.productOrdersArray));
     window.location.reload();
   }
-  hidePost(){
-    
+
+  toggleHidden(productItem) {
+    if(productItem.hidden){
+      productItem.hidden = false;
+      this.isHidden = false;
+      this.hiddenText = "Hide";
+    }
+    else{
+      productItem.hidden = true;
+      this.isHidden = true;
+      this.hiddenText = "Unhide";
+    }
+    this.productService.updateProductWithoutImage(productItem).subscribe({
+      error: error => console.error(error)
+    })
   }
 }
