@@ -1,8 +1,8 @@
-
-    <app-header></app-header>
-    <div class="container">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-        <style>
+<app-header></app-header>
+<div class="container">
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" rel="stylesheet">
+  <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
                 text-anchor: middle;
@@ -16,14 +16,17 @@
                     font-size: 3.5rem;
                 }
             }
-        </style>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <div class="col" *ngFor="let product of productList">
-                <app-post-item [productItem]="product" (newItemEvent)='deleteItem($event)'></app-post-item>
-            </div>
-        </div>
-    </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 
-    <app-footer></app-footer>
+  </style>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div *ngFor="let product of productList" class="col">
+      <app-post-item (newItemEvent)='deleteItem($event)' [productItem]="product"></app-post-item>
+    </div>
+  </div>
+</div>
+<script crossorigin="anonymous"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<app-footer></app-footer>
 

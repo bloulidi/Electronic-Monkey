@@ -11,13 +11,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.persistence.EntityManager;
 import javax.validation.ConstraintViolationException;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 public class UserRepositoryIntegrationTest {
@@ -66,8 +63,12 @@ public class UserRepositoryIntegrationTest {
         userRepository.save(user2);
         userRepository.save(user3);
         List<User> users = (List<User>) userRepository.findAll();
-        for (User user : userList) { usersEmail.add(user.getEmail()); }
-        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
+        for (User user : userList) {
+            usersEmail.add(user.getEmail());
+        }
+        for (User user : users) {
+            savedUsersEmail.add(user.getEmail());
+        }
         assertNotNull(users);
         assertEquals(usersEmail, savedUsersEmail);
         userRepository.deleteAll();
@@ -81,8 +82,12 @@ public class UserRepositoryIntegrationTest {
         userRepository.save(user2);
         userRepository.save(user3);
         List<User> users = userRepository.findByName(user2.getName());
-        for (User user : userList) { usersEmail.add(user.getEmail()); }
-        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
+        for (User user : userList) {
+            usersEmail.add(user.getEmail());
+        }
+        for (User user : users) {
+            savedUsersEmail.add(user.getEmail());
+        }
         assertNotNull(users);
         assertEquals(usersEmail, savedUsersEmail);
         userRepository.deleteAll();
@@ -96,8 +101,12 @@ public class UserRepositoryIntegrationTest {
         //userRepository.save(user2);
         userRepository.save(user3);
         List<User> users = userRepository.findByAdmin(user1.isAdmin());
-        for (User user : userList) { usersEmail.add(user.getEmail()); }
-        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
+        for (User user : userList) {
+            usersEmail.add(user.getEmail());
+        }
+        for (User user : users) {
+            savedUsersEmail.add(user.getEmail());
+        }
         assertNotNull(users);
         assertEquals(usersEmail, savedUsersEmail);
         userRepository.deleteAll();
@@ -133,9 +142,13 @@ public class UserRepositoryIntegrationTest {
         userRepository.deleteById(savedUser.getId());
         userList.add(user2);
         userList.add(user3);
-        List<User> users = (List<User>)userRepository.findAll();
-        for (User user : userList) { usersEmail.add(user.getEmail()); }
-        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
+        List<User> users = (List<User>) userRepository.findAll();
+        for (User user : userList) {
+            usersEmail.add(user.getEmail());
+        }
+        for (User user : users) {
+            savedUsersEmail.add(user.getEmail());
+        }
         assertNotNull(users);
         assertEquals(usersEmail, savedUsersEmail);
         userRepository.deleteAll();
@@ -145,7 +158,8 @@ public class UserRepositoryIntegrationTest {
     public void givenUserToUpdateThenShouldReturnUpdatedUser() {
         User savedUser = userRepository.save(user1);
         assertNotNull(savedUser);
-        assertEquals(user1.getEmail(), savedUser.getEmail());;
+        assertEquals(user1.getEmail(), savedUser.getEmail());
+        ;
         savedUser.setPassword(user2.getPassword());
         assertEquals(true, userRepository.existsById(savedUser.getId()));
         User updatedUser = userRepository.save(savedUser);
@@ -156,12 +170,12 @@ public class UserRepositoryIntegrationTest {
 
     /******* VALIDATION *****/
     @Test
-    void givenValidUserThenReturnRespectiveUser(){
+    void givenValidUserThenReturnRespectiveUser() {
         assertEquals(user1.getEmail(), userRepository.save(user1).getEmail());
     }
 
     @Test
-    void givenUserWithInvalidEmailThenThrowsException(){
+    void givenUserWithInvalidEmailThenThrowsException() {
         assertThrows(ConstraintViolationException.class, () -> {
             user1.setEmail("anas");
             userRepository.save(user1);
@@ -171,7 +185,7 @@ public class UserRepositoryIntegrationTest {
     }
 
     @Test
-    void givenUserWithInvalidPasswordThenThrowsException(){
+    void givenUserWithInvalidPasswordThenThrowsException() {
         assertThrows(ConstraintViolationException.class, () -> {
             user1.setPassword("12345");
             userRepository.save(user1);

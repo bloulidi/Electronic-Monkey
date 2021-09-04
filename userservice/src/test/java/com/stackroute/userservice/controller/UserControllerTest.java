@@ -21,9 +21,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -32,17 +31,23 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 @ExtendWith(MockitoExtension.class)
 public class UserControllerTest {
-    
-    private MockMvc mockMvc;
-    
+
     @Mock
     UserService userService;
-    
+    private MockMvc mockMvc;
     @InjectMocks
     private UserController userController;
 
     private User user, user1, user2;
     private List<User> userList;
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @BeforeEach
     void setUp() {
@@ -158,20 +163,12 @@ public class UserControllerTest {
     }
 
     @Test
-    public void givenGetAllUsersByAdminThenShouldReturnListOfAllAdminUsers() throws Exception{
+    public void givenGetAllUsersByAdminThenShouldReturnListOfAllAdminUsers() throws Exception {
         userList.add(user);
         when(userService.getUsersByAdmin(user.isAdmin())).thenReturn(userList);
         mockMvc.perform(get("/api/v1/users/admin/" + user.isAdmin()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
         verify(userService).getUsersByAdmin(anyBoolean());
         verify(userService, times(1)).getUsersByAdmin(anyBoolean());
-    }
-
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }

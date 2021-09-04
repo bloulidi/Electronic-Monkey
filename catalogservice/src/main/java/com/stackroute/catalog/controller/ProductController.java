@@ -9,7 +9,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,13 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("api/v1/products")
-@Api(tags = { SpringFoxConfig.PRODUCT_TAG })
+@Api(tags = {SpringFoxConfig.PRODUCT_TAG})
 public class ProductController {
     private ProductService productService;
 
@@ -34,9 +32,9 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     @ApiOperation("Creates a new product with an image.")
-    public ResponseEntity<Product> saveProduct(@ApiParam("Product information for a new product to be created. 409 if already exists.") @RequestPart String product, @ApiParam("Image information for a new product to be created.") @RequestPart MultipartFile image) throws ProductAlreadyExistsException, IOException{
+    public ResponseEntity<Product> saveProduct(@ApiParam("Product information for a new product to be created. 409 if already exists.") @RequestPart String product, @ApiParam("Image information for a new product to be created.") @RequestPart MultipartFile image) throws ProductAlreadyExistsException, IOException {
         log.info("Create a new product with image=" + image.getOriginalFilename() + ": " + product);
         return new ResponseEntity<Product>(productService.saveProduct(product, image), HttpStatus.CREATED);
     }
@@ -57,7 +55,7 @@ public class ProductController {
 
     @GetMapping("{id}")
     @ApiOperation("Returns a specific product by their identifier. 404 if does not exist.")
-    public ResponseEntity<Product> getProductById(@ApiParam("Id of the product to be obtained. Cannot be empty.")  @PathVariable String id) throws ProductNotFoundException {
+    public ResponseEntity<Product> getProductById(@ApiParam("Id of the product to be obtained. Cannot be empty.") @PathVariable String id) throws ProductNotFoundException {
         log.info("Return product with id = " + id);
         return new ResponseEntity<Product>(productService.getProductById(id), HttpStatus.OK);
     }
@@ -99,9 +97,9 @@ public class ProductController {
         return new ResponseEntity<Product>(productService.updateProduct(product), HttpStatus.OK);
     }
 
-    @PatchMapping(value = "image", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
+    @PatchMapping(value = "image", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     @ApiOperation("Updates a product with an image.")
-    public ResponseEntity<Product> updateProduct(@ApiParam("Product information for a product to be updated. 404 if does not exist.") @RequestPart String product, @ApiParam("Image information for updated product.") @RequestPart MultipartFile image) throws ProductNotFoundException, IOException{
+    public ResponseEntity<Product> updateProduct(@ApiParam("Product information for a product to be updated. 404 if does not exist.") @RequestPart String product, @ApiParam("Image information for updated product.") @RequestPart MultipartFile image) throws ProductNotFoundException, IOException {
         log.info("Update product with image: " + image.getOriginalFilename());
         return new ResponseEntity<Product>(productService.updateProduct(product, image), HttpStatus.OK);
     }

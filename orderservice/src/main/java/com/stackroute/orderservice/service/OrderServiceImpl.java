@@ -21,8 +21,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order saveOrder(Order order) throws OrderAlreadyExistsException {
-        if(order.getId() != null && !order.getId().isBlank()){
-            if(orderRepository.existsById(order.getId())){
+        if (order.getId() != null && !order.getId().isBlank()) {
+            if (orderRepository.existsById(order.getId())) {
                 throw new OrderAlreadyExistsException();
             }
         }
@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
     public Order getOrderById(String id) throws OrderNotFoundException {
         Order order = null;
         Optional<Order> userOptional = orderRepository.findById(id);
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             order = userOptional.get();
         } else {
             throw new OrderNotFoundException();
@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order deleteOrder(String id) throws OrderNotFoundException {
         Order order = getOrderById(id);
-        if(order != null){
+        if (order != null) {
             orderRepository.deleteById(id);
         } else {
             throw new OrderNotFoundException();
@@ -54,14 +54,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order updateOrder(Order order) throws OrderNotFoundException, OrderAlreadyExistsException {
-        if(!orderRepository.existsById(order.getId())){
+        if (!orderRepository.existsById(order.getId())) {
             throw new OrderNotFoundException();
         }
         return (Order) orderRepository.save(order);
     }
 
     @Override
-    public List<Order> getOrdersByUserId(long userId)  {
+    public List<Order> getOrdersByUserId(long userId) {
         return (List<Order>) orderRepository.findByUserId(userId);
     }
 

@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.validation.ConstraintViolationException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,7 +116,8 @@ public class ProductServiceIntegrationTest {
     public void givenProductToUpdateThenShouldReturnUpdatedProduct() throws ProductAlreadyExistsException, ProductNotFoundException {
         Product savedProduct = productService.saveProduct(product1);
         assertNotNull(savedProduct);
-        assertEquals(product1.getId(), savedProduct.getId());;
+        assertEquals(product1.getId(), savedProduct.getId());
+        ;
         savedProduct.setPrice(product2.getPrice());
         Product updatedProduct = productService.updateProduct(savedProduct);
         assertNotNull(savedProduct);
@@ -198,6 +198,14 @@ public class ProductServiceIntegrationTest {
     void givenProductWithInvalidCategoryThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException {
         assertThrows(ConstraintViolationException.class, () -> {
             product1.setCategory("zfddf");
+            productService.saveProduct(product1);
+        });
+    }
+
+    @Test
+    void givenProductWithInvalidUserIdThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException {
+        assertThrows(ConstraintViolationException.class, () -> {
+            product1.setUserId(0);
             productService.saveProduct(product1);
         });
     }

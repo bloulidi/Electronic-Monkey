@@ -1,58 +1,59 @@
 <app-header></app-header>
 <div class="container">
-<table class="cart" mat-table [dataSource]="orderProducts">
+  <table [dataSource]="orderProducts" class="cart" mat-table>
     <ng-container matColumnDef="imageURL">
-        <th class="text-cart" mat-header-cell *matHeaderCellDef> Product </th>
-        <td mat-cell *matCellDef="let orderProduct"> <img [src]="'data:' + this.orderProduct.product.photo.type + ';base64,' + this.orderProduct.product.photo.image" />
-        </td>
+      <th *matHeaderCellDef class="text-cart" mat-header-cell> Product</th>
+      <td *matCellDef="let orderProduct" mat-cell><img
+        [src]="'data:' + this.orderProduct.product.photo.type + ';base64,' + this.orderProduct.product.photo.image"/>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="title">
-        <th class="text-cart" mat-header-cell *matHeaderCellDef> </th>
-        <td mat-cell *matCellDef="let orderProduct;">
-            <div class="title">{{orderProduct.product.title}}</div>
-            <a class="remove-button" (click)="remove(orderProduct)" href="/cart"> Remove </a>
-        </td>
+      <th *matHeaderCellDef class="text-cart" mat-header-cell></th>
+      <td *matCellDef="let orderProduct;" mat-cell>
+        <div class="title">{{orderProduct.product.title}}</div>
+        <a (click)="remove(orderProduct)" class="remove-button" href="/cart"> Remove </a>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="price">
-        <th class="text-cart" mat-header-cell *matHeaderCellDef> Price </th>
-        <td class="text-cart" mat-cell *matCellDef="let orderProduct">{{orderProduct.product.price | currency:'CAD'}} </td>
+      <th *matHeaderCellDef class="text-cart" mat-header-cell> Price</th>
+      <td *matCellDef="let orderProduct" class="text-cart" mat-cell>{{orderProduct.product.price | currency:'CAD'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="quantity">
-        <th class="text-cart" mat-header-cell *matHeaderCellDef> Quantity </th>
-        <td class="text-cart" mat-cell *matCellDef="let orderProduct; let i = index;">
-            <div class="wrapper">
-                <button class="plusminus" (click)="handleMinus(orderProduct); calculateSubTotal()">-</button>
-                <input type="number" class="num" value="0" [(ngModel)]="orderProduct.quantity" />
-                <button class="plusminus" (click)="handlePlus(orderProduct); calculateSubTotal()">+</button>
-            </div>
-        </td>
+      <th *matHeaderCellDef class="text-cart" mat-header-cell> Quantity</th>
+      <td *matCellDef="let orderProduct; let i = index;" class="text-cart" mat-cell>
+        <div class="wrapper">
+          <button (click)="handleMinus(orderProduct); calculateSubTotal()" class="plusminus">-</button>
+          <input [(ngModel)]="orderProduct.quantity" class="num" type="number" value="0"/>
+          <button (click)="handlePlus(orderProduct); calculateSubTotal()" class="plusminus">+</button>
+        </div>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="total">
-        <th class="text-cart" mat-header-cell *matHeaderCellDef> Total </th>
-        <td class="text-cart" mat-cell *matCellDef="let orderProduct">{{orderProduct.totalPrice | currency:'CAD'}} </td>
+      <th *matHeaderCellDef class="text-cart" mat-header-cell> Total</th>
+      <td *matCellDef="let orderProduct" class="text-cart" mat-cell>{{orderProduct.totalPrice | currency:'CAD'}}</td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+  </table>
 
-<div class="sub-total">
+  <div class="sub-total">
     <div class="checkoutBtn">
-        <button type="button" class="checkoutBtnText" (click)="onCheckout()">
-            Checkout
-        </button>
+      <button (click)="onCheckout()" class="checkoutBtnText" type="button">
+        Checkout
+      </button>
     </div>
     <div class="sub-total-text">{{subTotal | currency:'CAD'}}</div>
     <div class="sub-total-price">Sub-total</div>
-</div>
+  </div>
 
-<div class="alert">
+  <div class="alert">
     {{ message }}
-</div>
+  </div>
 
 </div>
 <app-footer></app-footer>

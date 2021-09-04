@@ -27,15 +27,14 @@ import javax.servlet.http.HttpServletResponse;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
-
     private static final String[] AUTH_WHITELIST = {
             // -- login
             "/api/v1/users/login",
             // -- signup
             "/api/v1/users/signup"
     };
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Override
     @Bean
@@ -58,22 +57,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // We don't need CSRF for this example
         http.cors().and().csrf().disable().
                 // don't authenticate this particular request
-                authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()
+                        authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // all other requests need to be authenticated
                 .anyRequest().authenticated().and()
                 // make sure we use stateless session; session won't be used to
                 // store user's state.
                 .exceptionHandling().authenticationEntryPoint((request, response, ex) -> {
-                    response.sendError(
-                        HttpServletResponse.SC_UNAUTHORIZED,
-                        ex.getMessage());
-                    })
+            response.sendError(
+                    HttpServletResponse.SC_UNAUTHORIZED,
+                    ex.getMessage());
+        })
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-                // Add a filter to validate the tokens with every request
-                http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+        // Add a filter to validate the tokens with every request
+        http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -89,7 +88,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
                 .and()
                 .ignoring()
-                .antMatchers("/h2-console/**/**");;
+                .antMatchers("/h2-console/**/**");
+        ;
     }
 
     @Bean

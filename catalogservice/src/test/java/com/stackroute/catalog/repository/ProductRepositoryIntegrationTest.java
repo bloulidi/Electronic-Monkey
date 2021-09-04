@@ -41,7 +41,6 @@ public class ProductRepositoryIntegrationTest {
         productRepository.deleteAll();
         product1 = product2 = product3 = null;
         productList = null;
-        //productsCode = savedProductsCode = null;
     }
 
     @Test
@@ -82,7 +81,7 @@ public class ProductRepositoryIntegrationTest {
         productRepository.deleteById(savedProduct.getId());
         productList.add(product2);
         productList.add(product3);
-        List<Product> products = (List<Product>)productRepository.findAll();
+        List<Product> products = (List<Product>) productRepository.findAll();
         assertNotNull(products);
         assertEquals(productList, products);
     }
@@ -91,7 +90,8 @@ public class ProductRepositoryIntegrationTest {
     public void givenProductToUpdateThenShouldReturnUpdatedProduct() {
         Product savedProduct = productRepository.save(product1);
         assertNotNull(savedProduct);
-        assertEquals(product1.getId(), savedProduct.getId());;
+        assertEquals(product1.getId(), savedProduct.getId());
+        ;
         savedProduct.setPrice(product2.getPrice());
         assertEquals(true, productRepository.existsById(savedProduct.getId()));
         Product updatedProduct = productRepository.save(savedProduct);
