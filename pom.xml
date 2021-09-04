@@ -59,6 +59,7 @@
         <module>inventoryservice</module>
         <module>api-gateway-service</module>
         <module>catalogservice</module>
+        <module>eureka-service</module>
     </modules>
 
 	<dependencies>
