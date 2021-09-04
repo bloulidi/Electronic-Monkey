@@ -41,7 +41,6 @@ public class ProductRepositoryIntegrationTest {
         productRepository.deleteAll();
         product1 = product2 = product3 = null;
         productList = null;
-        //productsCode = savedProductsCode = null;
     }
 
     @Test

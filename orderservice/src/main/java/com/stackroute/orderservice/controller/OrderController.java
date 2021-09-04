@@ -33,7 +33,7 @@ public class OrderController {
     @PostMapping
     @ApiOperation("Creates a new order.")
     public ResponseEntity<Order> saveOrder(@ApiParam("New order is created. 409 if already exists.") @RequestBody Order order)  throws OrderAlreadyExistsException  {
-        log.info("Create a new order, number of products: " + order.getNumberOfProducts());
+        log.info("Create a new order, number of products: " + order.getOrderProducts().size());
         order.setStatus(Status.DONE.getStatus());
         return new ResponseEntity<Order>(orderService.saveOrder(order), HttpStatus.CREATED);
     }

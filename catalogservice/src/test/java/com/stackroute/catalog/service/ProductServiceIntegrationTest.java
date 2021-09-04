@@ -201,4 +201,12 @@ public class ProductServiceIntegrationTest {
             productService.saveProduct(product1);
         });
     }
+
+    @Test
+    void givenProductWithInvalidUserIdThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException {
+        assertThrows(ConstraintViolationException.class, () -> {
+            product1.setUserId(0);
+            productService.saveProduct(product1);
+        });
+    }
 }
