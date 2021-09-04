@@ -6,8 +6,6 @@ import com.stackroute.catalog.exception.ProductNotFoundException;
 import com.stackroute.catalog.model.Photo;
 import com.stackroute.catalog.model.Product;
 import com.stackroute.catalog.repository.ProductRepository;
-import org.bson.BsonBinarySubType;
-import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,8 +26,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product saveProduct(Product product) throws ProductAlreadyExistsException {
-        if(product.getId() != null && !product.getId().isBlank()){
-            if(productRepository.existsById(product.getId())){
+        if (product.getId() != null && !product.getId().isBlank()) {
+            if (productRepository.existsById(product.getId())) {
                 throw new ProductAlreadyExistsException();
             }
         }
@@ -42,12 +40,12 @@ public class ProductServiceImpl implements ProductService {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             productJson = objectMapper.readValue(product, Product.class);
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error in mapping Product string to POJO");
             e.printStackTrace();
         }
-        if(productJson.getId() != null && !productJson.getId().isBlank()){
-            if(productRepository.existsById(productJson.getId())){
+        if (productJson.getId() != null && !productJson.getId().isBlank()) {
+            if (productRepository.existsById(productJson.getId())) {
                 throw new ProductAlreadyExistsException();
             }
         }
@@ -65,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
     public Product getProductById(String id) throws ProductNotFoundException {
         Product product = null;
         Optional<Product> userOptional = productRepository.findById(id);
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             product = userOptional.get();
         } else {
             throw new ProductNotFoundException();
@@ -76,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product deleteProduct(String id) throws ProductNotFoundException {
         Product product = getProductById(id);
-        if(product != null){
+        if (product != null) {
             productRepository.deleteById(id);
         } else {
             throw new ProductNotFoundException();
@@ -86,7 +84,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(Product product) throws ProductNotFoundException, ProductAlreadyExistsException {
-        if(!productRepository.existsById(product.getId())){
+        if (!productRepository.existsById(product.getId())) {
             throw new ProductNotFoundException();
         }
         return (Product) productRepository.save(product);
@@ -98,11 +96,11 @@ public class ProductServiceImpl implements ProductService {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             productJson = objectMapper.readValue(product, Product.class);
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error in mapping Product string to POJO");
             e.printStackTrace();
         }
-        if(!productRepository.existsById(productJson.getId())){
+        if (!productRepository.existsById(productJson.getId())) {
             throw new ProductNotFoundException();
         }
 
@@ -116,7 +114,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductsByUserId(long userId)  {
+    public List<Product> getProductsByUserId(long userId) {
         return (List<Product>) productRepository.findByUserId(userId);
     }
 

@@ -152,7 +152,8 @@ public class OrderControllerIntegrationTest {
     public void givenOrderToUpdateThenShouldReturnUpdatedOrder() throws OrderAlreadyExistsException, OrderNotFoundException {
         Order savedOrder = orderController.saveOrder(order1).getBody();
         assertNotNull(savedOrder);
-        assertEquals(order1.getId(), savedOrder.getId());;
+        assertEquals(order1.getId(), savedOrder.getId());
+        ;
         savedOrder.setUserId(order2.getUserId());
         Order updatedOrder = orderController.updateOrder(savedOrder).getBody();
         assertNotNull(savedOrder);
@@ -185,7 +186,7 @@ public class OrderControllerIntegrationTest {
     }
 
     @Test
-    void givenOrderWithInvalidIdToDeleteThenThrowsException() throws OrderAlreadyExistsException, ConstraintViolationException{
+    void givenOrderWithInvalidIdToDeleteThenThrowsException() throws OrderAlreadyExistsException, ConstraintViolationException {
         assertThrows(ConstraintViolationException.class, () -> {
             order1.setId("");
             Order savedOrder = orderController.saveOrder(order1).getBody();
@@ -196,7 +197,7 @@ public class OrderControllerIntegrationTest {
     }
 
     @Test
-    void givenOrderWithInvalidIdToGetThenThrowsException() throws OrderAlreadyExistsException, ConstraintViolationException{
+    void givenOrderWithInvalidIdToGetThenThrowsException() throws OrderAlreadyExistsException, ConstraintViolationException {
         assertThrows(ConstraintViolationException.class, () -> {
             order1.setId("");
             Order savedOrder = orderController.saveOrder(order1).getBody();
@@ -207,7 +208,7 @@ public class OrderControllerIntegrationTest {
     }
 
     @Test
-    void givenOrderWithInvalidUserIdThenThrowsException() throws OrderAlreadyExistsException, ConstraintViolationException{
+    void givenOrderWithInvalidUserIdThenThrowsException() throws OrderAlreadyExistsException, ConstraintViolationException {
         assertThrows(ConstraintViolationException.class, () -> {
             order1.setUserId(-1);
             orderController.saveOrder(order1);

@@ -34,7 +34,8 @@ public class Product {
     private String category;
 
     @Digits(integer = 9, fraction = 2, message = "Please provide a number with a maximum of only 2 decimal places and 9 integer digits")
-    @Min(value = 1, message = "The minimum price value should be 1") @Max(value = 999999999, message = "The maximum price value is 999999999")
+    @Min(value = 1, message = "The minimum price value should be 1")
+    @Max(value = 999999999, message = "The maximum price value is 999999999")
     @ApiModelProperty(notes = "Price of the product", example = "19.99", required = true, position = 5)
     private float price;
 

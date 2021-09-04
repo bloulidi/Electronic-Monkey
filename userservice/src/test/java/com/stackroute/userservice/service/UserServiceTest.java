@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -91,7 +91,7 @@ public class UserServiceTest {
         verify(userRepository, times(1)).findByName(anyString());
     }
 
-   @Test
+    @Test
     public void givenGetAllUsersByAdminThenShouldReturnListOfAllAdminUsers() {
         userList.add(user);
         userList.add(user2);
@@ -160,7 +160,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void givenUserToUpdateThenShouldReturnUpdatedUser() throws UserNotFoundException, UserAlreadyExistsException{
+    public void givenUserToUpdateThenShouldReturnUpdatedUser() throws UserNotFoundException, UserAlreadyExistsException {
         when(userRepository.save(any())).thenReturn(user);
         when(userRepository.existsById(user.getId())).thenReturn(true);
         when(userRepository.findById(anyLong())).thenReturn(optional);

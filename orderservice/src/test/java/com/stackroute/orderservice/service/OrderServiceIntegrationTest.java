@@ -134,7 +134,8 @@ public class OrderServiceIntegrationTest {
     public void givenOrderToUpdateThenShouldReturnUpdatedOrder() throws OrderAlreadyExistsException, OrderNotFoundException {
         Order savedOrder = orderService.saveOrder(order1);
         assertNotNull(savedOrder);
-        assertEquals(order1.getId(), savedOrder.getId());;
+        assertEquals(order1.getId(), savedOrder.getId());
+        ;
         savedOrder.setUserId(order2.getUserId());
         Order updatedOrder = orderService.updateOrder(savedOrder);
         assertNotNull(savedOrder);

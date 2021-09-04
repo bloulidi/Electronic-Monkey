@@ -2,51 +2,53 @@
 
 <!-- Form to edit my Profile -->
 <div class="example-container">
-    <div class="white-container">
-        <div class="form-title">Edit profile</div>
-        <div class="form-container">
-            <form [formGroup]="form">
-                <mat-form-field class="form-field" appearance="outline">
-                    <mat-label>Full Name</mat-label>
-                    <input id="fullNameField" matInput formControlName="fullName" required>
-                    <mat-error *ngIf="form.controls.fullName.touched && form.controls.fullName.invalid">
-                        <span *ngIf="form.controls.fullName.errors.required">This field is mandatory.</span>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="form-field" appearance="outline">
-                    <mat-label> E-mail
-                    </mat-label>
-                    <input id="emailField" matInput formControlName="email" required>
-                    <mat-error id="emailError" *ngIf="form.controls.email.touched && form.controls.email.invalid">
-                        <span *ngIf="form.controls.email.errors.required">This field is mandatory.</span>
-                        <span *ngIf="form.controls.email.errors.pattern">This field is invalid.</span>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="form-field" appearance="outline">
-                    <mat-label> Password
-                    </mat-label>
-                    <input id="passwordField" matInput formControlName="password" type="password" required>
-                    <mat-error id="passwordError" *ngIf="form.controls.password.touched && form.controls.password.invalid">
-                        <span *ngIf="form.controls.password.errors.required">This field is mandatory. <br></span>
-                        <span *ngIf="form.controls['password'].hasError('hasNumber')">Must contain at least 1 number!<br></span>
-                        <span *ngIf="form.controls['password'].hasError('hasCapitalCase')"> Must contain at least 1 capital
+  <div class="white-container">
+    <div class="form-title">Edit profile</div>
+    <div class="form-container">
+      <form [formGroup]="form">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Full Name</mat-label>
+          <input formControlName="fullName" id="fullNameField" matInput required>
+          <mat-error *ngIf="form.controls.fullName.touched && form.controls.fullName.invalid">
+            <span *ngIf="form.controls.fullName.errors.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label> E-mail
+          </mat-label>
+          <input formControlName="email" id="emailField" matInput required>
+          <mat-error *ngIf="form.controls.email.touched && form.controls.email.invalid" id="emailError">
+            <span *ngIf="form.controls.email.errors.required">This field is mandatory.</span>
+            <span *ngIf="form.controls.email.errors.pattern">This field is invalid.</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label> Password
+          </mat-label>
+          <input formControlName="password" id="passwordField" matInput required type="password">
+          <mat-error *ngIf="form.controls.password.touched && form.controls.password.invalid" id="passwordError">
+            <span *ngIf="form.controls.password.errors.required">This field is mandatory. <br></span>
+            <span *ngIf="form.controls['password'].hasError('hasNumber')">Must contain at least 1 number!<br></span>
+            <span *ngIf="form.controls['password'].hasError('hasCapitalCase')"> Must contain at least 1 capital
                             case!<br></span>
-                        <span *ngIf="form.controls['password'].hasError('hasSmallCase')">Must contain at least 1 small
+            <span *ngIf="form.controls['password'].hasError('hasSmallCase')">Must contain at least 1 small
                             case!<br></span>
-                        <span *ngIf="form.controls['password'].hasError('minlength')"> Must be at least 6 characters!<br></span>
-                    </mat-error>
-                </mat-form-field>
+            <span *ngIf="form.controls['password'].hasError('minlength')"> Must be at least 6 characters!<br></span>
+          </mat-error>
+        </mat-form-field>
 
-                <button class="signup-button" mat-raised-button color="primary" type="submit" [disabled]="checkSave()" (click)="onSubmit()">Save
-                    changes</button>
-                <button class="cancel-button" mat-raised-button color="primary" (click)="onCancel()">Cancel</button>
-            </form>
-            <!-- write logic to display message if form is submitted-->
-            <div class="alert" *ngIf="message" role="alert">
-                {{ message }}
-            </div>
-        </div>
+        <button (click)="onSubmit()" [disabled]="checkSave()" class="signup-button" color="primary" mat-raised-button
+                type="submit">Save
+          changes
+        </button>
+        <button (click)="onCancel()" class="cancel-button" color="primary" mat-raised-button>Cancel</button>
+      </form>
+      <!-- write logic to display message if form is submitted-->
+      <div *ngIf="message" class="alert" role="alert">
+        {{ message }}
+      </div>
     </div>
+  </div>
 </div>
 
 <app-footer></app-footer>

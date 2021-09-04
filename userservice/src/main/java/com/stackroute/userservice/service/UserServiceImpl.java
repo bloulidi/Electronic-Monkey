@@ -4,14 +4,13 @@ import com.stackroute.userservice.exception.UserAlreadyExistsException;
 import com.stackroute.userservice.exception.UserNotFoundException;
 import com.stackroute.userservice.model.User;
 import com.stackroute.userservice.repository.UserRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +18,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService{
+public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
     @Override
     public User saveUser(User user) throws UserAlreadyExistsException {
-        if(userRepository.existsById(user.getId()) || userRepository.existsByEmail(user.getEmail())){
+        if (userRepository.existsById(user.getId()) || userRepository.existsByEmail(user.getEmail())) {
             throw new UserAlreadyExistsException();
         }
         return (User) userRepository.save(user);
@@ -43,7 +42,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
     public User getUserById(long id) throws UserNotFoundException {
         User user = null;
         Optional<User> userOptional = userRepository.findById(id);
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             user = userOptional.get();
         } else {
             throw new UserNotFoundException();
@@ -54,7 +53,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
     @Override
     public User getUserByEmail(String email) throws UserNotFoundException {
         User user = userRepository.findByEmail(email);
-        if(user == null){
+        if (user == null) {
             throw new UserNotFoundException();
         }
         return user;
@@ -82,7 +81,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
     @Override
     public User deleteUser(long id) throws UserNotFoundException {
         User user = getUserById(id);
-        if(user != null){
+        if (user != null) {
             userRepository.deleteById(id);
         } else {
             throw new UserNotFoundException();
@@ -92,12 +91,12 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
     @Override
     public User updateUser(User user) throws UserNotFoundException, UserAlreadyExistsException {
-        if(!userRepository.existsById(user.getId())){
+        if (!userRepository.existsById(user.getId())) {
             throw new UserNotFoundException();
         }
         User getUser = getUserById(user.getId());
-        if(!getUser.getEmail().equals(user.getEmail())){
-            if(userRepository.existsByEmail(user.getEmail())){
+        if (!getUser.getEmail().equals(user.getEmail())) {
+            if (userRepository.existsByEmail(user.getEmail())) {
                 throw new UserAlreadyExistsException();
             }
         }
@@ -107,7 +106,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
-        if(user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority(user));

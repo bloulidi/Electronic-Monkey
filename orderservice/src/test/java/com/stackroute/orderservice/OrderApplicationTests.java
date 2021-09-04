@@ -13,24 +13,24 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @SpringBootTest
 class OrderApplicationTests {
 
-	@Autowired
-	private OrderServiceImpl orderService;
+    @Autowired
+    private OrderServiceImpl orderService;
 
-	@Autowired
-	private OrderController orderController;
+    @Autowired
+    private OrderController orderController;
 
-	@Autowired
-	private OrderRepository orderRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
-	@AfterEach
-	void tearDown() {
-		orderRepository.deleteAll();
-	}
+    @AfterEach
+    void tearDown() {
+        orderRepository.deleteAll();
+    }
 
-	@Test
-	void contextLoads() {
-		assertThat(orderService).isNotNull();
-		assertThat(orderController).isNotNull();
-		assertThat(orderRepository).isNotNull();
-	}
+    @Test
+    void contextLoads() {
+        assertThat(orderService).isNotNull();
+        assertThat(orderController).isNotNull();
+        assertThat(orderRepository).isNotNull();
+    }
 }

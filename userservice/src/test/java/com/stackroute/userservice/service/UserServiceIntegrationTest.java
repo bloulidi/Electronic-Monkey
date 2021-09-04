@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.validation.ConstraintViolationException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,8 +78,12 @@ public class UserServiceIntegrationTest {
         userService.saveUser(user2);
         userService.saveUser(user3);
         List<User> users = userService.getAllUsers();
-        for (User user : userList) { usersEmail.add(user.getEmail()); }
-        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
+        for (User user : userList) {
+            usersEmail.add(user.getEmail());
+        }
+        for (User user : users) {
+            savedUsersEmail.add(user.getEmail());
+        }
         assertNotNull(users);
         assertEquals(usersEmail, savedUsersEmail);
     }
@@ -93,8 +96,12 @@ public class UserServiceIntegrationTest {
         userService.saveUser(user2);
         userService.saveUser(user3);
         List<User> users = userService.getUsersByName(user2.getName());
-        for (User user : userList) { usersEmail.add(user.getEmail()); }
-        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
+        for (User user : userList) {
+            usersEmail.add(user.getEmail());
+        }
+        for (User user : users) {
+            savedUsersEmail.add(user.getEmail());
+        }
         assertNotNull(users);
         assertEquals(usersEmail, savedUsersEmail);
     }
@@ -107,8 +114,12 @@ public class UserServiceIntegrationTest {
         //userService.saveUser(user2);
         userService.saveUser(user3);
         List<User> users = userService.getUsersByAdmin(user1.isAdmin());
-        for (User user : userList) { usersEmail.add(user.getEmail()); }
-        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
+        for (User user : userList) {
+            usersEmail.add(user.getEmail());
+        }
+        for (User user : users) {
+            savedUsersEmail.add(user.getEmail());
+        }
         assertNotNull(users);
         assertEquals(usersEmail, savedUsersEmail);
     }
@@ -190,7 +201,8 @@ public class UserServiceIntegrationTest {
     public void givenUserToUpdateThenShouldReturnUpdatedUser() throws UserAlreadyExistsException, UserNotFoundException {
         User savedUser = userService.saveUser(user1);
         assertNotNull(savedUser);
-        assertEquals(user1.getEmail(), savedUser.getEmail());;
+        assertEquals(user1.getEmail(), savedUser.getEmail());
+        ;
         savedUser.setPassword(user2.getPassword());
         User updatedUser = userService.updateUser(savedUser);
         assertNotNull(savedUser);
@@ -202,7 +214,8 @@ public class UserServiceIntegrationTest {
         User savedUser = userService.saveUser(user1);
         userService.saveUser(user2);
         assertNotNull(savedUser);
-        assertEquals(user1.getEmail(), savedUser.getEmail());;
+        assertEquals(user1.getEmail(), savedUser.getEmail());
+        ;
         savedUser.setEmail(user2.getEmail());
         Assertions.assertThrows(UserAlreadyExistsException.class, () -> userService.updateUser(savedUser));
     }
@@ -219,19 +232,19 @@ public class UserServiceIntegrationTest {
     }
 
     @Test
-    void givenUserWithInvalidEmailThenThrowsException() throws UserAlreadyExistsException, ConstraintViolationException{
+    void givenUserWithInvalidEmailThenThrowsException() throws UserAlreadyExistsException, ConstraintViolationException {
         user1.setEmail("anas");
         assertThrows(ConstraintViolationException.class, () -> userService.saveUser(user1));
     }
 
     @Test
-    void givenUserWithInvalidNameThenThrowsException() throws UserAlreadyExistsException, ConstraintViolationException{
+    void givenUserWithInvalidNameThenThrowsException() throws UserAlreadyExistsException, ConstraintViolationException {
         user1.setName("");
         assertThrows(ConstraintViolationException.class, () -> userService.saveUser(user1));
     }
 
     @Test
-    void givenUserWithInvalidPasswordThenThrowsException() throws UserAlreadyExistsException, ConstraintViolationException{
+    void givenUserWithInvalidPasswordThenThrowsException() throws UserAlreadyExistsException, ConstraintViolationException {
         user1.setPassword("12345");
         assertThrows(ConstraintViolationException.class, () -> userService.saveUser(user1));
     }

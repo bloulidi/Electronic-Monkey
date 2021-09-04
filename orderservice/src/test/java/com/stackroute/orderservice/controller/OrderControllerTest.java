@@ -1,7 +1,6 @@
 package com.stackroute.orderservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.stackroute.orderservice.exception.GlobalExceptionHandler;
 import com.stackroute.orderservice.exception.OrderAlreadyExistsException;
 import com.stackroute.orderservice.exception.OrderNotFoundException;
@@ -36,11 +35,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 @ExtendWith(MockitoExtension.class)
 public class OrderControllerTest {
 
-    private MockMvc mockMvc;
-
     @Mock
     OrderService orderService;
-
+    private MockMvc mockMvc;
     @InjectMocks
     private OrderController orderController;
 
@@ -49,6 +46,14 @@ public class OrderControllerTest {
     private OrderProduct orderProduct1, orderProduct2, orderProduct3;
     private List<OrderProduct> orderProductList;
     private List<Order> orderList;
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @BeforeEach
     void setUp() {
@@ -166,14 +171,5 @@ public class OrderControllerTest {
                 .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
         verify(orderService).getOrdersByUserId(anyLong());
         verify(orderService, times(1)).getOrdersByUserId(anyLong());
-    }
-    
-
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }

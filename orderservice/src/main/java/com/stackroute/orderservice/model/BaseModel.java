@@ -11,13 +11,11 @@ import java.util.Date;
 @Getter
 public abstract class BaseModel {
 
+    @ApiModelProperty(notes = "Date created. Leave empty as it's set automatically.")
+    protected Date createdAt;
+    @ApiModelProperty(notes = "Date updated. Leave empty as it's set automatically.")
+    protected Date updatedAt;
     @Id
     @ApiModelProperty(notes = "Id. Auto-generated if not manually set")
     private String id;
-
-    @ApiModelProperty(notes = "Date created. Leave empty as it's set automatically.")
-    protected Date createdAt;
-
-    @ApiModelProperty(notes = "Date updated. Leave empty as it's set automatically.")
-    protected Date updatedAt;
 }

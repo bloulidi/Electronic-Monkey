@@ -6,10 +6,12 @@ import java.lang.annotation.*;
 
 @Documented
 @Constraint(validatedBy = StatusValidator.class)
-@Target( { ElementType.METHOD, ElementType.FIELD })
+@Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface StatusConstraint {
     String message() default "Invalid status";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

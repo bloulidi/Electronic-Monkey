@@ -1,51 +1,52 @@
 <header>
-    <div class="appName">
-        <a routerLink="">Electronic Monkey</a>
-    </div>
+  <div class="appName">
+    <a routerLink="">Electronic Monkey</a>
+  </div>
 
-    <div class="appImg">
-        <a routerLink="">
-            <img src="../../assets/monkey.png">
-        </a>
-    </div>
+  <div class="appImg">
+    <a routerLink="">
+      <img src="../../assets/monkey.png">
+    </a>
+  </div>
 
-    <div class="phones">
-        <a routerLink="phones" (click)="onClickPhones()" id="btn-phones"> Phones </a>
-    </div>
+  <div class="phones">
+    <a (click)="onClickPhones()" id="btn-phones" routerLink="phones"> Phones </a>
+  </div>
 
-    <div class="computers">
-        <a routerLink="computers" (click)="onClickComputers()" id="btn-computers"> Computers </a>
-    </div>
+  <div class="computers">
+    <a (click)="onClickComputers()" id="btn-computers" routerLink="computers"> Computers </a>
+  </div>
 
-    <div class="accessories">
-        <a routerLink="accessories" (click)="onClickAccessories()" id="btn-accessories"> Accessories </a>
-    </div>
+  <div class="accessories">
+    <a (click)="onClickAccessories()" id="btn-accessories" routerLink="accessories"> Accessories </a>
+  </div>
 
-    <div class="profilImg">
+  <div class="profilImg">
 
-        <button mat-button [matMenuTriggerFor]="menu" id="btn-menu">
-            <mat-icon svgIcon="profil_icon"></mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="onClickMyProfile()">My Profile</button>
-            <button mat-menu-item (click)="onClickMyPosts()">My Posts</button>
-            <button mat-menu-item (click)="onClickOrderHistory()">Order History</button>
-            <button mat-menu-item (click)="onClickLogOut()">Log out</button>
-        </mat-menu>
+    <button [matMenuTriggerFor]="menu" id="btn-menu" mat-button>
+      <mat-icon svgIcon="profil_icon"></mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button (click)="onClickMyProfile()" mat-menu-item>My Profile</button>
+      <button (click)="onClickMyPosts()" mat-menu-item>My Posts</button>
+      <button (click)="onClickOrderHistory()" mat-menu-item>Order History</button>
+      <button (click)="onClickLogOut()" mat-menu-item>Log out</button>
+    </mat-menu>
 
-    </div>
+  </div>
 
-    <div class="cartImg">
-        <button mat-button>
-            <mat-icon (click)="onClickCart()" svgIcon="cart_icon" matBadge={{numProductCart}} mat-raised-button matBadgeSize="medium" matBadgeColor="accent">
-            </mat-icon>
-        </button>
-    </div>
-    <div>
-        <button class="postBtn" mat-raised-button color="primary" (click)="onClickPost()">
-            Post
-        </button>
-    </div>
+  <div class="cartImg">
+    <button mat-button>
+      <mat-icon (click)="onClickCart()" mat-raised-button matBadge={{numProductCart}} matBadgeColor="accent"
+                matBadgeSize="medium" svgIcon="cart_icon">
+      </mat-icon>
+    </button>
+  </div>
+  <div>
+    <button (click)="onClickPost()" class="postBtn" color="primary" mat-raised-button>
+      Post
+    </button>
+  </div>
 
 </header>
 

@@ -9,7 +9,6 @@ import com.stackroute.orderservice.model.product.Product;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 
@@ -100,7 +99,7 @@ public class OrderRepositoryIntegrationTest {
         orderRepository.deleteById(savedOrder.getId());
         orderList.add(order2);
         orderList.add(order3);
-        List<Order> orders = (List<Order>)orderRepository.findAll();
+        List<Order> orders = (List<Order>) orderRepository.findAll();
         assertNotNull(orders);
         assertEquals(orderList, orders);
     }
@@ -109,7 +108,8 @@ public class OrderRepositoryIntegrationTest {
     public void givenOrderToUpdateThenShouldReturnUpdatedOrder() {
         Order savedOrder = orderRepository.save(order1);
         assertNotNull(savedOrder);
-        assertEquals(order1.getId(), savedOrder.getId());;
+        assertEquals(order1.getId(), savedOrder.getId());
+        ;
         savedOrder.setUserId(order2.getUserId());
         assertEquals(true, orderRepository.existsById(savedOrder.getId()));
         Order updatedOrder = orderRepository.save(savedOrder);
