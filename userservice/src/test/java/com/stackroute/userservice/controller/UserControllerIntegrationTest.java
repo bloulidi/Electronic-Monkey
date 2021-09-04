@@ -39,7 +39,7 @@ public class UserControllerIntegrationTest {
     private List<String> usersEmail, savedUsersEmail;
     private Logger logger;
 
-    @BeforeEach
+    /*BeforeEach
     void setUp() {
         logger = LoggerFactory.getLogger(UserController.class);
         user1 = new User(1, "Anas", "anas@cgi.com", true, "password1");
@@ -231,17 +231,17 @@ public class UserControllerIntegrationTest {
         assertThrows(BadCredentialsException.class, () -> userController.login(user1));
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
-    }
+    }*/
 
     /******* VALIDATION *****/
-    @Test
+    /*@Test
     void givenValidUserThenReturnRespectiveUser() throws UserAlreadyExistsException {
         User savedUser = userController.saveUser(user1).getBody();
         assertEquals(user1.getEmail(), savedUser.getEmail());
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
-    }
-
+    }*/
+/*
     @Test
     void givenUserWithInvalidEmailThenThrowsException() throws UserAlreadyExistsException, ConstraintViolationException {
         assertThrows(ConstraintViolationException.class, () -> {
@@ -270,5 +270,5 @@ public class UserControllerIntegrationTest {
         });
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
-    }
+    }*/
 }

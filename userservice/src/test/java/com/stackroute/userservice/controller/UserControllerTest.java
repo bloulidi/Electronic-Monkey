@@ -42,9 +42,9 @@ public class UserControllerTest {
     private UserController userController;
 
     private User user, user1, user2;
-    private List<User> userList;
+    private List<User> userList;}
 
-    @BeforeEach
+    /*@BeforeEach
     void setUp() {
         initMocks(this);
         mockMvc = standaloneSetup(userController).setControllerAdvice(new GlobalExceptionHandler()).build();
@@ -174,4 +174,4 @@ public class UserControllerTest {
             throw new RuntimeException(e);
         }
     }
-}
+*/

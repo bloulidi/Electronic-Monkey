@@ -31,7 +31,7 @@ public class UserServiceIntegrationTest {
     private List<User> userList;
     private List<String> usersEmail, savedUsersEmail;
 
-    @BeforeEach
+    /*@BeforeEach
     void setUp() {
         user1 = new User(1, "Anas", "anas@cgi.com", true, "password1");
         user2 = new User(2, "Justin", "justin@hotmail.com", false, "password2");
@@ -213,7 +213,7 @@ public class UserServiceIntegrationTest {
     }
 
     /******* VALIDATION *****/
-    @Test
+    /*@Test
     void givenValidUserThenReturnRespectiveUser() throws UserAlreadyExistsException {
         assertEquals(user1.getEmail(), userService.saveUser(user1).getEmail());
     }
@@ -234,5 +234,5 @@ public class UserServiceIntegrationTest {
     void givenUserWithInvalidPasswordThenThrowsException() throws UserAlreadyExistsException, ConstraintViolationException{
         user1.setPassword("12345");
         assertThrows(ConstraintViolationException.class, () -> userService.saveUser(user1));
-    }
+    }*/
 }

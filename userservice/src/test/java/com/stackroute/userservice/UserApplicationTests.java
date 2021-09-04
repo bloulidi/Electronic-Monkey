@@ -31,11 +31,11 @@ class UserApplicationTests {
 		userRepository.deleteAll();
 	}
 
-	@Test
+	/*@Test
 	void contextLoads() {
 		assertThat(userService).isNotNull();
 		assertThat(jwtTokenGenerator).isNotNull();
 		assertThat(userController).isNotNull();
 		assertThat(userRepository).isNotNull();
-	}
+	}*/
 }

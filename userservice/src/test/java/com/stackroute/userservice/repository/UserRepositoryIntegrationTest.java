@@ -32,7 +32,7 @@ public class UserRepositoryIntegrationTest {
     private List<User> userList;
     private List<String> usersEmail, savedUsersEmail;
 
-    @BeforeEach
+    /*@BeforeEach
     void setUp() {
         user1 = new User(1, "Anas", "anas@cgi.com", true, "password");
         user2 = new User(2, "Justin", "justin@hotmail.com", false, "password");
@@ -155,7 +155,7 @@ public class UserRepositoryIntegrationTest {
     }
 
     /******* VALIDATION *****/
-    @Test
+    /*@Test
     void givenValidUserThenReturnRespectiveUser(){
         assertEquals(user1.getEmail(), userRepository.save(user1).getEmail());
     }
@@ -178,5 +178,5 @@ public class UserRepositoryIntegrationTest {
             entityManager.flush();
             entityManager.clear();
         });
-    }
+    }*/
 }
