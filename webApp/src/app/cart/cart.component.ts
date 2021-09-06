@@ -68,7 +68,7 @@ export class CartComponent implements OnInit {
     this.order.orderProducts = this.orderProducts;
     this.order.userId = this.authenticationService.currentUserValue.id;
     this.calculateSubTotal();
-    this.order.totalPrice = this.subTotal;
+    this.order.totalOrderPrice = this.subTotal;
 
     this.orderService.saveOrder(this.order).subscribe({
       next: (data) => {
@@ -96,6 +96,9 @@ export class CartComponent implements OnInit {
     this.subTotal = 0;
     if (this.orderProducts) {
       this.orderProducts.forEach((orderProduct) => {
+        orderProduct.totalPrice =
+          Math.round(orderProduct.quantity * orderProduct.product.price * 100) /
+          100;
         this.subTotal += orderProduct.totalPrice;
       });
       this.subTotal = Math.round(this.subTotal * 100) / 100;

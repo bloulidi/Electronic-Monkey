@@ -1,6 +1,6 @@
 import { OrderProduct } from './OrderProduct';
 export class Order {
   orderProducts?: OrderProduct[];
-  totalPrice?: number;
+  totalOrderPrice?: number;
   userId?: number;
 }
