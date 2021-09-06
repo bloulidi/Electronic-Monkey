@@ -9,9 +9,9 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
 
 @Component({
-  selector: 'app-Post',
-  templateUrl: './Post.component.html',
-  styleUrls: ['./Post.component.css'],
+  selector: 'app-post',
+  templateUrl: './post.component.html',
+  styleUrls: ['./post.component.css'],
 })
 export class PostComponent implements OnInit {
   form: FormGroup;
