@@ -61,8 +61,6 @@ public class ProductServiceImpl implements ProductService {
         Product product = getProductById(id);
         if (product != null) {
             productRepository.deleteById(id);
-        } else {
-            throw new ProductNotFoundException();
         }
         return product;
     }

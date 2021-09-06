@@ -41,11 +41,4 @@ public class Product {
 
     @ApiModelProperty(notes = "Image of the product", position = 6)
     private Photo photo;
-
-    public Product(String id, String title, String category, float price) {
-        this.id = id;
-        this.title = title;
-        this.category = category;
-        this.price = price;
-    }
 }
