@@ -83,8 +83,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = getUserById(id);
         if (user != null) {
             userRepository.deleteById(id);
-        } else {
-            throw new UserNotFoundException();
         }
         return user;
     }

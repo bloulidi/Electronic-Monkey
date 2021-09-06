@@ -3,6 +3,7 @@ package com.stackroute.catalog.service;
 import com.stackroute.catalog.exception.ProductAlreadyExistsException;
 import com.stackroute.catalog.exception.ProductNotFoundException;
 import com.stackroute.catalog.model.Category;
+import com.stackroute.catalog.model.Photo;
 import com.stackroute.catalog.model.Product;
 import com.stackroute.catalog.repository.ProductRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -15,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,11 +40,11 @@ public class ProductServiceTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        product = new Product("Dell Laptop", "Good computer", Category.COMPUTERS.getCategory(), 800.5F);
+        product = new Product("Dell Laptop", "Good computer", Category.COMPUTERS.getCategory(), 800.5F, new Photo(), 1, false);
         product.setId("1");
-        product1 = new Product("Apple iPhone 12", "Good phone", Category.PHONES.getCategory(), 1000.99F);
+        product1 = new Product("Apple iPhone 12", "Good phone", Category.PHONES.getCategory(), 1000.99F, new Photo(), 1, false);
         product1.setId("2");
-        product2 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20);
+        product2 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20, new Photo(), 2, true);
         product2.setId("3");
         productList = new ArrayList<Product>();
         optional = Optional.of(product);
@@ -56,16 +58,16 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void givenProductToSaveThenShouldReturnSavedProduct() throws ProductAlreadyExistsException {
+    public void givenProductToSaveThenShouldReturnSavedProduct() throws ProductAlreadyExistsException, IOException {
         when(productRepository.insert(product)).thenReturn(product);
-        assertEquals(product, productService.saveProduct(product));
+        assertEquals(product, productService.saveProduct(product, any()));
         verify(productRepository, times(1)).insert(product);
     }
 
     @Test
     public void givenProductWithDuplicateIdToSaveThenShouldNotReturnSavedProduct() throws ProductAlreadyExistsException {
         when(productRepository.existsById(product.getId())).thenReturn(true);
-        Assertions.assertThrows(ProductAlreadyExistsException.class, () -> productService.saveProduct(product));
+        Assertions.assertThrows(ProductAlreadyExistsException.class, () -> productService.saveProduct(product, any()));
         verify(productRepository, times(1)).existsById(anyString());
     }
 
@@ -108,13 +110,13 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void givenProductToUpdateThenShouldReturnUpdatedProduct() throws ProductAlreadyExistsException, ProductNotFoundException {
+    public void givenProductToUpdateThenShouldReturnUpdatedProduct() throws ProductAlreadyExistsException, ProductNotFoundException, IOException {
         when(productRepository.save(any())).thenReturn(product);
         when(productRepository.existsById(product.getId())).thenReturn(true);
         when(productRepository.findById(anyString())).thenReturn(Optional.of(product));
         assertEquals(product, productService.getProductById(product.getId()));
         product.setPrice(product1.getPrice());
-        Product updatedProduct = productService.updateProduct(product);
+        Product updatedProduct = productService.updateProduct(product, any());
         assertEquals(updatedProduct.getPrice(), product1.getPrice());
         verify(productRepository, times(1)).findById(anyString());
         verify(productRepository, times(1)).save(any());
@@ -124,7 +126,7 @@ public class ProductServiceTest {
     @Test
     public void givenProductToUpdateThenShouldNotReturnUpdatedProduct() throws ProductNotFoundException {
         when(productRepository.existsById(product.getId())).thenReturn(false);
-        Assertions.assertThrows(ProductNotFoundException.class, () -> productService.updateProduct(product));
+        Assertions.assertThrows(ProductNotFoundException.class, () -> productService.updateProduct(product, any()));
         verify(productRepository, times(1)).existsById(anyString());
     }
 

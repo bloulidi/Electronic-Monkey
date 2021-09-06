@@ -1,15 +1,15 @@
-import { OrderProduct } from './../../models/OrderProduct';
+import { ProductService } from 'src/app/services/product.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { OrderProduct } from 'src/app/models/OrderProduct';
 import { Product } from 'src/app/models/Product';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { ProductService } from 'src/app/services/product.service';
 
 @Component({
-  selector: 'app-product-item-phones',
-  templateUrl: './product-item-phones.component.html',
-  styleUrls: ['./product-item-phones.component.css']
+  selector: 'app-product-item-category',
+  templateUrl: './product-item-category.component.html',
+  styleUrls: ['./product-item-category.component.css']
 })
-export class ProductItemPhonesComponent implements OnInit {
+export class ProductItemCategoryComponent implements OnInit {
 
   @Input() productItem: Product;
 
@@ -20,7 +20,7 @@ export class ProductItemPhonesComponent implements OnInit {
   hiddenText: string;
   isAdmin: boolean;
 
-  constructor(private authenticationService: AuthenticationService, private productService: ProductService) {
+  constructor(public authenticationService: AuthenticationService, public productService: ProductService) {
   }
 
   ngOnInit(): void {
@@ -28,9 +28,11 @@ export class ProductItemPhonesComponent implements OnInit {
     this.isHidden = this.productItem.hidden;
     this.isAdmin = this.authenticationService.currentUserValue.admin;
     this.hiddenText = this.isHidden ? "Unhide": "Hide";
+    console.log("ngOnInit product")
   }
 
   handleAddToCart() {
+    console.log("handleAddToCart product")
     let productOrders = localStorage.getItem("productOrders");
     if (productOrders) {
       this.productOrdersArray = JSON.parse(productOrders);
@@ -59,7 +61,7 @@ export class ProductItemPhonesComponent implements OnInit {
       this.isHidden = true;
       this.hiddenText = "Unhide";
     }
-    this.productService.updateProductWithoutImage(productItem).subscribe({
+    this.productService.updateProduct(productItem).subscribe({
       error: error => console.error(error)
     })
   }

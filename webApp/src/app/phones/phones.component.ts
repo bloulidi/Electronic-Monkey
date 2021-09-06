@@ -1,33 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Product } from '../models/Product';
-import { AuthenticationService } from '../services/authentication.service';
-import { ProductService } from '../services/product.service';
-import { UserService } from '../services/user.service';
+import { Component } from '@angular/core';
+import { CategoryComponent } from '../category/category.component';
+
 
 @Component({
   selector: 'app-phones',
-  templateUrl: './phones.component.html',
-  styleUrls: ['./phones.component.css']
+  templateUrl: '../category/category.component.html',
+  styleUrls: ['../category/category.component.css']
 })
-export class PhonesComponent implements OnInit {
+export class PhonesComponent extends CategoryComponent {
 
-  productList: Product[] = [];
-  userId: number;
-
-  constructor(private productService: ProductService,
-    private authenticationService: AuthenticationService,
-    private userService: UserService) {
-    let email = this.authenticationService.currentUserValue.email;
-    this.userId = this.authenticationService.currentUserValue.id;
-  }
+  category = "Phones"
 
   ngOnInit(): void {
-    this.loadProducts();
-  }
-
-  loadProducts() {
-    this.productService.getProductsByCategory("Phones").subscribe((products) => {
-      this.productList = products;
-    })
+    super.ngOnInit();
   }
 }

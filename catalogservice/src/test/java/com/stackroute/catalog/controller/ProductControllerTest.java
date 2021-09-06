@@ -1,10 +1,10 @@
 package com.stackroute.catalog.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.catalog.exception.GlobalExceptionHandler;
 import com.stackroute.catalog.exception.ProductAlreadyExistsException;
 import com.stackroute.catalog.exception.ProductNotFoundException;
 import com.stackroute.catalog.model.Category;
+import com.stackroute.catalog.model.Photo;
 import com.stackroute.catalog.model.Product;
 import com.stackroute.catalog.service.ProductService;
 import org.junit.jupiter.api.AfterEach;
@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -22,6 +23,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.stackroute.catalog.controller.ProductControllerIntegrationTest.asJsonString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -41,25 +43,20 @@ public class ProductControllerTest {
 
     private Product product, product1, product2;
     private List<Product> productList;
-
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private MockMultipartFile file, file1;
 
     @BeforeEach
     void setUp() {
         initMocks(this);
         mockMvc = standaloneSetup(productController).setControllerAdvice(new GlobalExceptionHandler()).build();
-        product = new Product("Dell Laptop", "Good computer", Category.COMPUTERS.getCategory(), 800.5F, 1);
+        product = new Product("Dell Laptop", "Good computer", Category.COMPUTERS.getCategory(), 800.5F, new Photo(), 1, false);
         product.setId("1");
-        product1 = new Product("Apple iPhone 12", "Good phone", Category.PHONES.getCategory(), 1000.99F, 1);
+        product1 = new Product("Apple iPhone 12", "Good phone", Category.PHONES.getCategory(), 1000.99F, new Photo(), 1, false);
         product1.setId("2");
-        product2 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20, 2);
+        product2 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20, new Photo(), 2, true);
         product2.setId("3");
+        file = new MockMultipartFile("image", "file.png", "0", "Some Binary stuff".getBytes());
+        file1 = new MockMultipartFile("product", "", "application/json", asJsonString(product).getBytes());
         productList = new ArrayList<Product>();
     }
 
@@ -71,20 +68,20 @@ public class ProductControllerTest {
 
     @Test
     void givenProductToSaveThenShouldReturnSavedProduct() throws ProductAlreadyExistsException, Exception {
-        when(productService.saveProduct(any())).thenReturn(product);
-        mockMvc.perform(post("/api/v1/products/noimage").contentType(MediaType.APPLICATION_JSON).content(asJsonString(product)))
+        when(productService.saveProduct(any(), any())).thenReturn(product);
+        mockMvc.perform(multipart("/api/v1/products").file(file1).file(file))
                 .andExpect(status().isCreated()).andDo(MockMvcResultHandlers.print());
-        verify(productService).saveProduct(any());
-        verify(productService, times(1)).saveProduct(any());
+        verify(productService).saveProduct(any(), any());
+        verify(productService, times(1)).saveProduct(any(), any());
     }
 
     @Test
     void givenProductToSaveThenShouldNotReturnSavedProduct() throws ProductAlreadyExistsException, Exception {
-        when(productService.saveProduct((Product) any())).thenThrow(ProductAlreadyExistsException.class);
-        mockMvc.perform(post("/api/v1/products/noimage").contentType(MediaType.APPLICATION_JSON).content(asJsonString(product)))
+        when(productService.saveProduct(any(), any())).thenThrow(ProductAlreadyExistsException.class);
+        mockMvc.perform(multipart("/api/v1/products").file(file1).file(file))
                 .andExpect(status().isConflict()).andDo(MockMvcResultHandlers.print());
-        verify(productService).saveProduct(any());
-        verify(productService, times(1)).saveProduct(any());
+        verify(productService).saveProduct(any(), any());
+        verify(productService, times(1)).saveProduct(any(), any());
     }
 
     @Test
@@ -126,29 +123,41 @@ public class ProductControllerTest {
         verify(productService, times(1)).deleteProduct(anyString());
     }
 
-    @Test
-    public void givenProductToUpdateThenShouldReturnUpdatedProduct() throws ProductNotFoundException, ProductAlreadyExistsException, Exception {
-        when(productService.updateProduct(any())).thenReturn(product);
-        mockMvc.perform(patch("/api/v1/products").contentType(MediaType.APPLICATION_JSON).content(asJsonString(product)))
-                .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
-        verify(productService).updateProduct(any());
-        verify(productService, times(1)).updateProduct(any());
-    }
+    /*
+        @Test
+        public void givenProductToUpdateThenShouldReturnUpdatedProduct() throws ProductNotFoundException, ProductAlreadyExistsException, Exception {
+            when(productService.updateProduct(any(), any())).thenReturn(product);
+            mockMvc.perform(multipart("/api/v1/products").file(file1).file(file))
+                    .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
+            verify(productService).updateProduct(any(), any());
+            verify(productService, times(1)).updateProduct(any(), any());
+        }
 
-    @Test
-    public void givenProductToUpdateThenShouldNotReturnUpdatedProduct() throws ProductNotFoundException, ProductAlreadyExistsException, Exception {
-        when(productService.updateProduct(any())).thenThrow(ProductNotFoundException.class);
-        mockMvc.perform(patch("/api/v1/products").contentType(MediaType.APPLICATION_JSON).content(asJsonString(product)))
-                .andExpect(status().isNotFound()).andDo(MockMvcResultHandlers.print());
-        verify(productService).updateProduct(any());
-        verify(productService, times(1)).updateProduct(any());
-    }
-
+        @Test
+        public void givenProductToUpdateThenShouldNotReturnUpdatedProduct() throws ProductNotFoundException, ProductAlreadyExistsException, Exception {
+            when(productService.updateProduct(any(), any())).thenThrow(ProductNotFoundException.class);
+            mockMvc.perform(multipart("/api/v1/products").file(file1).file(file))
+                    .andExpect(status().isNotFound()).andDo(MockMvcResultHandlers.print());
+            verify(productService).updateProduct(any(), any());
+            verify(productService, times(1)).updateProduct(any(), any());
+        }
+    */
     @Test
     public void givenGetAllProductsByCategoryThenShouldReturnListOfAllRespectiveProducts() throws Exception {
         productList.add(product);
         when(productService.getProductsByCategory(product.getCategory())).thenReturn(productList);
         mockMvc.perform(get("/api/v1/products/category/" + product.getCategory()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(product)))
+                .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
+        verify(productService).getProductsByCategory(anyString());
+        verify(productService, times(1)).getProductsByCategory(anyString());
+    }
+
+    @Test
+    public void givenGetAllProductsByCategoryAdminThenShouldReturnListOfAllRespectiveProducts() throws Exception {
+        product.setHidden(true);
+        productList.add(product);
+        when(productService.getProductsByCategory(product.getCategory())).thenReturn(productList);
+        mockMvc.perform(get("/api/v1/products/category/admin/" + product.getCategory()).contentType(MediaType.APPLICATION_JSON).content(asJsonString(product)))
                 .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
         verify(productService).getProductsByCategory(anyString());
         verify(productService, times(1)).getProductsByCategory(anyString());

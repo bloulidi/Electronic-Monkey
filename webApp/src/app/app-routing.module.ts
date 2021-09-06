@@ -8,11 +8,11 @@ import { LogoutComponent } from './logout/logout.component';
 import { MypostsComponent } from './myposts/myposts.component';
 import { AuthGuard } from './helpers/auth.guard'
 import { SignupComponent } from './signup/signup.component';
-import { PhonesComponent } from './phones/phones.component';
 import { ComputersComponent } from './computers/computers.component';
 import { AccessoriesComponent } from './accessories/accessories.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { PostComponent } from './post/post.component';
+import { PhonesComponent } from './phones/phones.component';
 
 
 const routes: Routes = [

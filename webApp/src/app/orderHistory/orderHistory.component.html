@@ -9,9 +9,10 @@
   <div class="inside-order">
     <mat-grid-list *ngFor="let orderProduct of order.orderProducts; let first = first; let last = last"
                    [ngClass]="{ first: first, last: last }" class="outlinedOrders" cols="3" rowHeight="2:1">
-      <mat-grid-tile><img [src]="'data:' + orderProduct.product.photo.type + ';base64,' + this.orderProduct.product.photo.image"
-                          class="image"
-                          height="150" width="200"></mat-grid-tile>
+      <mat-grid-tile><img
+        [src]="'data:' + orderProduct.product.photo.type + ';base64,' + this.orderProduct.product.photo.image"
+        class="image"
+        height="150" width="200"></mat-grid-tile>
       <mat-grid-tile class="name">{{orderProduct.product.title}}</mat-grid-tile>
       <mat-grid-tile class="price">{{orderProduct.product.price | currency:'CAD'}}</mat-grid-tile>
     </mat-grid-list>

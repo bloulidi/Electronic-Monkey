@@ -74,7 +74,7 @@ public class JWTTokenUtil {
             User user = new User();
             user.setEmail(body.getSubject());
             user.setId(Long.valueOf((Integer) body.get("userId")));
-            if (body.get("scopes").equals("ROLE_ADMIN")) {
+            if (body.get(authoritiesKey).equals("ROLE_ADMIN")) {
                 user.setAdmin(true);
             } else {
                 user.setAdmin(false);
