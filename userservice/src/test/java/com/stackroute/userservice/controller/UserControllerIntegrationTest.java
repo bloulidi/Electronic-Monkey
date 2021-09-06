@@ -1,5 +1,6 @@
 package com.stackroute.userservice.controller;
 
+import com.stackroute.userservice.config.JWTTokenUtil;
 import com.stackroute.userservice.exception.UserAlreadyExistsException;
 import com.stackroute.userservice.exception.UserNotFoundException;
 import com.stackroute.userservice.model.User;
@@ -196,7 +197,6 @@ public class UserControllerIntegrationTest {
         User savedUser = userController.saveUser(user1).getBody();
         assertNotNull(savedUser);
         assertEquals(user1.getEmail(), savedUser.getEmail());
-        ;
         savedUser.setPassword(user2.getPassword());
         User updatedUser = userController.updateUser(savedUser).getBody();
         assertNotNull(savedUser);
@@ -211,7 +211,6 @@ public class UserControllerIntegrationTest {
         userController.saveUser(user2);
         assertNotNull(savedUser);
         assertEquals(user1.getEmail(), savedUser.getEmail());
-        ;
         savedUser.setEmail(user2.getEmail());
         Assertions.assertThrows(UserAlreadyExistsException.class, () -> userController.updateUser(savedUser).getBody());
         assertTrue(logger.isInfoEnabled());
@@ -226,7 +225,7 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    public void givenValidUserToLoginThenShouldReturnOkStatus() throws UserAlreadyExistsException {
+    public void givenValidAdminToLoginThenShouldReturnOkStatus() throws UserAlreadyExistsException {
         User savedUser = userController.saveUser(user1).getBody();
         JSONObject jo = new JSONObject(userController.login(user1).getBody());
         assertEquals(200, userController.login(user1).getStatusCode().value());
@@ -234,12 +233,38 @@ public class UserControllerIntegrationTest {
         assertEquals(savedUser.getEmail(), jo.getString("email"));
         assertEquals(savedUser.isAdmin(), jo.getBoolean("admin"));
         assertThat(jo.getString("token").length()).isGreaterThan(20);
+        assertTrue(savedUser.isAdmin());
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
     }
 
     @Test
-    public void givenInValidUserToLoginThenThrowsError() throws BadCredentialsException {
+    public void givenValidUserToLoginThenShouldReturnOkStatus() throws UserAlreadyExistsException {
+        User savedUser = userController.saveUser(user2).getBody();
+        JSONObject jo = new JSONObject(userController.login(user2).getBody());
+        assertEquals(200, userController.login(user2).getStatusCode().value());
+        assertEquals(savedUser.getId(), jo.getLong("id"));
+        assertEquals(savedUser.getEmail(), jo.getString("email"));
+        assertEquals(savedUser.isAdmin(), jo.getBoolean("admin"));
+        assertThat(jo.getString("token").length()).isGreaterThan(20);
+        assertFalse(savedUser.isAdmin());
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
+    }
+
+    @Test
+    public void givenInvalidUserToLoginThenThrowsError() throws BadCredentialsException {
+        assertThrows(BadCredentialsException.class, () -> userController.login(user1));
+        assertTrue(logger.isInfoEnabled());
+        assertTrue(logger.isErrorEnabled());
+    }
+
+    @Test
+    public void givenInvalidPasswordToLoginThenThrowsError() throws BadCredentialsException {
+        User savedUser = userController.saveUser(user1).getBody();
+        assertNotNull(savedUser);
+        assertEquals(user1.getEmail(), savedUser.getEmail());
+        user1.setPassword("fdabjnkd");
         assertThrows(BadCredentialsException.class, () -> userController.login(user1));
         assertTrue(logger.isInfoEnabled());
         assertTrue(logger.isErrorEnabled());
