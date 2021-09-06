@@ -59,7 +59,7 @@ export class ProductItemAccessoriesComponent implements OnInit {
       this.isHidden = true;
       this.hiddenText = "Unhide";
     }
-    this.productService.updateProductWithoutImage(productItem).subscribe({
+    this.productService.updateProduct(productItem).subscribe({
       error: error => console.error(error)
     })
   }
