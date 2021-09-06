@@ -64,7 +64,8 @@ public class OrderControllerTest {
         orderProduct1 = new OrderProduct(2, product1);
         product2 = new Product("2", "Apple iPhone 12", "A phone", Category.PHONES.getCategory(), 1000.99F, new Photo());
         orderProduct1 = new OrderProduct(3, product2);
-        product3 = new Product("3", "Apple charger", "A charger", Category.ACCESSORIES.getCategory(), 20, new Photo());  orderProduct1 = new OrderProduct(4, product3);
+        product3 = new Product("3", "Apple charger", "A charger", Category.ACCESSORIES.getCategory(), 20, new Photo());
+        orderProduct1 = new OrderProduct(4, product3);
         orderProductList = new ArrayList<OrderProduct>();
         orderProductList.add(orderProduct1);
         orderProductList.add(orderProduct2);

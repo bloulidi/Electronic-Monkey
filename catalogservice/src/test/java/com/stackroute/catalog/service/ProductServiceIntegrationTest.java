@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-import static com.stackroute.catalog.controller.ProductControllerIntegrationTest.asJsonString;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest

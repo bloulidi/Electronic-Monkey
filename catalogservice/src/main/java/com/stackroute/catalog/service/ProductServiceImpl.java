@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         Photo photo = new Photo();
-        if(image != null) {
+        if (image != null) {
             if (!image.isEmpty() || image.getSize() != 0) {
                 photo.setTitle(image.getOriginalFilename());
                 photo.setType(image.getContentType());
@@ -71,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
             throw new ProductNotFoundException();
         }
 
-        if(image != null) {
+        if (image != null) {
             if (!image.isEmpty() || image.getSize() != 0) {
                 Photo photo = new Photo();
                 photo.setTitle(image.getOriginalFilename());

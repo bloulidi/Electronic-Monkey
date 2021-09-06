@@ -1,6 +1,5 @@
 package com.stackroute.userservice.controller;
 
-import com.stackroute.userservice.config.JWTTokenUtil;
 import com.stackroute.userservice.exception.UserAlreadyExistsException;
 import com.stackroute.userservice.exception.UserNotFoundException;
 import com.stackroute.userservice.model.User;

@@ -7,30 +7,28 @@ import { Product } from '../models/Product';
 import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
 
-import { AccessoriesComponent } from './accessories.component';
+import { CategoryComponent } from './category.component';
 
-describe('AccessoriesComponent', () => {
-  let component: AccessoriesComponent;
-  let fixture: ComponentFixture<AccessoriesComponent>;
+describe('ComputersComponent', () => {
+  let component: CategoryComponent;
+  let fixture: ComponentFixture<CategoryComponent>;
   let productService: ProductService;
   let authenticationService: AuthenticationService;
   let productList: Product[];
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule],
-      declarations: [AccessoriesComponent]
+      declarations: [CategoryComponent]
     })
       .compileComponents();
     productService = TestBed.get(ProductService);
     authenticationService = TestBed.get(AuthenticationService);
     spyOn(productService, 'getProductsByCategory').and.returnValue(of(productList));
     spyOnProperty(authenticationService, 'currentUserValue', 'get').and.returnValue(1);
-
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AccessoriesComponent);
+    fixture = TestBed.createComponent(CategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,6 +1,5 @@
 package com.stackroute.catalog.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.catalog.exception.GlobalExceptionHandler;
 import com.stackroute.catalog.exception.ProductAlreadyExistsException;
 import com.stackroute.catalog.exception.ProductNotFoundException;
@@ -20,7 +19,6 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,25 +122,26 @@ public class ProductControllerTest {
         verify(productService).deleteProduct(anyString());
         verify(productService, times(1)).deleteProduct(anyString());
     }
-/*
-    @Test
-    public void givenProductToUpdateThenShouldReturnUpdatedProduct() throws ProductNotFoundException, ProductAlreadyExistsException, Exception {
-        when(productService.updateProduct(any(), any())).thenReturn(product);
-        mockMvc.perform(multipart("/api/v1/products").file(file1).file(file))
-                .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
-        verify(productService).updateProduct(any(), any());
-        verify(productService, times(1)).updateProduct(any(), any());
-    }
 
-    @Test
-    public void givenProductToUpdateThenShouldNotReturnUpdatedProduct() throws ProductNotFoundException, ProductAlreadyExistsException, Exception {
-        when(productService.updateProduct(any(), any())).thenThrow(ProductNotFoundException.class);
-        mockMvc.perform(multipart("/api/v1/products").file(file1).file(file))
-                .andExpect(status().isNotFound()).andDo(MockMvcResultHandlers.print());
-        verify(productService).updateProduct(any(), any());
-        verify(productService, times(1)).updateProduct(any(), any());
-    }
-*/
+    /*
+        @Test
+        public void givenProductToUpdateThenShouldReturnUpdatedProduct() throws ProductNotFoundException, ProductAlreadyExistsException, Exception {
+            when(productService.updateProduct(any(), any())).thenReturn(product);
+            mockMvc.perform(multipart("/api/v1/products").file(file1).file(file))
+                    .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
+            verify(productService).updateProduct(any(), any());
+            verify(productService, times(1)).updateProduct(any(), any());
+        }
+
+        @Test
+        public void givenProductToUpdateThenShouldNotReturnUpdatedProduct() throws ProductNotFoundException, ProductAlreadyExistsException, Exception {
+            when(productService.updateProduct(any(), any())).thenThrow(ProductNotFoundException.class);
+            mockMvc.perform(multipart("/api/v1/products").file(file1).file(file))
+                    .andExpect(status().isNotFound()).andDo(MockMvcResultHandlers.print());
+            verify(productService).updateProduct(any(), any());
+            verify(productService, times(1)).updateProduct(any(), any());
+        }
+    */
     @Test
     public void givenGetAllProductsByCategoryThenShouldReturnListOfAllRespectiveProducts() throws Exception {
         productList.add(product);
