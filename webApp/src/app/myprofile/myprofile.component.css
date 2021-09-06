@@ -1,55 +1,54 @@
-.example-container{
-    /* background: rgb(212, 212, 212, 0.32); */
-    height: 80vh;
-    text-align: center;
+.example-container {
+  /* background: rgb(212, 212, 212, 0.32); */
+  height: 80vh;
+  text-align: center;
 }
 
 .form-title {
-    text-align: center;
-    padding-top: 150px;
-    font-size: 40px;
-    color: #56B280;
-    font-family: sans-serif;
+  text-align: center;
+  padding-top: 150px;
+  font-size: 40px;
+  color: #56b280;
+  font-family: sans-serif;
 }
 
 .form-container {
-    width: 400px;
-    margin: auto;
-    margin-top: 70px;
-
+  width: 400px;
+  margin: auto;
+  margin-top: 70px;
 }
 
 .form-field {
-    display: block;
+  display: block;
 }
 
 .signup-button {
-    background-color: #56B280;
-    border-radius: 0px;
+  background-color: #56b280;
+  border-radius: 0px;
 }
 
 .cancel-button {
-    background-color: white;
-    margin-left: 10px;
-    border-radius: 0px;
-    color: #56B280;
+  background-color: white;
+  margin-left: 10px;
+  border-radius: 0px;
+  color: #56b280;
 }
 
 .alert {
-    /* position: relative; */
-    color: #f44336;
-    padding: .75rem 1.25rem;
-    margin-bottom: 1rem;
-    border: 1px solid transparent;
-    border-radius: .25rem;
+  /* position: relative; */
+  color: #f44336;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
 }
 
 mat-form-field input[matInput] {
-    font-size: 17px;
+  font-size: 17px;
 }
 
 mat-form-field mat-label {
-    font-size: 18px;
-    color: #6B9090;
-    font-weight: 500;
+  font-size: 18px;
+  color: #6b9090;
+  font-weight: 500;
 }

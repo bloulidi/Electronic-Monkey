@@ -10,17 +10,16 @@ import { ProductService } from 'src/app/services/product.service';
 @Component({
   selector: 'app-post-item',
   templateUrl: './post-item.component.html',
-  styleUrls: ['./post-item.component.css']
+  styleUrls: ['./post-item.component.css'],
 })
 export class PostItemComponent implements OnInit {
-
   @Input() productItem: Product;
 
   retrievedImage = '';
   @Output() newItemEvent = new EventEmitter<string>();
-  
+
   closeResult = '';
-  closeResultEdit='';
+  closeResultEdit = '';
 
   form: FormGroup;
   fileToUpload: File;
@@ -33,29 +32,37 @@ export class PostItemComponent implements OnInit {
   category: string = '';
   price: number;
 
-  constructor(private productService: ProductService, private modalService: NgbModal,
-    private fb: FormBuilder, private router: Router,
-    private authenticationService: AuthenticationService) {
-      this.product = new Product;
-      this.photo = new Photo;
-      this.product.photo = this.photo;
+  constructor(
+    private productService: ProductService,
+    private modalService: NgbModal,
+    private fb: FormBuilder,
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) {
+    this.product = new Product();
+    this.photo = new Photo();
+    this.product.photo = this.photo;
 
-      this.form = this.fb.group({
-        title: ['', Validators.required],
-        category: ['', Validators.required],
-        description: [''],
-        price: ['', Validators.required]
-      })
+    this.form = this.fb.group({
+      title: ['', Validators.required],
+      category: ['', Validators.required],
+      description: [''],
+      price: ['', Validators.required],
+    });
   }
 
   ngOnInit(): void {
-    this.retrievedImage = 'data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image;
-   
+    this.retrievedImage =
+      'data:' +
+      this.productItem.photo.type +
+      ';base64,' +
+      this.productItem.photo.image;
+
     this.form.get('title').setValue(this.productItem.title);
     this.form.get('category').setValue(this.productItem.category);
     this.form.get('description').setValue(this.productItem.description);
     this.form.get('price').setValue(this.productItem.price);
-    this.message = ""; 
+    this.message = '';
 
     this.title = this.form.value.title;
     this.category = this.form.value.category;
@@ -64,20 +71,25 @@ export class PostItemComponent implements OnInit {
   }
 
   openEdit(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-edit'}).result.then((result) => {
-      this.closeResultEdit = `Closed with: ${result}`;
-      if(this.closeResultEdit === "Closed with: Save click"){
-      }
-    }, (reason) => {
-      this.closeResultEdit = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-edit' })
+      .result.then(
+        (result) => {
+          this.closeResultEdit = `Closed with: ${result}`;
+          if (this.closeResultEdit === 'Closed with: Save click') {
+          }
+        },
+        (reason) => {
+          this.closeResultEdit = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
   }
 
   handleFileInput(event) {
     this.fileToUpload = event.target.files[0];
   }
 
-  checkSave(){
+  checkSave() {
     if (this.form.value.title === '') {
       this.message = 'Title is required';
       return true;
@@ -87,55 +99,65 @@ export class PostItemComponent implements OnInit {
     } else if (this.form.value.price === '') {
       this.message = 'Price is required';
       return true;
-    } else if (this.form.value.price < 1){
-      this.message = "Please enter a valid price >= $1";
+    } else if (this.form.value.price < 1) {
+      this.message = 'Please enter a valid price >= $1';
       return true;
-    } else if (this.fileToUpload != null){
-      if (!this.fileToUpload.type.startsWith("image/")) {
-        this.message = "File selected is not an image!";
+    } else if (this.fileToUpload != null) {
+      if (!this.fileToUpload.type.startsWith('image/')) {
+        this.message = 'File selected is not an image!';
         return true;
       }
     } else if (this.form.invalid) {
-      this.message = "Invalid field(s)!";
+      this.message = 'Invalid field(s)!';
       return true;
-    } else if(this.price== this.form.value.price && 
-      this.title==this.form.value.title &&
+    } else if (
+      this.price == this.form.value.price &&
+      this.title == this.form.value.title &&
       this.category == this.form.value.category &&
-      this.description == this.form.value.description){
-        return true;
-    } else{
-      this.message = "";
+      this.description == this.form.value.description
+    ) {
+      return true;
+    } else {
+      this.message = '';
       return false;
     }
   }
 
-  submit(){
-    if(!this.checkSave()){
+  submit() {
+    if (!this.checkSave()) {
       this.productItem.title = this.form.value.title;
       this.productItem.category = this.form.value.category;
       this.productItem.description = this.form.value.description;
       this.productItem.price = this.form.value.price;
-      this.productService.updateProduct(this.productItem, this.fileToUpload).subscribe({
-        next: (res: any) => {
-          this.retrievedImage = 'data:' + res.photo.type + ';base64,' + res.photo.image;
-        },
-        error: error => {
-          console.error(error);
-        }
-      });
+      this.productService
+        .updateProduct(this.productItem, this.fileToUpload)
+        .subscribe({
+          next: (res: any) => {
+            this.retrievedImage =
+              'data:' + res.photo.type + ';base64,' + res.photo.image;
+          },
+          error: (error) => {
+            console.error(error);
+          },
+        });
       window.location.reload();
     }
   }
 
   openRemove(content, id) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      if(this.closeResult === "Closed with: Remove click"){
-        this.deletePost(id);
-      }
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+          if (this.closeResult === 'Closed with: Remove click') {
+            this.deletePost(id);
+          }
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        }
+      );
   }
 
   private getDismissReason(reason: any): string {
@@ -149,8 +171,8 @@ export class PostItemComponent implements OnInit {
   }
 
   async deletePost(id: any) {
-    this.productService.deleteProduct(id).subscribe(data => {
-      this.newItemEvent.emit("product deleted");
-    }); 
+    this.productService.deleteProduct(id).subscribe((data) => {
+      this.newItemEvent.emit('product deleted');
+    });
   }
 }

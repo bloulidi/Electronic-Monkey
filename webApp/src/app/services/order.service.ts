@@ -3,15 +3,14 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrderService {
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   localhost = environment.apiUrl + 'order/api/v1/orders';
 

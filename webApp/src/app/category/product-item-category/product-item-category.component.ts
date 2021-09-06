@@ -7,10 +7,9 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 @Component({
   selector: 'app-product-item-category',
   templateUrl: './product-item-category.component.html',
-  styleUrls: ['./product-item-category.component.css']
+  styleUrls: ['./product-item-category.component.css'],
 })
 export class ProductItemCategoryComponent implements OnInit {
-
   @Input() productItem: Product;
 
   retrievedImage = '';
@@ -20,49 +19,57 @@ export class ProductItemCategoryComponent implements OnInit {
   hiddenText: string;
   isAdmin: boolean;
 
-  constructor(public authenticationService: AuthenticationService, public productService: ProductService) {
-  }
+  constructor(
+    public authenticationService: AuthenticationService,
+    public productService: ProductService
+  ) {}
 
   ngOnInit(): void {
-    this.retrievedImage = 'data:' + this.productItem.photo.type + ';base64,' + this.productItem.photo.image;
+    this.retrievedImage =
+      'data:' +
+      this.productItem.photo.type +
+      ';base64,' +
+      this.productItem.photo.image;
     this.isHidden = this.productItem.hidden;
     this.isAdmin = this.authenticationService.currentUserValue.admin;
-    this.hiddenText = this.isHidden ? "Unhide": "Hide";
-    console.log("ngOnInit product")
+    this.hiddenText = this.isHidden ? 'Unhide' : 'Hide';
   }
 
   handleAddToCart() {
-    console.log("handleAddToCart product")
-    let productOrders = localStorage.getItem("productOrders");
+    let productOrders = localStorage.getItem('productOrders');
     if (productOrders) {
       this.productOrdersArray = JSON.parse(productOrders);
     }
     this.orderProduct.product = this.productItem;
     this.orderProduct.quantity = 1;
     this.orderProduct.totalPrice = this.productItem.price;
-    let index = this.productOrdersArray.findIndex(orderProduct => orderProduct.product.id === this.productItem.id);
-    if(index > -1){
+    let index = this.productOrdersArray.findIndex(
+      (orderProduct) => orderProduct.product.id === this.productItem.id
+    );
+    if (index > -1) {
       this.productOrdersArray[index].quantity++;
     } else {
       this.productOrdersArray.push(this.orderProduct);
     }
-    localStorage.setItem("productOrders", JSON.stringify(this.productOrdersArray));
+    localStorage.setItem(
+      'productOrders',
+      JSON.stringify(this.productOrdersArray)
+    );
     window.location.reload();
   }
 
   toggleHidden(productItem) {
-    if(productItem.hidden){
+    if (productItem.hidden) {
       productItem.hidden = false;
       this.isHidden = false;
-      this.hiddenText = "Hide";
-    }
-    else{
+      this.hiddenText = 'Hide';
+    } else {
       productItem.hidden = true;
       this.isHidden = true;
-      this.hiddenText = "Unhide";
+      this.hiddenText = 'Unhide';
     }
     this.productService.updateProduct(productItem).subscribe({
-      error: error => console.error(error)
-    })
+      error: (error) => console.error(error),
+    });
   }
 }

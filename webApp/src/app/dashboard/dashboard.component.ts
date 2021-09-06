@@ -4,21 +4,20 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  constructor(private router:Router) { }
-  
-  onClickPhones(){
+  constructor(private router: Router) {}
+
+  onClickPhones() {
     this.router.navigate(['phones']);
   }
-  onClickComputers(){
+  onClickComputers() {
     this.router.navigate(['computers']);
   }
-  onClickAccessories(){
+  onClickAccessories() {
     this.router.navigate(['accessories']);
   }
 }

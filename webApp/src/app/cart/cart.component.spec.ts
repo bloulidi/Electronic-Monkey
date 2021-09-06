@@ -1,7 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CartComponent } from './cart.component';
 
 describe('CartComponent', () => {
@@ -11,9 +10,8 @@ describe('CartComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      declarations: [CartComponent]
-    })
-      .compileComponents();
+      declarations: [CartComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,24 +1,37 @@
-<div [ngStyle]="{'opacity': isHidden ? '0.33' : '1'}" class="card shadow">
-  <img [src]="retrievedImage" class="card-img-top img-fluid image-responsive"/>
+<div [ngStyle]="{ opacity: isHidden ? '0.33' : '1' }" class="card shadow">
+  <img [src]="retrievedImage" class="card-img-top img-fluid image-responsive" />
 
   <div class="card-body">
-    <h5 class="card-title">{{productItem.title}}</h5>
+    <h5 class="card-title">{{ productItem.title }}</h5>
     <p class="card-text">
-      <strong>{{ productItem.price | currency:'CAD' }}</strong>
+      <strong>{{ productItem.price | currency: "CAD" }}</strong>
     </p>
-    <p class="card-text"> {{ productItem.description }}</p>
+    <p class="card-text">{{ productItem.description }}</p>
     <div class="d-flex justify-content-between align-items-center">
       <div *ngIf="!isHidden" class="btn-group">
-        <button (click)="handleAddToCart()" class="btn btn-sm btn-outline-success" type="button">Add to Cart</button>
+        <button
+          (click)="handleAddToCart()"
+          class="btn btn-sm btn-outline-success"
+          type="button"
+        >
+          Add to Cart
+        </button>
       </div>
       <div *ngIf="isAdmin" class="btn-group">
-        <button (click)="toggleHidden(productItem)" class="btn btn-sm btn-outline-info" type="button">{{hiddenText}}
+        <button
+          (click)="toggleHidden(productItem)"
+          class="btn btn-sm btn-outline-info"
+          type="button"
+        >
+          {{ hiddenText }}
         </button>
       </div>
     </div>
   </div>
 </div>
 
-<script crossorigin="anonymous"
-        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<script
+  crossorigin="anonymous"
+  integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+></script>

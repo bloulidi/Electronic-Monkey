@@ -1,10 +1,9 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -13,10 +12,15 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule, MatDialogModule, MatMenuModule],
-      declarations: [HeaderComponent]
-    })
-      .compileComponents();
+      imports: [
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MatDialogModule,
+        MatMenuModule,
+      ],
+      declarations: [HeaderComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
