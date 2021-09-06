@@ -3,7 +3,6 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { OrderHistoryComponent } from './orderHistory.component';
 
-
 describe('OrderHistoryComponent', () => {
   let component: OrderHistoryComponent;
   let fixture: ComponentFixture<OrderHistoryComponent>;

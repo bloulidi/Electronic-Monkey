@@ -5,7 +5,6 @@ import { environment } from '../../environments/environment';
 import { Product } from '../models/Product';
 import { AuthenticationService } from './authentication.service';
 
-
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };

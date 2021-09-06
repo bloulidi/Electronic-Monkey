@@ -6,7 +6,6 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PostComponent } from './post.component';
 
-
 describe('PostComponent', () => {
   let component: PostComponent;
   let fixture: ComponentFixture<PostComponent>;

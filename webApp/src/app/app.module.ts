@@ -40,7 +40,6 @@ import { PhonesComponent } from './phones/phones.component';
 import { PostComponent } from './post/post.component';
 import { SignupComponent } from './signup/signup.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

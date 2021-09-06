@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { User } from '../models/User';
 
-
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
