@@ -48,9 +48,16 @@ input.example-right-align {
   color: #56b280;
   font-weight: 500;
   font-size: 30px;
+  text-align: center;
+  padding-top: 20px;
 }
 
 .alert {
   margin-top: 20px;
   color: red;
+}
+
+.title-centered {
+  margin: auto;
+  width: 60%;
 }

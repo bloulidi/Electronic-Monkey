@@ -44,9 +44,10 @@
       <mat-grid-tile class="name">{{
         orderProduct.product.title
       }}</mat-grid-tile>
-      <mat-grid-tile class="price">{{
-        orderProduct.product.price | currency: "CAD"
-      }}</mat-grid-tile>
+      <mat-grid-tile class="price">
+        <span class="quantity"> {{ orderProduct.quantity + " x " }} </span>
+        {{ orderProduct.product.price | currency: "CAD" }}</mat-grid-tile
+      >
     </mat-grid-list>
   </div>
 </mat-grid-list>

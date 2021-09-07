@@ -28,10 +28,10 @@
 }
 
 .cancel-button {
-  background-color: white;
-  margin-left: 10px;
+  background-color: #818181;
+  margin-right: 10px;
   border-radius: 0px;
-  color: #56b280;
+  color: white;
 }
 
 .alert {

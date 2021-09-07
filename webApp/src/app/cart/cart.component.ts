@@ -69,7 +69,7 @@ export class CartComponent implements OnInit {
     this.order.userId = this.authenticationService.currentUserValue.id;
     this.calculateSubTotal();
     this.order.totalOrderPrice = this.subTotal;
-
+    this.subTotal = 0;
     this.orderService.saveOrder(this.order).subscribe({
       next: (data) => {
         this.message = 'Checked out successfully!';
