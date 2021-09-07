@@ -7,6 +7,7 @@ import com.stackroute.orderservice.exception.OrderNotFoundException;
 import com.stackroute.orderservice.model.Order;
 import com.stackroute.orderservice.model.OrderProduct;
 import com.stackroute.orderservice.model.product.Category;
+import com.stackroute.orderservice.model.product.Photo;
 import com.stackroute.orderservice.model.product.Product;
 import com.stackroute.orderservice.service.OrderService;
 import org.junit.jupiter.api.AfterEach;
@@ -59,11 +60,11 @@ public class OrderControllerTest {
     void setUp() {
         initMocks(this);
         mockMvc = standaloneSetup(orderController).setControllerAdvice(new GlobalExceptionHandler()).build();
-        product1 = new Product("1", "Dell XPS 15", Category.COMPUTERS.getCategory(), 800.5F);
+        product1 = new Product("1", "Dell XPS 15", "A laptop", Category.COMPUTERS.getCategory(), 800.5F, new Photo());
         orderProduct1 = new OrderProduct(2, product1);
-        product2 = new Product("2", "Apple iPhone 12", Category.PHONES.getCategory(), 1000.99F);
+        product2 = new Product("2", "Apple iPhone 12", "A phone", Category.PHONES.getCategory(), 1000.99F, new Photo());
         orderProduct1 = new OrderProduct(3, product2);
-        product3 = new Product("3", "Apple charger", Category.ACCESSORIES.getCategory(), 20);
+        product3 = new Product("3", "Apple charger", "A charger", Category.ACCESSORIES.getCategory(), 20, new Photo());
         orderProduct1 = new OrderProduct(4, product3);
         orderProductList = new ArrayList<OrderProduct>();
         orderProductList.add(orderProduct1);

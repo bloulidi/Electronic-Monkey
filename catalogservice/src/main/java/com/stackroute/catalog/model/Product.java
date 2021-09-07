@@ -48,27 +48,4 @@ public class Product extends BaseModel {
 
     @ApiModelProperty(notes = "Hidden product", position = 7)
     private boolean hidden;
-
-    public Product(String title, String description, String category, float price) {
-        this.title = title;
-        this.description = description;
-        this.category = category;
-        this.price = price;
-        this.userId = 1;
-    }
-
-    public Product(String title, String category, float price) {
-        this.title = title;
-        this.category = category;
-        this.price = price;
-        this.userId = 1;
-    }
-
-    public Product(String title, String description, String category, float price, long userId) {
-        this.title = title;
-        this.description = description;
-        this.category = category;
-        this.price = price;
-        this.userId = userId;
-    }
 }

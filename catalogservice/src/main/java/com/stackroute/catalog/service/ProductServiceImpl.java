@@ -1,6 +1,5 @@
 package com.stackroute.catalog.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.catalog.exception.ProductAlreadyExistsException;
 import com.stackroute.catalog.exception.ProductNotFoundException;
 import com.stackroute.catalog.model.Photo;
@@ -25,38 +24,24 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product saveProduct(Product product) throws ProductAlreadyExistsException {
+    public Product saveProduct(Product product, MultipartFile image) throws ProductAlreadyExistsException, IOException {
         if (product.getId() != null && !product.getId().isBlank()) {
             if (productRepository.existsById(product.getId())) {
                 throw new ProductAlreadyExistsException();
             }
         }
-        return (Product) productRepository.insert(product);
-    }
-
-    @Override
-    public Product saveProduct(String product, MultipartFile image) throws ProductAlreadyExistsException, IOException {
-        Product productJson = new Product();
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            productJson = objectMapper.readValue(product, Product.class);
-        } catch (IOException e) {
-            System.out.println("Error in mapping Product string to POJO");
-            e.printStackTrace();
-        }
-        if (productJson.getId() != null && !productJson.getId().isBlank()) {
-            if (productRepository.existsById(productJson.getId())) {
-                throw new ProductAlreadyExistsException();
-            }
-        }
 
         Photo photo = new Photo();
-        photo.setTitle(image.getOriginalFilename());
-        photo.setType(image.getContentType());
-        photo.setImage(Base64.getEncoder().encodeToString(image.getBytes()));
-        productJson.setPhoto(photo);
+        if (image != null) {
+            if (!image.isEmpty() || image.getSize() != 0) {
+                photo.setTitle(image.getOriginalFilename());
+                photo.setType(image.getContentType());
+                photo.setImage(Base64.getEncoder().encodeToString(image.getBytes()));
+            }
+        }
+        product.setPhoto(photo);
 
-        return (Product) productRepository.insert(productJson);
+        return (Product) productRepository.insert(product);
     }
 
     @Override
@@ -76,41 +61,27 @@ public class ProductServiceImpl implements ProductService {
         Product product = getProductById(id);
         if (product != null) {
             productRepository.deleteById(id);
-        } else {
-            throw new ProductNotFoundException();
         }
         return product;
     }
 
     @Override
-    public Product updateProduct(Product product) throws ProductNotFoundException, ProductAlreadyExistsException {
+    public Product updateProduct(Product product, MultipartFile image) throws ProductNotFoundException, IOException {
         if (!productRepository.existsById(product.getId())) {
             throw new ProductNotFoundException();
         }
+
+        if (image != null) {
+            if (!image.isEmpty() || image.getSize() != 0) {
+                Photo photo = new Photo();
+                photo.setTitle(image.getOriginalFilename());
+                photo.setType(image.getContentType());
+                photo.setImage(Base64.getEncoder().encodeToString(image.getBytes()));
+                product.setPhoto(photo);
+            }
+        }
+
         return (Product) productRepository.save(product);
-    }
-
-    @Override
-    public Product updateProduct(String product, MultipartFile image) throws ProductAlreadyExistsException, IOException {
-        Product productJson = new Product();
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            productJson = objectMapper.readValue(product, Product.class);
-        } catch (IOException e) {
-            System.out.println("Error in mapping Product string to POJO");
-            e.printStackTrace();
-        }
-        if (!productRepository.existsById(productJson.getId())) {
-            throw new ProductNotFoundException();
-        }
-
-        Photo photo = new Photo();
-        photo.setTitle(image.getOriginalFilename());
-        photo.setType(image.getContentType());
-        photo.setImage(Base64.getEncoder().encodeToString(image.getBytes()));
-        productJson.setPhoto(photo);
-
-        return (Product) productRepository.save(productJson);
     }
 
     @Override

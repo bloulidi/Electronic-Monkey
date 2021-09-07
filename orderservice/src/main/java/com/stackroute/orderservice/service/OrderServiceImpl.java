@@ -46,8 +46,6 @@ public class OrderServiceImpl implements OrderService {
         Order order = getOrderById(id);
         if (order != null) {
             orderRepository.deleteById(id);
-        } else {
-            throw new OrderNotFoundException();
         }
         return order;
     }

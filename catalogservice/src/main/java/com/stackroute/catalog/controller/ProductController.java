@@ -1,5 +1,6 @@
 package com.stackroute.catalog.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.catalog.exception.ProductAlreadyExistsException;
 import com.stackroute.catalog.exception.ProductNotFoundException;
 import com.stackroute.catalog.model.Product;
@@ -34,16 +35,17 @@ public class ProductController {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     @ApiOperation("Creates a new product with an image.")
-    public ResponseEntity<Product> saveProduct(@ApiParam("Product information for a new product to be created. 409 if already exists.") @RequestPart String product, @ApiParam("Image information for a new product to be created.") @RequestPart MultipartFile image) throws ProductAlreadyExistsException, IOException {
-        log.info("Create a new product with image=" + image.getOriginalFilename() + ": " + product);
-        return new ResponseEntity<Product>(productService.saveProduct(product, image), HttpStatus.CREATED);
-    }
-
-    @PostMapping("noimage")
-    @ApiOperation("Creates a new product without an image.")
-    public ResponseEntity<Product> saveProduct(@ApiParam("Product information for a new product to be created. 409 if already exists.") @RequestBody Product product) throws ProductAlreadyExistsException {
-        log.info("Create a new product: " + product.toString());
-        return new ResponseEntity<Product>(productService.saveProduct(product), HttpStatus.CREATED);
+    public ResponseEntity<Product> saveProduct(@ApiParam("Product information for a new product to be created. 409 if already exists.") @RequestPart String product, @ApiParam("Image information for a new product to be created.") @RequestPart(required = false) MultipartFile image) throws ProductAlreadyExistsException, IOException {
+        log.info("Create a new product");
+        Product productJson = new Product();
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            productJson = objectMapper.readValue(product, Product.class);
+        } catch (IOException e) {
+            log.error("Error in mapping Product string to POJO");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Product>(productService.saveProduct(productJson, image), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -68,14 +70,14 @@ public class ProductController {
     }
 
     @GetMapping("category/admin/{category}")
-    @ApiOperation("Returns a list of products by their userId. 404 if does not exist.")
+    @ApiOperation("Returns a list of products by their category. 404 if does not exist.")
     public ResponseEntity<List<Product>> getProductsByCategoryAdmin(@ApiParam("Category associated to the list of product to be obtained. Cannot be empty.") @PathVariable String category) throws ProductNotFoundException {
         log.info("Return products with category = " + category);
         return new ResponseEntity<List<Product>>(productService.getProductsByCategory(category), HttpStatus.OK);
     }
 
     @GetMapping("category/{category}")
-    @ApiOperation("Returns a list of products by their userId. 404 if does not exist.")
+    @ApiOperation("Returns a list of products by their category that are not hidden by admin. 404 if does not exist.")
     public ResponseEntity<List<Product>> getProductsByCategory(@ApiParam("Category associated to the list of product to be obtained. Cannot be empty.") @PathVariable String category) throws ProductNotFoundException {
         log.info("Return products with category = " + category);
         List<Product> products = productService.getProductsByCategory(category);
@@ -90,17 +92,18 @@ public class ProductController {
         return new ResponseEntity<Product>(productService.deleteProduct(id), HttpStatus.OK);
     }
 
-    @PatchMapping
-    @ApiOperation("Updates a product.")
-    public ResponseEntity<Product> updateProduct(@ApiParam("Product information for a product to be updated. 404 if does not exist.") @RequestBody Product product) throws ProductNotFoundException {
-        log.info("Update product with id: " + product.getId());
-        return new ResponseEntity<Product>(productService.updateProduct(product), HttpStatus.OK);
-    }
-
-    @PatchMapping(value = "image", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PatchMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     @ApiOperation("Updates a product with an image.")
-    public ResponseEntity<Product> updateProduct(@ApiParam("Product information for a product to be updated. 404 if does not exist.") @RequestPart String product, @ApiParam("Image information for updated product.") @RequestPart MultipartFile image) throws ProductNotFoundException, IOException {
-        log.info("Update product with image: " + image.getOriginalFilename());
-        return new ResponseEntity<Product>(productService.updateProduct(product, image), HttpStatus.OK);
+    public ResponseEntity<Product> updateProduct(@ApiParam("Product information for a product to be updated. 404 if does not exist.") @RequestPart String product, @ApiParam("Image information for updated product.") @RequestPart(required = false) MultipartFile image) throws ProductNotFoundException, IOException {
+        log.info("Update product");
+        Product productJson = new Product();
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            productJson = objectMapper.readValue(product, Product.class);
+        } catch (IOException e) {
+            log.error("Error in mapping Product string to POJO");
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Product>(productService.updateProduct(productJson, image), HttpStatus.OK);
     }
 }

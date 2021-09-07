@@ -38,10 +38,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { PhonesComponent } from './phones/phones.component';
 import { ComputersComponent } from './computers/computers.component';
 import { AccessoriesComponent } from './accessories/accessories.component';
-import { ProductItemPhonesComponent } from './phones/product-item-phones/product-item-phones.component';
-import { ProductItemComputersComponent } from './computers/product-item-computers/product-item-computers.component';
-import { ProductItemAccessoriesComponent } from './accessories/product-item-accessories/product-item-accessories.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CategoryComponent } from './category/category.component';
+import { ProductItemCategoryComponent } from './category/product-item-category/product-item-category.component';
 
 @NgModule({
   declarations: [
@@ -58,12 +57,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HeaderComponent,
     PostComponent,
     OrderHistoryComponent,
+    CategoryComponent,
     PhonesComponent,
     ComputersComponent,
     AccessoriesComponent,
-    ProductItemPhonesComponent,
-    ProductItemComputersComponent,
-    ProductItemAccessoriesComponent
+    ProductItemCategoryComponent
   ],
   
   imports: [

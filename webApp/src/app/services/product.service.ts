@@ -19,11 +19,13 @@ export class ProductService {
 
   localhost = environment.apiUrl + 'catalog/api/v1/products';
 
-  saveProduct(product: Product, fileToUpload: File) {
+  saveProduct(product: Product, fileToUpload: File  = null) {
     const formData: FormData = new FormData();
     const productBlob = new Blob([JSON.stringify(product)], { type: "application/json" })
     formData.append('product', productBlob);
-    formData.append('image', fileToUpload, fileToUpload.name);
+    if(fileToUpload != null){
+      formData.append('image', fileToUpload, fileToUpload.name);
+    }
     return this.httpClient.post(this.localhost, formData);
   }
   getProductById(id: string) {
@@ -46,14 +48,13 @@ export class ProductService {
   getAllProducts() {
     return this.httpClient.get(this.localhost);
   }
-  updateProductWithoutImage(product: Product) {
-    return this.httpClient.patch(this.localhost, product);
-  }
-  updateProductWithImage(product: Product,  fileToUpload: File) {
+  updateProduct(product: Product,  fileToUpload: File = null) {
     const formData: FormData = new FormData();
     const productBlob = new Blob([JSON.stringify(product)], { type: "application/json" })
     formData.append('product', productBlob);
-    formData.append('image', fileToUpload, fileToUpload.name);
-    return this.httpClient.patch(this.localhost + '/image', formData);
+    if(fileToUpload != null){
+      formData.append('image', fileToUpload, fileToUpload.name);
+    }
+    return this.httpClient.patch(this.localhost, formData);
   }
 }

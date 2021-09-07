@@ -115,24 +115,15 @@ export class PostItemComponent implements OnInit {
       this.productItem.category = this.form.value.category;
       this.productItem.description = this.form.value.description;
       this.productItem.price = this.form.value.price;
-      if (this.fileToUpload != null){
-        this.productService.updateProductWithImage(this.productItem, this.fileToUpload).subscribe({
-          next: (res: any) => {
-            this.retrievedImage = 'data:' + res.photo.type + ';base64,' + res.photo.image;
-          },
-          error: error => {
-            console.error(error);
-          }
-        });
-        window.location.reload();
-      } else if(this.fileToUpload == null){
-        this.productService.updateProductWithoutImage(this.productItem).subscribe({
-          error: error => {
-            console.error(error);
-          }
-        });
-        window.location.reload()
-      }
+      this.productService.updateProduct(this.productItem, this.fileToUpload).subscribe({
+        next: (res: any) => {
+          this.retrievedImage = 'data:' + res.photo.type + ';base64,' + res.photo.image;
+        },
+        error: error => {
+          console.error(error);
+        }
+      });
+      window.location.reload();
     }
   }
 
