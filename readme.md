@@ -28,4 +28,5 @@ git clone https://gitlab-cgi.stackroute.in/cgi-canada-wave1-capstone-projects/on
     *  Run `ng serve -o` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
 
 ## Swagger API
-For API Documentation and direct interactions with the backend app using Swagger, navigate to http://localhost:xxxx/swagger-ui/                                                                                                                                     xxxx is the port number for the microservice you want to interact with.
+For API Documentation and direct interactions with the backend app using Swagger, navigate to http://localhost:xxxx/swagger-ui/ ;                                                                                                                                    
+xxxx is the port number for the microservice you want to interact with.
