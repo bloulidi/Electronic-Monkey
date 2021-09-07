@@ -15,7 +15,8 @@ git clone https://gitlab-cgi.stackroute.in/cgi-canada-wave1-capstone-projects/on
 (the password for My SQL should be password by default otherwise you can set it in the file application.properties in userservice)
 
 2. Build and run the backend app using maven with IntelliJ IDEA :
-    *     Run eurekaservice. It will start at http://localhost:8761/.
+    *     If it is the first run, then run `mvn clean install`.
+    *     Run eureka-service. It will start at http://localhost:8761/.
     *     Run api-gateway-service. It will start at http://localhost:8080/.
     *     Run userservice. It will start at http://localhost:8090/.
     *     Run orderservice. It will start at http://localhost:8880/.
