@@ -26,6 +26,19 @@ git clone https://gitlab-cgi.stackroute.in/cgi-canada-wave1-capstone-projects/on
     *  `cd webApp`    
     *  `npm install`
     *  Run `ng serve -o` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+    ![login_PAge](/uploads/28161f45d51c322e329d270646b1c2f6/login_PAge.PNG)
+
+
+
+
+    * Click the sign up button and fill the form to create an acount. 
+    ![sign_up_page](/uploads/8c25bae23d5394f6e6ac5456a426f2b4/sign_up_page.PNG)
+    
+
+
+    
+    * login in with the new account to use the app ! 
+    ![dashboard_page](/uploads/48bac34e162760492cb00e6f393770b2/dashboard_page.PNG)
 
 ## Swagger API
 For API Documentation and direct interactions with the backend app using Swagger, navigate to **http://localhost:xxxx/swagger-ui/**                                                                                                                                     
