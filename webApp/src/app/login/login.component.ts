@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { AuthenticationService } from '../services/authentication.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../models/User';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-
   form: FormGroup;
   user: User;
 
@@ -19,8 +17,13 @@ export class LoginComponent implements OnInit {
   message = '';
   isRememberMe = false;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService) {
-    this.user = new User;
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) {
+    this.user = new User();
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/']);
@@ -30,8 +33,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    })
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
   }
 
   onSubmit() {
@@ -42,23 +45,23 @@ export class LoginComponent implements OnInit {
     } else if (this.form.value.password === '') {
       this.message = 'Password is required';
     } else if (this.form.invalid) {
-      this.message = "Invalid email and/or password!";
+      this.message = 'Invalid email and/or password!';
     } else {
       this.user.email = this.form.value.email;
       this.user.password = this.form.value.password;
       this.authenticationService.login(this.user).subscribe({
-        next: data => {
+        next: (data) => {
           this.router.navigate(['']);
         },
-        error: error => {
+        error: (error) => {
           if (error.status == '404') {
             this.message = error.error;
             console.error(error);
           } else {
-            this.message = "Failed to login!";
-            console.error("Failed to login!", error);
+            this.message = 'Failed to login!';
+            console.error('Failed to login!', error);
           }
-        }
+        },
       });
     }
   }

@@ -1,8 +1,7 @@
 import { browser, by, element, ElementFinder } from 'protractor';
 
 export class AppPage {
-
-   navigateTo() {
+  navigateTo() {
     return browser.get(browser.baseUrl) as Promise<any>;
   }
 
@@ -14,34 +13,35 @@ export class AppPage {
     return browser.get('/signup');
   }
 
-  navigateToDashboard(){
+  navigateToDashboard() {
     return browser.get('');
   }
 
-  navigateToMyProfile(){
+  navigateToMyProfile() {
     return browser.get('/myprofile');
   }
 
-  navigateToMyPosts(){
+  navigateToMyPosts() {
     return browser.get('/myposts');
   }
 
-  navigateToPhones(){
+  navigateToPhones() {
     return browser.get('/phones');
   }
 
-  navigateToComputers(){
+  navigateToComputers() {
     return browser.get('/computers');
   }
 
-  navigateToAccessories(){
+  navigateToAccessories() {
     return browser.get('/accessories');
   }
 
-  navigateToLogOut(){
+  navigateToLogOut() {
     return browser.get('/logout');
   }
 
   getRouterOutlet(): ElementFinder {
     return element(by.tagName('router-outlet'));
-  }}
+  }
+}

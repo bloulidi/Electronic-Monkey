@@ -2,43 +2,75 @@
 <div class="container">
   <table [dataSource]="orderProducts" class="cart" mat-table>
     <ng-container matColumnDef="imageURL">
-      <th *matHeaderCellDef class="text-cart" mat-header-cell> Product</th>
-      <td *matCellDef="let orderProduct" mat-cell><img
-        [src]="'data:' + this.orderProduct.product.photo.type + ';base64,' + this.orderProduct.product.photo.image"/>
+      <th *matHeaderCellDef class="text-cart" mat-header-cell>Product</th>
+      <td *matCellDef="let orderProduct" mat-cell>
+        <img
+          [src]="
+            'data:' +
+            this.orderProduct.product.photo.type +
+            ';base64,' +
+            this.orderProduct.product.photo.image
+          "
+        />
       </td>
     </ng-container>
 
     <ng-container matColumnDef="title">
       <th *matHeaderCellDef class="text-cart" mat-header-cell></th>
-      <td *matCellDef="let orderProduct;" mat-cell>
-        <div class="title">{{orderProduct.product.title}}</div>
-        <a (click)="remove(orderProduct)" class="remove-button" href="/cart"> Remove </a>
+      <td *matCellDef="let orderProduct" mat-cell>
+        <div class="title">{{ orderProduct.product.title }}</div>
+        <a (click)="remove(orderProduct)" class="remove-button" href="/cart">
+          Remove
+        </a>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="price">
-      <th *matHeaderCellDef class="text-cart" mat-header-cell> Price</th>
-      <td *matCellDef="let orderProduct" class="text-cart" mat-cell>{{orderProduct.product.price | currency:'CAD'}}</td>
+      <th *matHeaderCellDef class="text-cart" mat-header-cell>Price</th>
+      <td *matCellDef="let orderProduct" class="text-cart" mat-cell>
+        {{ orderProduct.product.price | currency: "CAD" }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="quantity">
-      <th *matHeaderCellDef class="text-cart" mat-header-cell> Quantity</th>
-      <td *matCellDef="let orderProduct; let i = index;" class="text-cart" mat-cell>
+      <th *matHeaderCellDef class="text-cart" mat-header-cell>Quantity</th>
+      <td
+        *matCellDef="let orderProduct; let i = index"
+        class="text-cart"
+        mat-cell
+      >
         <div class="wrapper">
-          <button (click)="handleMinus(orderProduct); calculateSubTotal()" class="plusminus">-</button>
-          <input [(ngModel)]="orderProduct.quantity" class="num" type="number" value="0"/>
-          <button (click)="handlePlus(orderProduct); calculateSubTotal()" class="plusminus">+</button>
+          <button
+            (click)="handleMinus(orderProduct); calculateSubTotal()"
+            class="plusminus"
+          >
+            -
+          </button>
+          <input
+            [(ngModel)]="orderProduct.quantity"
+            class="num"
+            type="number"
+            value="0"
+          />
+          <button
+            (click)="handlePlus(orderProduct); calculateSubTotal()"
+            class="plusminus"
+          >
+            +
+          </button>
         </div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="total">
-      <th *matHeaderCellDef class="text-cart" mat-header-cell> Total</th>
-      <td *matCellDef="let orderProduct" class="text-cart" mat-cell>{{orderProduct.totalPrice | currency:'CAD'}}</td>
+      <th *matHeaderCellDef class="text-cart" mat-header-cell>Total</th>
+      <td *matCellDef="let orderProduct" class="text-cart" mat-cell>
+        {{ orderProduct.totalPrice | currency: "CAD" }}
+      </td>
     </ng-container>
 
     <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
   </table>
 
   <div class="sub-total">
@@ -47,13 +79,12 @@
         Checkout
       </button>
     </div>
-    <div class="sub-total-text">{{subTotal | currency:'CAD'}}</div>
+    <div class="sub-total-text">{{ subTotal | currency: "CAD" }}</div>
     <div class="sub-total-price">Sub-total</div>
   </div>
 
   <div class="alert">
     {{ message }}
   </div>
-
 </div>
 <app-footer></app-footer>

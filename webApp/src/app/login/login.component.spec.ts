@@ -3,10 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs/internal/observable/of';
-import { AppRoutingModule } from '../app-routing.module';
 import { User } from '../models/User';
 import { AuthenticationService } from '../services/authentication.service';
-
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
@@ -18,9 +16,8 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientModule, ReactiveFormsModule, RouterTestingModule],
       declarations: [LoginComponent],
-      providers: []
-    })
-      .compileComponents();
+      providers: [],
+    }).compileComponents();
     authenticationService = TestBed.get(AuthenticationService);
     spyOn(authenticationService, 'login').and.returnValue(of(''));
   });
@@ -59,7 +56,6 @@ describe('LoginComponent', () => {
   });
 
   it('testing email field invalidity', () => {
-
     const email = component.form.controls.email;
     email.setValue('testing');
 
@@ -86,7 +82,7 @@ describe('LoginComponent', () => {
   it('onSubmit() should call UserService to login', () => {
     const user: User = {
       email: 'testing@cgi.com',
-      password: 'Password11'
+      password: 'Password11',
     };
 
     const email = component.form.controls.email;

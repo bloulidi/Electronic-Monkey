@@ -7,30 +7,30 @@ import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  styleUrls: ['./category.component.css'],
 })
 export class CategoryComponent implements OnInit {
-
   productList: Product[] = [];
   userId: number;
   category: string;
 
-  constructor(public productService: ProductService,
-    public authenticationService: AuthenticationService,
-    public userService: UserService) {
+  constructor(
+    protected productService: ProductService,
+    protected authenticationService: AuthenticationService,
+    protected userService: UserService
+  ) {
     this.userId = this.authenticationService.currentUserValue.id;
-    console.log("userId:" + this.userId)
   }
 
   ngOnInit(): void {
-    console.log("ngOnInit A")
     this.loadProducts();
   }
 
   loadProducts() {
-    console.log("loadProducts A")
-    this.productService.getProductsByCategory(this.category).subscribe((products) => {
-      this.productList = products;
-    })
+    this.productService
+      .getProductsByCategory(this.category)
+      .subscribe((products) => {
+        this.productList = products;
+      });
   }
 }

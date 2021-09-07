@@ -6,7 +6,6 @@ import { of } from 'rxjs/internal/observable/of';
 import { Product } from '../models/Product';
 import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
-
 import { MypostsComponent } from './myposts.component';
 
 describe('MypostsComponent', () => {
@@ -18,14 +17,23 @@ describe('MypostsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule],
-      declarations: [MypostsComponent]
-    })
-      .compileComponents();
+      imports: [
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+      ],
+      declarations: [MypostsComponent],
+    }).compileComponents();
     productService = TestBed.get(ProductService);
     authenticationService = TestBed.get(AuthenticationService);
-    spyOn(productService, 'getProductsByUserId').and.returnValue(of(productList));
-    spyOnProperty(authenticationService, 'currentUserValue', 'get').and.returnValue(1);
+    spyOn(productService, 'getProductsByUserId').and.returnValue(
+      of(productList)
+    );
+    spyOnProperty(
+      authenticationService,
+      'currentUserValue',
+      'get'
+    ).and.returnValue(1);
   });
 
   beforeEach(() => {
@@ -47,7 +55,6 @@ describe('MypostsComponent', () => {
   });
 
   it('LoadProducts() should call ProductService', () => {
-
     const productList: Product[] = component.productList;
     component.loadProducts();
     expect(productService.getProductsByUserId).toHaveBeenCalled();

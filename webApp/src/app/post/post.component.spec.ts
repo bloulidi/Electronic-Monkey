@@ -1,11 +1,10 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { PostComponent } from './post.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { RouterTestingModule } from '@angular/router/testing';
+import { PostComponent } from './post.component';
 
 describe('PostComponent', () => {
   let component: PostComponent;
@@ -13,11 +12,15 @@ describe('PostComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, MatDialogModule, HttpClientTestingModule, RouterTestingModule],
+      imports: [
+        ReactiveFormsModule,
+        MatDialogModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+      ],
       providers: [{ provide: MatDialogRef, useValue: {} }],
-      declarations: [PostComponent]
-    })
-      .compileComponents();
+      declarations: [PostComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

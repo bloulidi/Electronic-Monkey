@@ -1,190 +1,190 @@
 #Login {
-    padding-top: 0rem;
-    padding-bottom: 4rem;
+  padding-top: 0rem;
+  padding-bottom: 4rem;
 }
 
 img {
-    position: absolute;
-    display: block;
-    margin: 0px;
-    border: none;
-    padding: 0px;
+  position: absolute;
+  display: block;
+  margin: 0px;
+  border: none;
+  padding: 0px;
 }
 
 div {
-    position: absolute;
+  position: absolute;
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .container {
-    margin: auto;
-    border-radius: 5px;
-    background-color: #FFFFFF;
-    left: 1rem;
-    width: 100%;
-    border-radius: 5px;
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+  margin: auto;
+  border-radius: 5px;
+  background-color: #ffffff;
+  left: 1rem;
+  width: 100%;
+  border-radius: 5px;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 .website {
-    position: absolute;
-    width: 500px;
-    height: 35px;
-    left: 86px;
-    top: 30px;
+  position: absolute;
+  width: 500px;
+  height: 35px;
+  left: 86px;
+  top: 30px;
 
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 30px;
-    line-height: 35px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 35px;
 
-    color: #6B9090;
+  color: #6b9090;
 }
 
 .appImg {
-    position: absolute;
-    margin-left: 340px;
-    top: 7px;
+  position: absolute;
+  margin-left: 340px;
+  top: 7px;
 }
 
 .__1_platform_to_buy_and_sell_products {
-    position: absolute;
-    width: 484px;
-    height: 108px;
-    left: 89px;
-    top: 170px;
+  position: absolute;
+  width: 484px;
+  height: 108px;
+  left: 89px;
+  top: 170px;
 
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 30px;
-    line-height: 49px;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 49px;
 
-    color: #6B9080;
+  color: #6b9080;
 }
 
 .password_section {
-    top: 310px;
-    left: 89px;
-    width: 554px;
-    height: 74px;
+  top: 310px;
+  left: 89px;
+  width: 554px;
+  height: 74px;
 }
 
 .login_button {
-    top: 600px;
-    left: 221px;
-    width: 129px;
-    height: 54px;
+  top: 600px;
+  left: 221px;
+  width: 129px;
+  height: 54px;
 }
 
 .login_text {
-    width: 131px;
-    height: 56px;
-    left: 46px;
-    overflow: hidden;
-    font-family: Roboto;
-    font-size: 20px;
-    color: #FFFFFF;
-    background-color: #a4c3b2;
-    padding: 12px 20px;
-    border: none;
-    cursor: pointer;
-    float: right;
+  width: 131px;
+  height: 56px;
+  left: 46px;
+  overflow: hidden;
+  font-family: Roboto;
+  font-size: 20px;
+  color: #ffffff;
+  background-color: #a4c3b2;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  float: right;
 
-    text-align: center;
-    border: 1px solid #a4c3b2
+  text-align: center;
+  border: 1px solid #a4c3b2;
 }
 
 .sign_up_button {
-    top: 600px;
-    left: 383px;
-    width: 129px;
-    height: 54px;
+  top: 600px;
+  left: 383px;
+  width: 129px;
+  height: 54px;
 }
 
 .sign_up_text {
-    width: 131px;
-    height: 56px;
-    left: 46px;
-    overflow: hidden;
-    font-family: Roboto;
-    font-size: 20px;
-    color: #a4c3b2;
-    background-color: #FFFFFF;
-    padding: 12px 20px;
-    border: none;
-    cursor: pointer;
-    float: right;
+  width: 131px;
+  height: 56px;
+  left: 46px;
+  overflow: hidden;
+  font-family: Roboto;
+  font-size: 20px;
+  color: #a4c3b2;
+  background-color: #ffffff;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  float: right;
 
-    text-align: center;
-    border: 1px solid #a4c3b2
+  text-align: center;
+  border: 1px solid #a4c3b2;
 }
 
 .right_side {
-    position: fixed;
-    margin-top: 0;
-    width: 60vw;
-    height: 100vh;
-    left: 50%;
-    top: 0px;
-    background: rgba(229, 229, 229, 0.41);
+  position: fixed;
+  margin-top: 0;
+  width: 60vw;
+  height: 100vh;
+  left: 50%;
+  top: 0px;
+  background: rgba(229, 229, 229, 0.41);
 }
 
 .image_markteplace {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    left: 50%;
-    top: 235px;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 50%;
+  top: 235px;
 }
 
 .email_section {
-    position: absolute;
-    width: 554px;
-    height: 148px;
-    left: 89px;
-    top: 300px;
+  position: absolute;
+  width: 554px;
+  height: 148px;
+  left: 89px;
+  top: 300px;
 }
 
 .forgot_password {
-    top: 450px;
-    left: 498px;
-    width: 159px;
-    height: 34px;
-    overflow: hidden;
-    font-family: Roboto;
-    font-size: 18px;
-    text-align: left;
+  top: 450px;
+  left: 498px;
+  width: 159px;
+  height: 34px;
+  overflow: hidden;
+  font-family: Roboto;
+  font-size: 18px;
+  text-align: left;
 }
 
 .forgot_password a {
-    color: #6B9090;
-    text-decoration: none;
+  color: #6b9090;
+  text-decoration: none;
 }
 
 .remember_me {
-    left: 89px;
-    overflow: hidden;
-    font-family: Roboto;
-    font-size: 18px;
-    text-align: left;
-    color: #000000;
-    top: 450px;
-    width: 159px;
-    height: 34px;
-    overflow: hidden;
+  left: 89px;
+  overflow: hidden;
+  font-family: Roboto;
+  font-size: 18px;
+  text-align: left;
+  color: #000000;
+  top: 450px;
+  width: 159px;
+  height: 34px;
+  overflow: hidden;
 }
 
 .alert {
-    top: 510px;
-    left: 89px;
-    width: 300px;
-    height: 56px;
-    text-align: left;
-    color: red;
+  top: 510px;
+  left: 89px;
+  width: 300px;
+  height: 56px;
+  text-align: left;
+  color: red;
 }

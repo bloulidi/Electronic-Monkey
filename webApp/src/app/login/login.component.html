@@ -3,54 +3,63 @@
     <a class="website">Electronic Monkey</a>
 
     <div class="appImg">
-      <img src="../../assets/monkey.png">
+      <img src="../../assets/monkey.png" />
     </div>
 
     <div class="__1_platform_to_buy_and_sell_products">
-      #1 platform to buy and sell products <br/>
+      #1 platform to buy and sell products <br />
     </div>
-    <form (ngSubmit)=" onSubmit()" [formGroup]="form">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
       <mat-form-field appearance="outline" class="email_section">
         <mat-label>Email</mat-label>
-        <input formControlName="email" matInput type="email">
+        <input formControlName="email" matInput type="email" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="password_section">
         <mat-label>Password</mat-label>
-        <input formControlName="password" matInput type="password">
+        <input formControlName="password" matInput type="password" />
       </mat-form-field>
 
       <div class="login_button">
-        <input class="login_text" id="btn_login" type="submit" value="Login">
+        <input class="login_text" id="btn_login" type="submit" value="Login" />
       </div>
 
       <div class="alert">
         {{ message }}
       </div>
-
     </form>
 
     <div class="sign_up_button">
       <!--<input class="sign_up_text" type="button"  (click) ="onClickSignUp()" value ="Sign up"/>-->
-      <button (click)="onClickSignUp()" class="sign_up_text" id="btn_signUp" type="button" value="signup"> Sign up
+      <button
+        (click)="onClickSignUp()"
+        class="sign_up_text"
+        id="btn_signUp"
+        type="button"
+        value="signup"
+      >
+        Sign up
       </button>
     </div>
 
     <div class="remember_me">
-      <mat-checkbox #rememberMe (change)="onRememberMeChanged(rememberMe.checked)" [checked]="isRememberMe"
-                    id="rememberMe">
+      <mat-checkbox
+        #rememberMe
+        (change)="onRememberMeChanged(rememberMe.checked)"
+        [checked]="isRememberMe"
+        id="rememberMe"
+      >
         Remember Me
       </mat-checkbox>
     </div>
 
     <div class="right_side"></div>
     <div class="image_markteplace">
-      <img src="../../assets/image-markteplace.png">
+      <img src="../../assets/image-markteplace.png" />
     </div>
 
     <div class="forgot_password">
-      <a href=''> Forgot Password? </a>
+      <a href=""> Forgot Password? </a>
     </div>
-
   </div>
 </div>

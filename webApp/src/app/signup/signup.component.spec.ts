@@ -1,10 +1,9 @@
 /* tslint:disable:no-unused-variable */
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SignupComponent } from './signup.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { AppRoutingModule } from '../app-routing.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SignupComponent } from './signup.component';
 
 describe('SignupComponent', () => {
   let component: SignupComponent;
@@ -12,10 +11,13 @@ describe('SignupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule],
-      declarations: [SignupComponent]
-    })
-      .compileComponents();
+      imports: [
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+      ],
+      declarations: [SignupComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,21 +1,20 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { User } from '../models/User';
-import { environment } from '../../environments/environment'
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   localhost = environment.apiUrl + 'user/api/v1/users';
 
   saveUser(user: any) {
-    return this.httpClient.post(this.localhost + "/signup", user, httpOptions);
+    return this.httpClient.post(this.localhost + '/signup', user, httpOptions);
   }
   getAllUsers() {
     return this.httpClient.get(this.localhost);

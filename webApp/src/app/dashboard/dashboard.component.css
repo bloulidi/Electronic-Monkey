@@ -1,88 +1,88 @@
-@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~bootstrap/dist/css/bootstrap.min.css";
 
-.title{
-    text-align: center;
-    padding-top: 150px;
-    font-size: 40px;
-    color: #56B280;
-    font-family: sans-serif;
+.title {
+  text-align: center;
+  padding-top: 150px;
+  font-size: 40px;
+  color: #56b280;
+  font-family: sans-serif;
 }
 .icon {
-    color: black;
-    padding-top: 10px;
+  color: black;
+  padding-top: 10px;
 }
 
 .hvrbox,
 .hvrbox * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 .hvrbox {
-	position: relative;
-	display: inline-block;
-	overflow: hidden;
-	max-width: 100%;
-	height: auto;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  max-width: 100%;
+  height: auto;
 }
 .hvrbox img {
-	max-width: 100%;
+  max-width: 100%;
 }
 .hvrbox p {
-	transition: font-size 0.5s ease-in-out;
-	font-size: 20px;
+  transition: font-size 0.5s ease-in-out;
+  font-size: 20px;
 }
 .hvrbox:hover p {
-	color:#fff;
-	font-size: 21px;
+  color: #fff;
+  font-size: 21px;
 }
 .hvrbox .hvrbox-layer_bottom {
-	display: block;
+  display: block;
 }
 .hvrbox .card-body {
-	opacity: 0;
-	position: absolute;
-    cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.6);
-	color: #fff;
-	padding: 15px;
-	-moz-transition: all 0.4s ease-in-out 0s;
-	-webkit-transition: all 0.4s ease-in-out 0s;
-	-ms-transition: all 0.4s ease-in-out 0s;
-	transition: all 0.4s ease-in-out 0s;
-	opacity: 1;
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 15px;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  -ms-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+  opacity: 1;
 }
 .hvrbox:hover .card-body,
 .hvrbox.active .card-body {
-	opacity: 0;
+  opacity: 0;
 }
 .hvrbox .hvrbox-text {
-	text-align: center;
-	font-size: 18px;
-	display: inline-block;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-moz-transform: translate(-50%, -50%);
-	-webkit-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 18px;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 .hvrbox .hvrbox-text_mobile {
-	font-size: 15px;
-	border-top: 1px solid rgb(179, 179, 179); /* for old browsers */
-	border-top: 1px solid rgba(179, 179, 179, 0.7);
-	margin-top: 5px;
-	padding-top: 2px;
-	display: none;
+  font-size: 15px;
+  border-top: 1px solid rgb(179, 179, 179); /* for old browsers */
+  border-top: 1px solid rgba(179, 179, 179, 0.7);
+  margin-top: 5px;
+  padding-top: 2px;
+  display: none;
 }
 .hvrbox.active .hvrbox-text_mobile {
-	display: block;
+  display: block;
 }
-.row{
-	padding-bottom: 100px;
+.row {
+  padding-bottom: 100px;
 }

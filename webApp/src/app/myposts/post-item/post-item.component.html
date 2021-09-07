@@ -1,35 +1,71 @@
-<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" rel="stylesheet">
+<link
+  crossorigin="anonymous"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+  integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+  rel="stylesheet"
+/>
 
 <div class="card shadow">
-  <img [src]="retrievedImage" class="bd-placeholder-img card-img-top img-fluid image-responsive" height="200"
-       width="100%"/>
+  <img
+    [src]="retrievedImage"
+    class="bd-placeholder-img card-img-top img-fluid image-responsive"
+    height="200"
+    width="100%"
+  />
 
-  <div [ngStyle]="{'opacity': productItem.hidden ? '0.33' : '1'}" class="card-body">
-    <h5 class="card-title">{{productItem.title}}</h5>
+  <div
+    [ngStyle]="{ opacity: productItem.hidden ? '0.33' : '1' }"
+    class="card-body"
+  >
+    <h5 class="card-title">{{ productItem.title }}</h5>
     <p class="card-text">
-      <strong>{{ productItem.price | currency:'CAD' }}</strong>
+      <strong>{{ productItem.price | currency: "CAD" }}</strong>
     </p>
     <p class="card-text">{{ productItem.description }}</p>
     <div class="d-flex justify-content-between align-items-center">
       <div *ngIf="!productItem.hidden" class="btn-group">
-        <button (click)="openEdit(contentEdit)" class="btn btn-sm btn-outline-secondary" ngbTooltip="Edit"
-                placement="bottom" type="button">
-          <svg class="bi bi-pen" fill="currentColor" height="16" viewBox="0 0 16 16" width="16"
-               xmlns="http://www.w3.org/2000/svg">
+        <button
+          (click)="openEdit(contentEdit)"
+          class="btn btn-sm btn-outline-secondary"
+          ngbTooltip="Edit"
+          placement="bottom"
+          type="button"
+        >
+          <svg
+            class="bi bi-pen"
+            fill="currentColor"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
-              d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+              d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"
+            />
           </svg>
         </button>
-        <button (click)="openRemove(content, productItem.id)" class="btn btn-sm btn-outline-danger" ngbTooltip="Remove"
-                placement="bottom" type="button">
-          <svg class="bi bi-trash" fill="currentColor" height="16" viewBox="0 0 16 16" width="16"
-               xmlns="http://www.w3.org/2000/svg">
+        <button
+          (click)="openRemove(content, productItem.id)"
+          class="btn btn-sm btn-outline-danger"
+          ngbTooltip="Remove"
+          placement="bottom"
+          type="button"
+        >
+          <svg
+            class="bi bi-trash"
+            fill="currentColor"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
-              d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+              d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+            />
             <path
               d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
-              fill-rule="evenodd"/>
+              fill-rule="evenodd"
+            />
           </svg>
         </button>
       </div>
@@ -37,37 +73,61 @@
   </div>
 </div>
 
-
 <ng-template #content let-modal>
   <div class="modal-header">
     <h5 class="modal-title" id="modal-basic-title">Post Deletion</h5>
-    <button (click)="modal.dismiss('Cross click')" aria-label="Close" class="btn-close" type="button">
-    </button>
+    <button
+      (click)="modal.dismiss('Cross click')"
+      aria-label="Close"
+      class="btn-close"
+      type="button"
+    ></button>
   </div>
   <div class="modal-body">
     <p class="text1-popup">Are you sure you want to delete this post?</p>
-    <p class="text2-popup">All information associated to this post will be permanently deleted.
+    <p class="text2-popup">
+      All information associated to this post will be permanently deleted.
       <span class="text-danger">This operation cannot be undone.</span>
     </p>
   </div>
   <div class="modal-footer">
-    <button (click)="modal.dismiss('cancel click')" class="btn btn-outline-secondary" type="button">Cancel</button>
-    <button (click)="modal.close('Remove click')" class="btn btn-outline-danger" type="button">Remove</button>
+    <button
+      (click)="modal.dismiss('cancel click')"
+      class="btn btn-outline-secondary"
+      type="button"
+    >
+      Cancel
+    </button>
+    <button
+      (click)="modal.close('Remove click')"
+      class="btn btn-outline-danger"
+      type="button"
+    >
+      Remove
+    </button>
   </div>
 </ng-template>
 
 <ng-template #contentEdit let-modal>
   <div class="modal-header">
     <h5 class="modal-title" class="edit-post" id="modal-edit">Edit Post</h5>
-    <button (click)="modal.dismiss('Cross click')" aria-label="Close" class="btn-close" type="button">
-    </button>
+    <button
+      (click)="modal.dismiss('Cross click')"
+      aria-label="Close"
+      class="btn-close"
+      type="button"
+    ></button>
   </div>
   <div class="modal-body">
-
-
     <form (submit)="submit()" [formGroup]="form" enctype="multipart/form-data">
       <mat-form-field class="form-field">
-        <input formControlName="title" matInput placeholder="Title" required type="text">
+        <input
+          formControlName="title"
+          matInput
+          placeholder="Title"
+          required
+          type="text"
+        />
       </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>Category</mat-label>
@@ -78,31 +138,60 @@
         </select>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <textarea formControlName="description" matInput placeholder="Description"></textarea>
+        <textarea
+          formControlName="description"
+          matInput
+          placeholder="Description"
+        ></textarea>
       </mat-form-field>
 
       <mat-form-field class="form-field" floatLabel="always">
         <mat-label>Amount</mat-label>
         <span matSuffix>$&nbsp;</span>
-        <input class="example-left-align" formControlName="price" matInput min=0 placeholder="0" required type="number">
+        <input
+          class="example-left-align"
+          formControlName="price"
+          matInput
+          min="0"
+          placeholder="0"
+          required
+          type="number"
+        />
       </mat-form-field>
 
       <div>
-        <label class="add-photos">Replace Photo</label><br>
-        <input (change)="handleFileInput($event)" accept="image/*" type="file">
+        <label class="add-photos">Replace Photo</label><br />
+        <input
+          (change)="handleFileInput($event)"
+          accept="image/*"
+          type="file"
+        />
       </div>
       <div class="modal-footer">
-        <button (click)="modal.dismiss('cancel click')" class="btn btn-outline-secondary" type="button">Cancel</button>
-        <button (click)="modal.close('Save click')" [disabled]="checkSave()" class="btn btn-outline-success"
-                type="submit">Save Changes
+        <button
+          (click)="modal.dismiss('cancel click')"
+          class="btn btn-outline-secondary"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="modal.close('Save click')"
+          [disabled]="checkSave()"
+          class="btn btn-outline-success"
+          type="submit"
+        >
+          Save Changes
         </button>
       </div>
     </form>
     <div *ngIf="message" class="alert" role="alert">
       {{ message }}
     </div>
-
   </div>
 </ng-template>
-<script crossorigin="anonymous" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<script
+  crossorigin="anonymous"
+  integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+></script>

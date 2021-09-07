@@ -6,12 +6,31 @@ server:
   port: 8080
 
 zuul:
+  ignored-headers:
   sensitiveHeaders:
   ignoredServices: '*'
   routes:
     user:
-      url: http://localhost:8090
+      path: /user/**
+      service-id: user
     catalog:
-      url: http://localhost:8800
+      path: /catalog/**
+      service-id: catalog
     order:
-      url: http://localhost:8880
+      path: /order/**
+      service-id: order
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+management:
+  endpoints:
+    routes:
+      enabled: true
+    web:
+      exposures:
+        include: "*"

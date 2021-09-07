@@ -2,19 +2,51 @@
 
 <h1 class="yourOrders">Order History</h1>
 
-<mat-grid-list *ngFor="let order of orders" class="order" cols="3" rowHeight="4:1">
-  <mat-grid-tile class="outlinedLeft">ORDER PLACED<br>{{order.createdAt.substring(0, 10)}}</mat-grid-tile>
-  <mat-grid-tile class="outlinedMiddle">TOTAL<br>{{order.totalOrderPrice | currency:'CAD'}}</mat-grid-tile>
-  <mat-grid-tile class="outlinedRight">ORDER #<br>{{order.id}}</mat-grid-tile>
+<mat-grid-list
+  *ngFor="let order of orders"
+  class="order"
+  cols="3"
+  rowHeight="4:1"
+>
+  <mat-grid-tile class="outlinedLeft"
+    >ORDER PLACED<br />{{ order.createdAt.substring(0, 10) }}</mat-grid-tile
+  >
+  <mat-grid-tile class="outlinedMiddle"
+    >TOTAL<br />{{ order.totalOrderPrice | currency: "CAD" }}</mat-grid-tile
+  >
+  <mat-grid-tile class="outlinedRight"
+    >ORDER #<br />{{ order.id }}</mat-grid-tile
+  >
   <div class="inside-order">
-    <mat-grid-list *ngFor="let orderProduct of order.orderProducts; let first = first; let last = last"
-                   [ngClass]="{ first: first, last: last }" class="outlinedOrders" cols="3" rowHeight="2:1">
-      <mat-grid-tile><img
-        [src]="'data:' + orderProduct.product.photo.type + ';base64,' + this.orderProduct.product.photo.image"
-        class="image"
-        height="150" width="200"></mat-grid-tile>
-      <mat-grid-tile class="name">{{orderProduct.product.title}}</mat-grid-tile>
-      <mat-grid-tile class="price">{{orderProduct.product.price | currency:'CAD'}}</mat-grid-tile>
+    <mat-grid-list
+      *ngFor="
+        let orderProduct of order.orderProducts;
+        let first = first;
+        let last = last
+      "
+      [ngClass]="{ first: first, last: last }"
+      class="outlinedOrders"
+      cols="3"
+      rowHeight="2:1"
+    >
+      <mat-grid-tile
+        ><img
+          [src]="
+            'data:' +
+            orderProduct.product.photo.type +
+            ';base64,' +
+            this.orderProduct.product.photo.image
+          "
+          class="image"
+          height="150"
+          width="200"
+      /></mat-grid-tile>
+      <mat-grid-tile class="name">{{
+        orderProduct.product.title
+      }}</mat-grid-tile>
+      <mat-grid-tile class="price">{{
+        orderProduct.product.price | currency: "CAD"
+      }}</mat-grid-tile>
     </mat-grid-list>
   </div>
 </mat-grid-list>

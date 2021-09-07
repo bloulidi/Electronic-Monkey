@@ -8,16 +8,18 @@ import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-myposts',
   templateUrl: './myposts.component.html',
-  styleUrls: [
-    './myposts.component.css']
+  styleUrls: ['./myposts.component.css'],
 })
-
 export class MypostsComponent implements OnInit {
-
   productList: Product[] = [];
   userId: number;
 
-  constructor(private productService: ProductService, private authenticationService: AuthenticationService, private userService: UserService, private router: Router) {
+  constructor(
+    private productService: ProductService,
+    private authenticationService: AuthenticationService,
+    private userService: UserService,
+    private router: Router
+  ) {
     this.userId = this.authenticationService.currentUserValue.id;
   }
 
@@ -26,9 +28,11 @@ export class MypostsComponent implements OnInit {
   }
 
   loadProducts() {
-    this.productService.getProductsByUserId(this.userId).subscribe((products) => {
-      this.productList = products;
-    })
+    this.productService
+      .getProductsByUserId(this.userId)
+      .subscribe((products) => {
+        this.productList = products;
+      });
   }
   deleteItem(value: any) {
     window.location.reload();

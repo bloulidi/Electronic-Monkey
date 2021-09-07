@@ -5,7 +5,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs/internal/observable/of';
 import { AuthenticationService } from '../services/authentication.service';
 import { UserService } from '../services/user.service';
-
 import { MyprofileComponent } from './myprofile.component';
 
 describe('MyprofileComponent', () => {
@@ -18,13 +17,16 @@ describe('MyprofileComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientModule, ReactiveFormsModule, RouterTestingModule],
       declarations: [MyprofileComponent],
-      providers: []
-    })
-      .compileComponents();
+      providers: [],
+    }).compileComponents();
     userService = TestBed.get(UserService);
     authenticationService = TestBed.get(AuthenticationService);
     spyOn(userService, 'getUserByEmail').and.returnValue(of(''));
-    spyOnProperty(authenticationService, 'currentUserValue', 'get').and.returnValue(1);
+    spyOnProperty(
+      authenticationService,
+      'currentUserValue',
+      'get'
+    ).and.returnValue(1);
   });
 
   beforeEach(() => {
@@ -87,5 +89,4 @@ describe('MyprofileComponent', () => {
     password.setValue('Password1');
     expect(password.valid).toBeTruthy();
   });
-
 });
