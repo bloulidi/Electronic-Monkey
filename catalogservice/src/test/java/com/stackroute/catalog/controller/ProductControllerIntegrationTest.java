@@ -17,6 +17,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.ConstraintViolationException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class ProductControllerIntegrationTest {
         product3 = new Product("Charger", "Good charger", Category.ACCESSORIES.getCategory(), 20, 2);
         product3.setId("3");
         productList = new ArrayList<Product>();
-        file = new MockMultipartFile("null", "null", null, (byte[]) null);
+        file = new MockMultipartFile("null","null",null, (byte[]) null);
     }
 
     @AfterEach
@@ -135,20 +136,6 @@ public class ProductControllerIntegrationTest {
     }
 
     @Test
-    public void givenProductToUpdateThenShouldReturnUpdatedProduct() throws ProductAlreadyExistsException, ProductNotFoundException {
-        Product savedProduct = productController.saveProduct(product1).getBody();
-        assertNotNull(savedProduct);
-        assertEquals(product1.getId(), savedProduct.getId());
-        ;
-        savedProduct.setPrice(product2.getPrice());
-        Product updatedProduct = productController.updateProduct(savedProduct).getBody();
-        assertNotNull(savedProduct);
-        assertEquals(savedProduct, updatedProduct);
-        assertTrue(logger.isInfoEnabled());
-        assertTrue(logger.isErrorEnabled());
-    }
-
-    @Test
     public void givenGetAllProductsByCategoryThenShouldReturnListOfAllRespectiveProducts() {
         productList.add(product2);
         productController.saveProduct(product1);
@@ -185,7 +172,7 @@ public class ProductControllerIntegrationTest {
     }
 
     @Test
-    void givenProductWithInvalidIdToDeleteThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException {
+    void givenProductWithInvalidIdToDeleteThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException{
         assertThrows(ConstraintViolationException.class, () -> {
             product1.setId("");
             Product savedProduct = productController.saveProduct(product1).getBody();
@@ -196,7 +183,7 @@ public class ProductControllerIntegrationTest {
     }
 
     @Test
-    void givenProductWithInvalidIdToGetThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException {
+    void givenProductWithInvalidIdToGetThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException{
         assertThrows(ConstraintViolationException.class, () -> {
             product1.setId("");
             Product savedProduct = productController.saveProduct(product1).getBody();
@@ -207,7 +194,7 @@ public class ProductControllerIntegrationTest {
     }
 
     @Test
-    void givenProductWithInvalidCategoryThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException {
+    void givenProductWithInvalidCategoryThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException{
         assertThrows(ConstraintViolationException.class, () -> {
             product1.setCategory("sdfsdfs");
             productController.saveProduct(product1);
@@ -217,7 +204,7 @@ public class ProductControllerIntegrationTest {
     }
 
     @Test
-    void givenProductWithInvalidPriceThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException {
+    void givenProductWithInvalidPriceThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException{
         assertThrows(ConstraintViolationException.class, () -> {
             product1.setPrice(-1);
             productController.saveProduct(product1);
@@ -230,16 +217,6 @@ public class ProductControllerIntegrationTest {
     void givenProductWithInvalidTitleThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException {
         assertThrows(ConstraintViolationException.class, () -> {
             product1.setTitle("");
-            productController.saveProduct(product1);
-        });
-        assertTrue(logger.isInfoEnabled());
-        assertTrue(logger.isErrorEnabled());
-    }
-
-    @Test
-    void givenProductWithInvalidUserIdThenThrowsException() throws ProductAlreadyExistsException, ConstraintViolationException {
-        assertThrows(ConstraintViolationException.class, () -> {
-            product1.setUserId(0);
             productController.saveProduct(product1);
         });
         assertTrue(logger.isInfoEnabled());

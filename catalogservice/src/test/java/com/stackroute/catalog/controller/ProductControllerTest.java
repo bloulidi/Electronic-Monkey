@@ -33,22 +33,16 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 @ExtendWith(MockitoExtension.class)
 public class ProductControllerTest {
 
+    private MockMvc mockMvc;
+
     @Mock
     ProductService productService;
-    private MockMvc mockMvc;
+
     @InjectMocks
     private ProductController productController;
 
     private Product product, product1, product2;
     private List<Product> productList;
-
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @BeforeEach
     void setUp() {
@@ -143,7 +137,7 @@ public class ProductControllerTest {
         verify(productService).updateProduct(any());
         verify(productService, times(1)).updateProduct(any());
     }
-
+    
     @Test
     public void givenGetAllProductsByCategoryThenShouldReturnListOfAllRespectiveProducts() throws Exception {
         productList.add(product);
@@ -163,5 +157,14 @@ public class ProductControllerTest {
                 .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
         verify(productService).getProductsByUserId(anyLong());
         verify(productService, times(1)).getProductsByUserId(anyLong());
+    }
+    
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
