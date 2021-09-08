@@ -1,0 +1,100 @@
+version: '3.5'
+
+services:
+  userservice:
+    build:
+      context: userservice
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8090"
+    restart: always
+    depends_on:
+      - db
+    networks:
+      - api-network
+      - userservice-db
+
+  orderservice:
+    build:
+      context: orderservice
+      dockerfile: Dockerfile
+    ports:
+      - "8891:8891"
+    restart: always
+    depends_on:
+      - order-mongo
+    networks:
+      - api-network
+      - orderservice-db
+
+  apigatewayservice:
+    build:
+      context: api-gateway-service
+      dockerfile: Dockerfile
+    networks:
+      - api-network
+
+  catalogservice:
+    build:
+      context: catalogservice
+      dockerfile: Dockerfile
+    ports:
+      - "8093:8093"
+    restart: always
+    depends_on:
+      - catalog-mongo
+    networks:
+      - api-network
+      - catalogservice-db
+
+  # Database Service (Mysql)
+  db:
+    container_name: db
+    image: mysql:8.0
+    restart: always
+    networks:
+      - userservice-db
+    environment:
+      MYSQL_DATABASE: userDB
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - dbdata:/var/lib/mysql
+
+  # Database Service (Mongo)
+  order-mongo:
+    container_name: order-mongo
+    image: mongo
+    #command: mongod --port 2717
+    environment:
+      MONGO_INITDB_DATABASE: orderdb
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    networks:
+      - orderservice-db
+    volumes:
+      - ordermongo_data_volume:/data/db
+
+  # Database Service (Mongo)
+  catalog-mongo:
+    container_name: catalog-mongo
+    image: mongo
+    #command: mongod --port 2716
+    environment:
+      MONGO_INITDB_DATABASE: productdb
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    networks:
+      - catalogservice-db
+    volumes:
+      - catalogmongo_data_volume:/data/db:rw
+
+networks:
+  api-network:
+  userservice-db:
+  orderservice-db:
+  catalogservice-db:
+
+volumes:
+  dbdata: # don't really need these {}
+  ordermongo_data_volume:
+  catalogmongo_data_volume:
