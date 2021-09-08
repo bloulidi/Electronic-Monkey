@@ -1,21 +1,24 @@
 package com.stackroute.userservice.config;
 
-import java.util.Date;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
 import com.stackroute.userservice.model.User;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 @Service
 public class JWTTokenUtil {
 
-    public static final long JWT_TOKEN_VALIDITY = 5*60*60;
+    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
     @Value("${jwt.secret}")
     private String secret;
@@ -56,7 +59,7 @@ public class JWTTokenUtil {
                 .setClaims(claims)
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY*1000))
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
                 .compact();
     }
 
@@ -71,7 +74,7 @@ public class JWTTokenUtil {
             User user = new User();
             user.setEmail(body.getSubject());
             user.setId(Long.valueOf((Integer) body.get("userId")));
-            if(body.get("scopes").equals("ROLE_ADMIN")) {
+            if (body.get("scopes").equals("ROLE_ADMIN")) {
                 user.setAdmin(true);
             } else {
                 user.setAdmin(false);

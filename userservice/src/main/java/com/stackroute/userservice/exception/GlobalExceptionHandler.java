@@ -18,7 +18,7 @@ import java.util.List;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-   @ExceptionHandler
+    @ExceptionHandler
     public ResponseEntity<String> userAlreadyExistsException(UserAlreadyExistsException userAlreadyExistsException) {
         return new ResponseEntity<String>("User already exists!", HttpStatus.CONFLICT);
     }

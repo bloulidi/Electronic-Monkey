@@ -14,10 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.test.web.reactive.server.StatusAssertions;
 
 import javax.validation.ConstraintViolationException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,8 +82,12 @@ public class UserControllerIntegrationTest {
         userList.add(user2);
         userList.add(user3);
         List<User> users = userController.getAllUsers().getBody();
-        for (User user : userList) { usersEmail.add(user.getEmail()); }
-        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
+        for (User user : userList) {
+            usersEmail.add(user.getEmail());
+        }
+        for (User user : users) {
+            savedUsersEmail.add(user.getEmail());
+        }
         assertNotNull(users);
         assertEquals(usersEmail, savedUsersEmail);
         assertTrue(logger.isInfoEnabled());
@@ -100,8 +102,12 @@ public class UserControllerIntegrationTest {
         userController.saveUser(user2);
         userController.saveUser(user3);
         List<User> users = userController.getUsersByName(user2.getName()).getBody();
-        for (User user : userList) { usersEmail.add(user.getEmail()); }
-        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
+        for (User user : userList) {
+            usersEmail.add(user.getEmail());
+        }
+        for (User user : users) {
+            savedUsersEmail.add(user.getEmail());
+        }
         assertNotNull(users);
         assertEquals(usersEmail, savedUsersEmail);
         assertTrue(logger.isInfoEnabled());
@@ -116,8 +122,12 @@ public class UserControllerIntegrationTest {
         //userController.saveUser(user2);
         userController.saveUser(user3);
         List<User> users = userController.getUsersByAdmin(user1.isAdmin()).getBody();
-        for (User user : userList) { usersEmail.add(user.getEmail()); }
-        for (User user : users) { savedUsersEmail.add(user.getEmail()); }
+        for (User user : userList) {
+            usersEmail.add(user.getEmail());
+        }
+        for (User user : users) {
+            savedUsersEmail.add(user.getEmail());
+        }
         assertNotNull(users);
         assertEquals(usersEmail, savedUsersEmail);
         assertTrue(logger.isInfoEnabled());
@@ -185,7 +195,8 @@ public class UserControllerIntegrationTest {
     public void givenUserToUpdateThenShouldReturnUpdatedUser() throws UserAlreadyExistsException, UserNotFoundException {
         User savedUser = userController.saveUser(user1).getBody();
         assertNotNull(savedUser);
-        assertEquals(user1.getEmail(), savedUser.getEmail());;
+        assertEquals(user1.getEmail(), savedUser.getEmail());
+        ;
         savedUser.setPassword(user2.getPassword());
         User updatedUser = userController.updateUser(savedUser).getBody();
         assertNotNull(savedUser);
@@ -199,7 +210,8 @@ public class UserControllerIntegrationTest {
         User savedUser = userController.saveUser(user1).getBody();
         userController.saveUser(user2);
         assertNotNull(savedUser);
-        assertEquals(user1.getEmail(), savedUser.getEmail());;
+        assertEquals(user1.getEmail(), savedUser.getEmail());
+        ;
         savedUser.setEmail(user2.getEmail());
         Assertions.assertThrows(UserAlreadyExistsException.class, () -> userController.updateUser(savedUser).getBody());
         assertTrue(logger.isInfoEnabled());
@@ -253,7 +265,7 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    void givenUserWithInvalidNameThenThrowsException() throws UserAlreadyExistsException, ConstraintViolationException{
+    void givenUserWithInvalidNameThenThrowsException() throws UserAlreadyExistsException, ConstraintViolationException {
         assertThrows(ConstraintViolationException.class, () -> {
             user1.setName("");
             userController.saveUser(user1);

@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -19,22 +18,22 @@ import java.util.List;
 @AllArgsConstructor
 @Document(collection = "orders")
 @ApiModel(description = "Class representing an order tracked by the application.")
-public class Order extends BaseModel{
+public class Order extends BaseModel {
 
     @StatusConstraint
     @ApiModelProperty(notes = "Order Status", example = "Pending", required = true, position = 1)
     String status = Status.PENDING.getStatus();
 
-    @Size(min=1, message = "There must be at least one product in the order")
+    @Size(min = 1, message = "There must be at least one product in the order")
     @Valid
     @ApiModelProperty(notes = "List of order product Ids", required = true, position = 2)
     private List<OrderProduct> orderProducts;
 
-    @Min(1)
+    @Min(value = 1, message = "The user Id must be greater or equal than 1")
     @ApiModelProperty(notes = "User Id associated to the order", example = "50", required = true, position = 3)
     private long userId;
 
-    public int getNumberOfProducts() {
+    /*public int getNumberOfProducts() {
         return this.orderProducts.size();
     }
 
@@ -45,5 +44,10 @@ public class Order extends BaseModel{
             sum += op.getTotalPrice();
         }
         return sum;
+    }*/
+
+    public Order(List<OrderProduct> orderProducts, long userId) {
+        this.orderProducts = orderProducts;
+        this.userId = userId;
     }
 }

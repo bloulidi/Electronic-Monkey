@@ -34,14 +34,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String authToken = null;
         // JWT Token is in the form "Bearer token". Remove Bearer word and get only the Token
         if (header != null && header.startsWith("Bearer ")) {
-            authToken = header.replace("Bearer ","");
+            authToken = header.replace("Bearer ", "");
             try {
                 username = jwtTokenUtil.getUsernameFromToken(authToken);
             } catch (IllegalArgumentException e) {
                 log.error("An error occured during getting username from token", e);
             } catch (ExpiredJwtException e) {
                 log.warn("The token is expired and not valid anymore", e);
-            } catch(SignatureException e){
+            } catch (SignatureException e) {
                 log.error("Authentication Failed. Username or Password not valid.");
             }
         } else {

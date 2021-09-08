@@ -21,7 +21,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("api/v1/orders")
-@Api(tags = { SpringFoxConfig.ORDER_TAG })
+@Api(tags = {SpringFoxConfig.ORDER_TAG})
 public class OrderController {
     private OrderService orderService;
 
@@ -32,8 +32,8 @@ public class OrderController {
 
     @PostMapping
     @ApiOperation("Creates a new order.")
-    public ResponseEntity<Order> saveOrder(@ApiParam("New order is created. 409 if already exists.") @RequestBody Order order)  throws OrderAlreadyExistsException  {
-        log.info("Create a new order, number of products: " + order.getNumberOfProducts());
+    public ResponseEntity<Order> saveOrder(@ApiParam("New order is created. 409 if already exists.") @RequestBody Order order) throws OrderAlreadyExistsException {
+        log.info("Create a new order, number of products: " + order.getOrderProducts().size());
         order.setStatus(Status.DONE.getStatus());
         return new ResponseEntity<Order>(orderService.saveOrder(order), HttpStatus.CREATED);
     }
@@ -47,7 +47,7 @@ public class OrderController {
 
     @GetMapping("{id}")
     @ApiOperation("Returns a specific order by their identifier. 404 if does not exist.")
-    public ResponseEntity<Order> getOrderById(@ApiParam("Id of the order to be obtained. Cannot be empty.")  @PathVariable String id) throws OrderNotFoundException {
+    public ResponseEntity<Order> getOrderById(@ApiParam("Id of the order to be obtained. Cannot be empty.") @PathVariable String id) throws OrderNotFoundException {
         log.info("Return order with id = " + id);
         return new ResponseEntity<Order>(orderService.getOrderById(id), HttpStatus.OK);
     }

@@ -14,7 +14,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,7 +27,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("api/v1/users")
-@Api(tags = { SpringFoxConfig.USER_TAG })
+@Api(tags = {SpringFoxConfig.USER_TAG})
 public class UserController {
     @Autowired
     private UserService userService;
@@ -82,7 +81,7 @@ public class UserController {
 
     @GetMapping("{id}")
     @ApiOperation("Returns a specific user by their identifier. 404 if does not exist.")
-    public ResponseEntity<User> getUserById(@ApiParam("Id of the user to be obtained. Cannot be empty.")  @PathVariable long id) throws UserNotFoundException {
+    public ResponseEntity<User> getUserById(@ApiParam("Id of the user to be obtained. Cannot be empty.") @PathVariable long id) throws UserNotFoundException {
         log.info("Return user with id = " + id);
         return new ResponseEntity<User>(userService.getUserById(id), HttpStatus.OK);
     }
