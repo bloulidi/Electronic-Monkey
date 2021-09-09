@@ -1,5 +1,7 @@
 ## Description 
-**Electronic Monkey** ![monkey](/uploads/1cb55cfc47a1fc8e1d8157794f93d3b1/monkey.png) is an Online buy and sell application, built with Spring Boot for the backend and Angular for the frontend.
+**Electronic Monkey** is an Online buy and sell application, built with Spring Boot for the backend and Angular for the frontend.
+
+![MicrosoftTeams-image (6)](https://user-images.githubusercontent.com/39305283/132733042-2c9eddc4-f5f9-4e17-adb4-e4f2ed4b4609.png)
 
 ## Requirements
 1. Java 11
@@ -26,19 +28,18 @@ git clone https://gitlab-cgi.stackroute.in/cgi-canada-wave1-capstone-projects/on
     *  `cd webApp`    
     *  `npm install`
     *  Run `ng serve -o` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-    ![login_PAge](/uploads/28161f45d51c322e329d270646b1c2f6/login_PAge.PNG)
+   ![MicrosoftTeams-image (5)](https://user-images.githubusercontent.com/39305283/132732728-88be6ae3-5309-4727-81f6-2703f0eaeb9a.png)
 
 
 
 
     * Click the sign up button and fill the form to create an acount. 
-    ![sign_up_page](/uploads/8c25bae23d5394f6e6ac5456a426f2b4/sign_up_page.PNG)
-    
+   ![MicrosoftTeams-image (4)](https://user-images.githubusercontent.com/39305283/132732705-21535f77-fe54-4a91-bd14-bb75d425d7c4.png)
 
 
     
     * login in with the new account to use the app ! 
-    ![Dashboard](/uploads/f41fde372071705aec12920f434f6995/MicrosoftTeams-image__3_.png)
+   ![MicrosoftTeams-image (3)](https://user-images.githubusercontent.com/39305283/132732886-9a3a1625-932e-4689-adb7-dbd76a44e1c3.png)
 
 ## Swagger API
 For API Documentation and direct interactions with the backend app using Swagger, navigate to **http://localhost:xxxx/swagger-ui/**                                                                                                                                     
