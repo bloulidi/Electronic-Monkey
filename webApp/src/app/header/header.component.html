@@ -1,0 +1,73 @@
+<header>
+  <div class="appName">
+    <a routerLink="">Electronic Monkey</a>
+  </div>
+
+  <div class="appImg">
+    <a routerLink="">
+      <img src="../../assets/monkey.png" />
+    </a>
+  </div>
+
+  <div class="phones">
+    <a (click)="onClickPhones()" id="btn-phones" routerLink="phones">
+      Phones
+    </a>
+  </div>
+
+  <div class="computers">
+    <a (click)="onClickComputers()" id="btn-computers" routerLink="computers">
+      Computers
+    </a>
+  </div>
+
+  <div class="accessories">
+    <a
+      (click)="onClickAccessories()"
+      id="btn-accessories"
+      routerLink="accessories"
+    >
+      Accessories
+    </a>
+  </div>
+
+  <div class="profilImg">
+    <button [matMenuTriggerFor]="menu" id="btn-menu" mat-button>
+      <mat-icon svgIcon="profil_icon"></mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button (click)="onClickMyProfile()" mat-menu-item>My Profile</button>
+      <button (click)="onClickMyPosts()" mat-menu-item>My Posts</button>
+      <button (click)="onClickOrderHistory()" mat-menu-item>
+        Order History
+      </button>
+      <button (click)="onClickLogOut()" mat-menu-item>Log out</button>
+    </mat-menu>
+  </div>
+
+  <div class="cartImg">
+    <button mat-button>
+      <mat-icon
+        (click)="onClickCart()"
+        mat-raised-button
+        matBadge="{{ numProductCart }}"
+        matBadgeColor="accent"
+        matBadgeSize="medium"
+        svgIcon="cart_icon"
+      >
+      </mat-icon>
+    </button>
+  </div>
+  <div>
+    <button
+      (click)="onClickPost()"
+      class="postBtn"
+      color="primary"
+      mat-raised-button
+    >
+      Post
+    </button>
+  </div>
+</header>
+
+<router-outlet></router-outlet>

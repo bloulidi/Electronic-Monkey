@@ -1,0 +1,79 @@
+<div class="example-container">
+  <h1 class="form-title" mat-dialog-title>Post a Product</h1>
+  <div class="form-container">
+    <form (submit)="submit()" [formGroup]="form" enctype="multipart/form-data">
+      <mat-form-field class="form-field">
+        <input
+          formControlName="title"
+          matInput
+          placeholder="Title"
+          required
+          type="text"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Category</mat-label>
+        <select formControlName="category" matNativeControl required>
+          <option value="Phones">Phones</option>
+          <option value="Computers">Computers</option>
+          <option value="Accessories">Accessories</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <textarea
+          formControlName="description"
+          matInput
+          placeholder="Description"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" floatLabel="always">
+        <mat-label>Amount</mat-label>
+        <span matSuffix>$&nbsp;</span>
+        <input
+          class="example-left-align"
+          formControlName="price"
+          matInput
+          min="0"
+          placeholder="0"
+          required
+          type="number"
+        />
+      </mat-form-field>
+
+      <div>
+        <label class="add-photos">Add Photo</label><br />
+        <input
+          (change)="handleFileInput($event)"
+          accept="image/*"
+          required
+          type="file"
+        />
+      </div>
+      <div class="buttons" mat-dialog-actions>
+        <button
+          (click)="cancel()"
+          class="cancel-button"
+          class="cancel-button"
+          mat-raised-button
+          value="cancel"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="post-button"
+          class="post-button"
+          mat-raised-button
+          type="submit"
+          value="upload"
+        >
+          Post
+        </button>
+      </div>
+    </form>
+    <div *ngIf="message" class="alert" role="alert">
+      {{ message }}
+    </div>
+  </div>
+</div>

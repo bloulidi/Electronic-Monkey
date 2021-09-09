@@ -1,0 +1,12 @@
+.container {
+  margin: 0 auto;
+  padding-top: 120px;
+  padding-bottom: 150px;
+  padding-left: 50px;
+  padding-right: 50px;
+  width: 100%;
+}
+
+.remove-btn {
+  text-decoration: lawngreen;
+}

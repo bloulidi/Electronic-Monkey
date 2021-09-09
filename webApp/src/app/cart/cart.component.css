@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap");
+
+table {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  object-fit: contain;
+}
+
+.remove-button {
+  padding-top: 10px;
+  color: #56b280;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.title {
+  font-family: "Poppins", sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 58px;
+  color: #272727;
+}
+
+.text-cart {
+  font-weight: 500;
+  font-size: 14px;
+  color: #272727;
+}
+
+input {
+  text-align: center;
+  border: 1px solid #6c757d;
+}
+
+input[type="number"] {
+  -webkit-appearance: textfield !important;
+  -moz-appearance: textfield !important;
+  appearance: textfield !important;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.wrapper {
+  border: 2px #56b280 solid;
+  width: 5vw;
+  height: 15px;
+  padding: 5px;
+  display: flex;
+}
+
+.plusminus {
+  height: 100%;
+  width: 30%;
+  background: white;
+  border: none;
+  font-size: 15px;
+  color: #56b280;
+}
+
+.num {
+  width: 39%;
+  border: none;
+  font-size: 15px;
+}
+
+.checkoutBtnText {
+  cursor: pointer;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  color: #ffffff;
+  background: #56b280;
+  border: none;
+  border-radius: 0px;
+}
+
+.checkoutBtn {
+  cursor: pointer;
+  position: relative;
+  width: 183px;
+  float: right;
+  margin-top: 50px;
+  margin-right: 100px;
+  background: #56b280;
+  border-radius: 0px;
+  text-align: center;
+  padding: 0.5em 0.5em;
+}
+
+.sub-total {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.sub-total-text {
+  margin-top: 50px;
+  float: right;
+  padding-right: 75px;
+}
+
+.sub-total-price {
+  float: right;
+  padding-right: 45px;
+  margin-top: 50px;
+}
+
+.cart {
+  padding-top: 100px;
+}
+
+.alert {
+  color: green;
+  text-align: center;
+  padding-top: 100px;
+  font-size: 20px;
+}
+.container {
+  padding-bottom: 150px;
+
+  width: 100%;
+}

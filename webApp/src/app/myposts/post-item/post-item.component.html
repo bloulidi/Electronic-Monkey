@@ -1,0 +1,156 @@
+<link
+  crossorigin="anonymous"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+  integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+  rel="stylesheet"
+/>
+
+<div class="card shadow">
+  <img
+    [src]="retrievedImage"
+    class="bd-placeholder-img card-img-top img-fluid image-responsive"
+    height="200"
+    width="100%"
+  />
+
+  <div
+    [ngStyle]="{ opacity: productItem.hidden ? '0.33' : '1' }"
+    class="card-body"
+  >
+    <h5 class="card-title">{{ productItem.title }}</h5>
+    <p class="card-text">
+      <strong>{{ productItem.price | currency: "CAD" }}</strong>
+    </p>
+    <p class="card-text">{{ productItem.description }}</p>
+    <div class="d-flex justify-content-between align-items-center">
+      <div *ngIf="!productItem.hidden" class="btn-group">
+        <button
+          (click)="openEdit(contentEdit)"
+          class="btn btn-sm btn-outline-secondary"
+          type="button"
+        >
+          Edit
+        </button>
+        <button
+          (click)="openRemove(content, productItem.id)"
+          class="btn btn-sm btn-outline-danger"
+          type="button"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h1 class="modal-title" id="modal-basic-title">Post Deletion</h1>
+  </div>
+  <div class="modal-body">
+    <p class="text1-popup">Are you sure you want to delete this post?</p>
+    <p class="text2-popup">
+      All information associated to this post will be permanently deleted.
+      <span class="text-danger">This operation cannot be undone.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button
+      (click)="modal.dismiss('cancel click')"
+      class="btn btn-outline-secondary"
+      type="button"
+    >
+      Cancel
+    </button>
+    <button
+      (click)="modal.close('Remove click')"
+      class="btn btn-outline-danger"
+      type="button"
+    >
+      Remove
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #contentEdit let-modal>
+  <div class="title-centered">
+    <h1 class="modal-title" class="edit-post" id="modal-edit">Edit Post</h1>
+  </div>
+
+  <div class="modal-body">
+    <form (submit)="submit()" [formGroup]="form" enctype="multipart/form-data">
+      <mat-form-field class="form-field">
+        <input
+          formControlName="title"
+          matInput
+          placeholder="Title"
+          required
+          type="text"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Category</mat-label>
+        <select formControlName="category" matNativeControl required>
+          <option value="Phones">Phones</option>
+          <option value="Computers">Computers</option>
+          <option value="Accessories">Accessories</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <textarea
+          formControlName="description"
+          matInput
+          placeholder="Description"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="form-field" floatLabel="always">
+        <mat-label>Amount</mat-label>
+        <span matSuffix>$&nbsp;</span>
+        <input
+          class="example-left-align"
+          formControlName="price"
+          matInput
+          min="0"
+          placeholder="0"
+          required
+          type="number"
+        />
+      </mat-form-field>
+
+      <div>
+        <label class="add-photos">Replace Photo</label><br />
+        <input
+          (change)="handleFileInput($event)"
+          accept="image/*"
+          type="file"
+        />
+      </div>
+      <div class="modal-footer">
+        <button
+          (click)="modal.dismiss('cancel click')"
+          class="btn btn-secondary"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="modal.close('Save click')"
+          [disabled]="checkSave()"
+          class="btn btn-success"
+          type="submit"
+        >
+          Save Changes
+        </button>
+      </div>
+    </form>
+    <div *ngIf="message" class="alert" role="alert">
+      {{ message }}
+    </div>
+  </div>
+</ng-template>
+<script
+  crossorigin="anonymous"
+  integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+></script>

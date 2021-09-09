@@ -1,0 +1,77 @@
+.website {
+  position: absolute;
+  width: 500px;
+  height: 35px;
+  left: 86px;
+  top: 30px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 35px;
+
+  color: #6b9090;
+}
+
+.form-title {
+  text-align: center;
+  padding-top: 100px;
+  font-size: 40px;
+}
+
+.example-container {
+  text-align: center;
+}
+
+.form-container {
+  width: 400px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.form-field {
+  display: block;
+}
+
+.signup-button {
+  background-color: #a4c3b2;
+  border-radius: 0px;
+}
+
+.alert {
+  /* position: relative; */
+  color: #f44336;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+/* Can't center div with float attribute instead use text-align: center, display: inline-block */
+.sign-in {
+  text-align: center;
+}
+
+.left-sign-in {
+  margin-top: 70px;
+  margin-right: 200px;
+  display: inline-block;
+}
+
+.right-sign-in {
+  margin-top: 70px;
+  margin: 0 auto;
+  display: inline-block;
+}
+
+.right-sign-in a {
+  color: #6b9090;
+  text-decoration: none;
+}
+
+.appImg {
+  position: absolute;
+  margin-left: 340px;
+  top: 7px;
+}
