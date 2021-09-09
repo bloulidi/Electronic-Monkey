@@ -38,7 +38,7 @@ git clone https://gitlab-cgi.stackroute.in/cgi-canada-wave1-capstone-projects/on
 
     
     * login in with the new account to use the app ! 
-    ![dashboard_page](/uploads/48bac34e162760492cb00e6f393770b2/dashboard_page.PNG)
+    ![Dashboard](uploads/48b21364e2dc733ba68fd42cb1af06fe/Dashboard.PNG)
 
 ## Swagger API
 For API Documentation and direct interactions with the backend app using Swagger, navigate to **http://localhost:xxxx/swagger-ui/**                                                                                                                                     
